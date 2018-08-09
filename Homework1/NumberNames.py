@@ -1,4 +1,4 @@
-from Homework1 import *
+from Homework1 import InvalidNumberException, NumberOutOfRangeException, NamedNumbers
 
 
 def to_int(n):
@@ -19,4 +19,5 @@ while True:
     except NumberOutOfRangeException:
         print('[Error] Porfavor ingrese un numero mayor o igual a 0 (Cero) y menor o igual a 1 Millon.')
     except KeyboardInterrupt:
+        print('\nTerminando programa...')
         quit(0)
