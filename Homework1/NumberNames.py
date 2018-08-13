@@ -1,11 +1,5 @@
-class InvalidNumberException(Exception):
-    """ Error thrown when the given input is invalid """
-    pass
-
-
-class NumberOutOfRangeException(Exception):
-    """ Error thrown when a number is less than zero or over 1 million """
-    pass
+from Exceptions import InvalidNumberException, NumberOutOfRangeException
+from HelperFunctions import try_int
 
 
 class NamedNumbers(object):
@@ -185,23 +179,16 @@ class NamedNumbers(object):
             return self.__get_tens_and_units(n)
 
 
-def to_int(n):
-    try:
-        return int(n)
-    except ValueError:
-        raise InvalidNumberException
-
-
 nn = NamedNumbers()
 print('Para salir utilice: Crtl + C')
 while True:
     try:
-        i = to_int(input('Porfavor ingrese un numero entre 0 (Cero) y 1 Millon: '))
-        print((' ' * (7 - len(str(i)))) + str(i) + ' - ' + nn.get(i))
+        x = try_int(input('\nPorfavor ingrese un numero entre 0 (Cero) y 1 Millon: '))
+        print((' ' * (7 - len(str(x)))) + str(x) + ' - ' + nn.get(x))
     except InvalidNumberException:
         print('[Error] Porfavor ingrese un numero valido.')
     except NumberOutOfRangeException:
         print('[Error] Porfavor ingrese un numero mayor o igual a 0 (Cero) y menor o igual a 1 Millon.')
     except KeyboardInterrupt:
-        print('\nTerminando programa...')
+        print('\n\nTerminando programa...')
         quit(0)
