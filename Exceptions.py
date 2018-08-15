@@ -1,8 +1,13 @@
+class InsufficientArgumentsException(Exception):
+    """ Error thrown when there are insufficient arguments/parameters to run an instruction """
+    pass
+
+
 class InvalidNumberException(Exception):
-    """ Error thrown when the given input is invalid """
+    """ Error thrown when the given input is not a number """
     pass
 
 
 class NumberOutOfRangeException(Exception):
-    """ Error thrown when a number is less than zero or over 1 million """
+    """ Error thrown when a number is not inside the allowed range of possible numbers """
     pass

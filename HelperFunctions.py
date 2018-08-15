@@ -6,4 +6,3 @@ def try_int(x):
         return int(x)
     except ValueError:
         raise InvalidNumberException
-

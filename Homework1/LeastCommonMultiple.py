@@ -1,4 +1,4 @@
-from Exceptions import InvalidNumberException
+from Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException
 from HelperFunctions import try_int
 
 
@@ -20,26 +20,33 @@ print('Para salir utilice: Ctrl + C')
 while True:
     try:
         numbers = []
+        loops = try_int(input('\nPor favor especifique la cantidad de numeros a procesar: '))
+        if loops < 2:
+            raise InsufficientArgumentsException
 
-        while True:
+        c_loop = 1
+        while c_loop <= loops:
             try:
-                c_input = input('Porfavor ingrese un número entero (Deje vacio para calcular): ')
-                if len(c_input) == 0:
-                    if len(numbers) < 2:
-                        print('[Error] Es necesario contar con minimo 2 numeros para continuar con el calculo.')
-                        print('        Porfavor ingrese uno o mas numeros para continuar.')
-                        continue
-                    else:
-                        break
-                else:
-                    numbers.append(try_int(c_input))
-            except InvalidNumberException:
-                print('[Error] Porfavor ingrese un numero valido.')
+                n = try_int(input('Por favor ingrese el ' + str(c_loop) + '° numero: '))
 
-        n_str = ', '.join(str(n) for n in numbers)
-        print('Calculando Minimo Comun Multiplo de: ' + n_str + '...')
+                if n < 1:
+                    raise NumberOutOfRangeException
+
+                numbers.append(n)
+                c_loop += 1
+            except InvalidNumberException:
+                print('[Error] Por favor ingrese un numero valido.\n')
+            except NumberOutOfRangeException:
+                print('[Error] Por favor ingrese un numero mayor a 0\n')
+
+        print('Calculando Minimo Comun Multiplo de: ' + (', '.join(str(n) for n in numbers)) + '...')
         numbers.sort(reverse=True)
         print('Resultado: ' + str(int(lcm(numbers))) + '\n')
+    except InsufficientArgumentsException:
+        print('[Error] Es necesario especificar minimo 2 numeros para continuar con el calculo.')
+        print('        Por favor ingrese uno o mas numeros para continuar.')
+    except InvalidNumberException:
+        print('[Error] Por favor ingrese un numero valido.')
     except KeyboardInterrupt:
         print('\n\nTerminando programa...')
         quit(0)

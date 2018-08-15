@@ -183,12 +183,12 @@ nn = NamedNumbers()
 print('Para salir utilice: Crtl + C')
 while True:
     try:
-        x = try_int(input('\nPorfavor ingrese un numero entre 0 (Cero) y 1 Millon: '))
-        print((' ' * (7 - len(str(x)))) + str(x) + ' - ' + nn.get(x))
+        x = try_int(input('\nPor favor ingrese un numero (sin decimales) entre ' + str(nn.MIN) + ' y ' + str(nn.MAX) + ': '))
+        print((' ' * (7 - len(str(x)))) + str(x) + ' - ' + nn.get(x).capitalize())
     except InvalidNumberException:
-        print('[Error] Porfavor ingrese un numero valido.')
+        print('[Error] Por favor ingrese un numero valido.')
     except NumberOutOfRangeException:
-        print('[Error] Porfavor ingrese un numero mayor o igual a 0 (Cero) y menor o igual a 1 Millon.')
+        print('[Error] Por favor ingrese un numero (sin decimales) mayor o igual a ' + str(nn.MIN) + ' y menor o igual a ' + str(nn.MAX) + '.')
     except KeyboardInterrupt:
         print('\n\nTerminando programa...')
         quit(0)
