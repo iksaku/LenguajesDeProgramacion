@@ -11,3 +11,8 @@ class InvalidNumberException(Exception):
 class NumberOutOfRangeException(Exception):
     """ Error thrown when a number is not inside the allowed range of possible numbers """
     pass
+
+
+class RepeatedNumberException(Exception):
+    """  """
+    pass

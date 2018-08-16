@@ -1,4 +1,4 @@
-from Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException
+from Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException, RepeatedNumberException
 from HelperFunctions import try_int
 
 
@@ -31,13 +31,17 @@ while True:
 
                 if n < 1:
                     raise NumberOutOfRangeException
+                elif n in numbers:
+                    raise RepeatedNumberException
 
                 numbers.append(n)
                 c_loop += 1
             except InvalidNumberException:
                 print('[Error] Por favor ingrese un numero valido.\n')
             except NumberOutOfRangeException:
-                print('[Error] Por favor ingrese un numero mayor a 0\n')
+                print('[Error] Por favor ingrese un numero mayor a 0.\n')
+            except RepeatedNumberException:
+                print('[Error] Numero repetido, por favor ingrese un numero diferente.')
 
         print('Calculando Minimo Comun Multiplo de: ' + (', '.join(str(n) for n in numbers)) + '...')
         numbers.sort(reverse=True)

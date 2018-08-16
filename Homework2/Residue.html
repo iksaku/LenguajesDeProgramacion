@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarea 2</title>
+</head>
+<body>
+    <h1>Obten el Residuo entre 2 números</h1>
+
+    <form>
+        <input id="number1" type="tel" placeholder="Casilla 1" autofocus />
+        <span>&percnt;</span>
+        <input id="number2" type="tel" placeholder="Casilla 2" />
+        <br>
+        <button type="submit" onclick="event.preventDefault(); calculateResidue();">Calcular</button>
+    </form>
+
+    <div>
+        <p id="result_box" style="display: none">
+            <strong id="result_text"></strong>
+            <span id="result"></span>
+        </p>
+        <p id="error" style="display: none; font-style: italic"></p>
+    </div>
+
+    <script>
+        function onInvalidNumber(field_name, field) {
+            document.getElementById('result_box').style.display = 'none';
+
+            document.getElementById('error').textContent = '[Error] Valor invalido en la casilla #' + field_name.toString();
+            document.getElementById('error').style.display = 'block';
+
+            field.style.borderColor = 'red';
+
+            field.focus();
+        }
+
+        function calculateResidue() {
+            field1 = document.getElementById('number1');
+            if (isNaN(field1.value)) {
+                onInvalidNumber(1, field1);
+                return;
+            }
+
+            field2 = document.getElementById('number2');
+            if (isNaN(field2.value)) {
+                onInvalidNumber(2, field2);
+                return;
+            }
+
+
+            number1 = parseFloat(field1.value);
+            number2 = parseFloat(field2.value);
+
+            document.getElementById('result').textContent = (number1 % number2).toString();
+            document.getElementById('result_text').textContent = 'Residuo entre ' + number1.toString() + ' y ' + number2.toString() + ': ';
+
+            document.getElementById('error').style.display = 'none';
+            field1.style.borderColor = '';
+            field2.style.borderColor = '';
+
+            document.getElementById('result_box').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
