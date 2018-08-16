@@ -1,0 +1,81 @@
+<html>
+<body>
+<h2> Programa convertidor de grados </h2>
+<br>
+
+<form>
+	<input id="temperature" type="text" placeholder="Temperatura">
+	<select id="origin">
+		<option value="1" selected>°C</option>
+		<option value="2">°F</option>
+		<option value="3">°K</option>
+		<option value="4">°R</option>
+	</select>
+	
+	<span> a </span>
+
+	<select id="target">
+		<option value="1" disabled>°C</option>
+		<option value="2" selected>°F</option>
+		<option value="3">°K</option>
+		<option value="4">°R</option>
+	</select>
+	
+	<button type="submit" onclick="event.preventDefault(); calculate();">Calcular</button>
+</form>
+
+<div id="result_box" style="display: none;">
+	<strong>Resultado: </strong><span id="result"></span>
+</div>
+
+<div id="error" style="font-style: italic; display: none;"></div>
+
+<script>
+function calculate(){
+	var answer;
+	var temp1 = parseFloat(document.getElementById('temperature').value);
+	var output = document.getElementById('answer').value = answer;
+	var select1 = document.getElementById('list').value;
+	var select2 = document.getElementById('list2').value;
+	if (select1===){
+	var output2 = document.getElementById('answer2').value = select1;
+	}
+	
+	////////////////////
+	
+	var t_field = document.getElementById('temperature');
+	// Validate...
+	
+	var o_field = document.getElementById('origin');
+	// Validate...
+	
+	var t_field = document.getElementById('target');
+	// Validate...
+	
+	const CELSIUS = 1;
+	const FARENHEIT = 2;
+	// KELVIN
+	// ...
+	
+	var temperature = t_field.value;
+	var origin = o_field.value;
+	var target = t_field.value;
+	
+	var result;
+	
+	if (origin == CELSIUS) {
+		if (target == FARENHEIT) {
+			// TODO...
+		}
+		else if (target == KELVIN) {
+		
+		}
+		// else
+	}
+	// else if...
+	
+	document.getElementById('result').value = result;
+}
+</script>
+</body>
+</html>
