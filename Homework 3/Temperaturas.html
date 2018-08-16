@@ -32,17 +32,7 @@
 
 <script>
 function calculate(){
-	var answer;
-	var temp1 = parseFloat(document.getElementById('temperature').value);
-	var output = document.getElementById('answer').value = answer;
-	var select1 = document.getElementById('list').value;
-	var select2 = document.getElementById('list2').value;
-	if (select1===){
-	var output2 = document.getElementById('answer2').value = select1;
-	}
-	
-	////////////////////
-	
+		
 	var t_field = document.getElementById('temperature');
 	// Validate...
 	
@@ -54,7 +44,8 @@ function calculate(){
 	
 	const CELSIUS = 1;
 	const FARENHEIT = 2;
-	// KELVIN
+	const KELVIN = 3;
+	const RANKINE = 4;
 	// ...
 	
 	var temperature = t_field.value;
@@ -65,14 +56,64 @@ function calculate(){
 	
 	if (origin == CELSIUS) {
 		if (target == FARENHEIT) {
-			// TODO...
+			// De celcius a FARENHEIT
+			result =((temperature*9)/5)+32;
 		}
 		else if (target == KELVIN) {
-		
+			//De celcius a KELVIN
+			result = temperature + 273.15
 		}
-		// else
+		else{
+		// de celcius a RANKINE
+			result = ((temperature*9)/5)+491.67;
+		}
+		
 	}
-	// else if...
+	else if (origin == FARENHEIT){
+		if (target == CELSIUS){
+			//DE FARENHEIT A CELSIUS
+			result = ((5(temperature-32))/9; 
+		}
+		else if(target == KELVIN){
+			//DE FARENHEIT A KELVIN
+			result = (((5(temperature-32))/9)+273.15;
+		}
+		else {
+			// DE FARENHEIT A RANKINE
+			result = temperature + 459.67;
+		}	
+	}
+	else if (origin == KELVIN){
+		if (target == CELSIUS){
+			//DE KELVIN A CELCIUS
+			result = temperature - 273.15;
+		}
+		else if (target == FARENHEIT){
+			// DE KELVIN A FARENHEIT
+			result = ((9(temperature - 273.15 ))/5)+32;
+		}		
+		else { 
+			//DE KELVIN A RANKINE
+			result = ((9(temperature - 273.15 ))/5)+491.67;
+		}
+		
+	}
+	else{
+		if(target==CELCIUS){
+			//DE RANKINE A CELCIUS
+			result = (5(temperature - 491.67))/9;
+		}
+		else if(target == FARENHEIT){
+			//DE RANKINE A FARENHEIT
+			result = temperature - 459.67;
+		}
+		else{
+			//DE RANKINE A KELVIN
+			result = ((5(temperature - 491.67))/9)+273.15;
+		}
+		
+	}
+
 	
 	document.getElementById('result').value = result;
 }
