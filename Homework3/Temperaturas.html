@@ -63,9 +63,9 @@
 		const KELVIN = 3;
 		const RANKINE = 4;
 
-        let temperature = temp_field.value;
-        let origin = o_field.value;
-        let target = t_field.value;
+        let temperature = parseFloat(temp_field.value);
+        let origin = parseInt(o_field.value);
+        let target = parseInt(t_field.value);
 
         let result;
 
@@ -83,6 +83,7 @@
                         break;
                     default:
                         // Target Error
+                        console.log('Target Error');
                         return;
                 }
                 break;
@@ -136,6 +137,7 @@
                 break;
             default:
                 // Origin Error
+                console.log('Origin error');
                 return;
         }
 
@@ -196,7 +198,12 @@
 
 		}*/
 
-		document.getElementById('result').value = result;
+		document.getElementById('result').textContent = result;
+		//document.getElementById('result_text').textContent = temperature.toString() + ' °X to °Y';
+
+        // Error shit
+
+		document.getElementById('result_box').style.display = 'block';
 	}
 	</script>
 </body>
