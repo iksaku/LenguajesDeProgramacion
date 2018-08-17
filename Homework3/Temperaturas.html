@@ -1,122 +1,203 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarea 3</title>
+</head>
 <body>
-<h2> Programa convertidor de grados </h2>
-<br>
+	<h1> Programa convertidor de grados</h1>
 
-<form>
-	<input id="temperature" type="text" placeholder="Temperatura">
-	<select id="origin">
-		<option value="1" selected>°C</option>
-		<option value="2">°F</option>
-		<option value="3">°K</option>
-		<option value="4">°R</option>
-	</select>
-	
-	<span> a </span>
+	<form>
+		<input id="temperature" type="tel" placeholder="Temperatura">
 
-	<select id="target">
-		<option value="1" disabled>°C</option>
-		<option value="2" selected>°F</option>
-		<option value="3">°K</option>
-		<option value="4">°R</option>
-	</select>
-	
-	<button type="submit" onclick="event.preventDefault(); calculate();">Calcular</button>
-</form>
+        <label>
+			Temperatura Origen
+			<select id="origin">
+				<option value="1" selected>Celsius (°C)</option>
+				<option value="2">Fahrenheit (°F)</option>
+				<option value="3">Kelvin (°K)</option>
+				<option value="4">Rankine (°R)</option>
+			</select>
+		</label>
 
-<div id="result_box" style="display: none;">
-	<strong>Resultado: </strong><span id="result"></span>
-</div>
+		<span> a </span>
 
-<div id="error" style="font-style: italic; display: none;"></div>
+		<label>
+			Temperatura Objetivo
+			<select id="target">
+				<option value="1" disabled>Celsius (°C)</option>
+				<option value="2" selected>Fahrenheit (°F)</option>
+				<option value="3">Kelvin (°K)</option>
+				<option value="4">Rankine (°R)</option>
+			</select>
+		</label>
 
-<script>
-function calculate(){
-		
-	var t_field = document.getElementById('temperature');
-	// Validate...
-	
-	var o_field = document.getElementById('origin');
-	// Validate...
-	
-	var t_field = document.getElementById('target');
-	// Validate...
-	
-	const CELSIUS = 1;
-	const FARENHEIT = 2;
-	const KELVIN = 3;
-	const RANKINE = 4;
-	// ...
-	
-	var temperature = t_field.value;
-	var origin = o_field.value;
-	var target = t_field.value;
-	
-	var result;
-	
-	if (origin == CELSIUS) {
-		if (target == FARENHEIT) {
-			// De celcius a FARENHEIT
-			result =((temperature*9)/5)+32;
+        <br>
+        <br>
+
+		<button type="submit" onclick="event.preventDefault(); calculate();">Calcular</button>
+	</form>
+
+	<div>
+        <p id="result_box" style="display: none">
+            <strong id="result_text"></strong>
+            <span id="result"></span>
+        </p>
+        <p id="error" style="display: none; font-style: italic"></p>
+    </div>
+
+	<script>
+	function calculate(){
+
+        let temp_field = document.getElementById('temperature');
+        // Validate...
+
+        let o_field = document.getElementById('origin');
+        // Validate...
+
+        let t_field = document.getElementById('target');
+        // Validate...
+
+		const CELSIUS = 1;
+		const FAHRENHEIT = 2;
+		const KELVIN = 3;
+		const RANKINE = 4;
+
+        let temperature = temp_field.value;
+        let origin = o_field.value;
+        let target = t_field.value;
+
+        let result;
+
+        switch (origin) {
+            case CELSIUS:
+                switch (target) {
+                    case FAHRENHEIT:
+                        result = (temperature * 1.8) + 32;
+                        break;
+                    case KELVIN:
+                        result = temperature + 273.15;
+                        break;
+                    case RANKINE:
+                        result = (temperature + 273.15) * 1.8;
+                        break;
+                    default:
+                        // Target Error
+                        return;
+                }
+                break;
+            case FAHRENHEIT:
+                switch (target) {
+                    case CELSIUS:
+                        result = (temperature - 32) / 1.8;
+                        break;
+                    case KELVIN:
+
+                        break;
+                    case RANKINE:
+
+                        break;
+                    default:
+                        // Target Error
+                        return;
+                }
+                break;
+            case KELVIN:
+                switch (target) {
+                    case CELSIUS:
+                        result = temperature - 273.15;
+                        break;
+                    case FAHRENHEIT:
+
+                        break;
+                    case RANKINE:
+
+                        break;
+                    default:
+                        // Target Error
+                        return;
+                }
+                break;
+            case RANKINE:
+                switch (target) {
+                    case CELSIUS:
+
+                        break;
+                    case FAHRENHEIT:
+
+                        break;
+                    case KELVIN:
+
+                        break;
+                    default:
+                        // Target Error
+                        return;
+                }
+                break;
+            default:
+                // Origin Error
+                return;
+        }
+
+        /*if (origin === CELSIUS) {
+			if (target === FAHRENHEIT) {
+				result =((temperature*9)/5)+32;
+			}
+			else if (target === KELVIN) {
+				result = temperature + 273.15
+			}
+			else{
+				result = ((temperature*9)/5)+491.67;
+			}
+
 		}
-		else if (target == KELVIN) {
-			//De celcius a KELVIN
-			result = temperature + 273.15
+		else if (origin == FAHRENHEIT){
+			if (target == CELSIUS){
+				//DE FARENHEIT A CELSIUS
+				result = ((5(temperature-32))/9;
+			}
+			else if(target == KELVIN){
+				//DE FARENHEIT A KELVIN
+				result = (((5(temperature-32))/9)+273.15;
+			}
+			else {
+				// DE FARENHEIT A RANKINE
+				result = temperature + 459.67;
+			}
+		}
+		else if (origin == KELVIN){
+			if (target == CELSIUS){
+				//DE KELVIN A CELCIUS
+				result = temperature - 273.15;
+			}
+			else if (target == FAHRENHEIT){
+				// DE KELVIN A FARENHEIT
+				result = ((9(temperature - 273.15 ))/5)+32;
+			}
+			else {
+				//DE KELVIN A RANKINE
+				result = ((9(temperature - 273.15 ))/5)+491.67;
+			}
+
 		}
 		else{
-		// de celcius a RANKINE
-			result = ((temperature*9)/5)+491.67;
-		}
-		
-	}
-	else if (origin == FARENHEIT){
-		if (target == CELSIUS){
-			//DE FARENHEIT A CELSIUS
-			result = ((5(temperature-32))/9; 
-		}
-		else if(target == KELVIN){
-			//DE FARENHEIT A KELVIN
-			result = (((5(temperature-32))/9)+273.15;
-		}
-		else {
-			// DE FARENHEIT A RANKINE
-			result = temperature + 459.67;
-		}	
-	}
-	else if (origin == KELVIN){
-		if (target == CELSIUS){
-			//DE KELVIN A CELCIUS
-			result = temperature - 273.15;
-		}
-		else if (target == FARENHEIT){
-			// DE KELVIN A FARENHEIT
-			result = ((9(temperature - 273.15 ))/5)+32;
-		}		
-		else { 
-			//DE KELVIN A RANKINE
-			result = ((9(temperature - 273.15 ))/5)+491.67;
-		}
-		
-	}
-	else{
-		if(target==CELCIUS){
-			//DE RANKINE A CELCIUS
-			result = (5(temperature - 491.67))/9;
-		}
-		else if(target == FARENHEIT){
-			//DE RANKINE A FARENHEIT
-			result = temperature - 459.67;
-		}
-		else{
-			//DE RANKINE A KELVIN
-			result = ((5(temperature - 491.67))/9)+273.15;
-		}
-		
-	}
+			if(target==CELCIUS){
+				//DE RANKINE A CELCIUS
+				result = (5(temperature - 491.67))/9;
+			}
+			else if(target == FAHRENHEIT){
+				//DE RANKINE A FARENHEIT
+				result = temperature - 459.67;
+			}
+			else{
+				//DE RANKINE A KELVIN
+				result = ((5(temperature - 491.67))/9)+273.15;
+			}
 
-	
-	document.getElementById('result').value = result;
-}
-</script>
+		}*/
+
+		document.getElementById('result').value = result;
+	}
+	</script>
 </body>
 </html>
