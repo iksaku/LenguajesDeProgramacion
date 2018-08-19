@@ -25,7 +25,7 @@
 		<label>
 			Temperatura Objetivo
 			<select id="target">
-				<option value="1" disabled>Celsius (°C)</option>
+				<option value="1" >Celsius (°C)</option>
 				<option value="2" selected>Fahrenheit (°F)</option>
 				<option value="3">Kelvin (°K)</option>
 				<option value="4">Rankine (°R)</option>
@@ -47,10 +47,23 @@
     </div>
 
 	<script>
+	function invalidNumber(){
+		document.getElementById('result_box').style.display = 'none';
+		document.getElementById('error').textContent = 'Ingrese un numero valido';
+		document.getElementById('error').style.display = 'block';
+	}
+	
 	function calculate(){
 
         let temp_field = document.getElementById('temperature');
         // Validate...
+		if (isNaN (temp_field.value)){
+			invalidNumber ();
+			return;
+		}
+		else
+		{
+		}
 
         let o_field = document.getElementById('origin');
         // Validate...
@@ -71,7 +84,8 @@
 
         switch (origin) {
             case CELSIUS:
-                switch (target) {
+                
+				switch (target) {
                     case FAHRENHEIT:
                         result = (temperature * 1.8) + 32;
                         break;
@@ -88,15 +102,16 @@
                 }
                 break;
             case FAHRENHEIT:
-                switch (target) {
+               
+			   switch (target) {
                     case CELSIUS:
                         result = (temperature - 32) / 1.8;
                         break;
                     case KELVIN:
-
+						result = ((temperature - 32) / 1.8) + 273.15;
                         break;
                     case RANKINE:
-
+						result = temperature + 459.67;
                         break;
                     default:
                         // Target Error
@@ -104,15 +119,16 @@
                 }
                 break;
             case KELVIN:
-                switch (target) {
+               
+			   switch (target) {
                     case CELSIUS:
                         result = temperature - 273.15;
                         break;
                     case FAHRENHEIT:
-
+						result = ((temperature - 273.15 ) * 1.8) + 32;
                         break;
                     case RANKINE:
-
+						result = ((temperature - 273.15) * 1.8) + 491.67;
                         break;
                     default:
                         // Target Error
@@ -120,15 +136,16 @@
                 }
                 break;
             case RANKINE:
-                switch (target) {
+               
+			   switch (target) {
                     case CELSIUS:
-
+						result = (temperature - 491.67) / 1.8;
                         break;
                     case FAHRENHEIT:
-
+						result = temperature - 459.67;
                         break;
                     case KELVIN:
-
+						result = ((temperature - 491.67) / 1.8) + 273.15;
                         break;
                     default:
                         // Target Error
@@ -141,70 +158,15 @@
                 return;
         }
 
-        /*if (origin === CELSIUS) {
-			if (target === FAHRENHEIT) {
-				result =((temperature*9)/5)+32;
-			}
-			else if (target === KELVIN) {
-				result = temperature + 273.15
-			}
-			else{
-				result = ((temperature*9)/5)+491.67;
-			}
-
-		}
-		else if (origin == FAHRENHEIT){
-			if (target == CELSIUS){
-				//DE FARENHEIT A CELSIUS
-				result = ((5(temperature-32))/9;
-			}
-			else if(target == KELVIN){
-				//DE FARENHEIT A KELVIN
-				result = (((5(temperature-32))/9)+273.15;
-			}
-			else {
-				// DE FARENHEIT A RANKINE
-				result = temperature + 459.67;
-			}
-		}
-		else if (origin == KELVIN){
-			if (target == CELSIUS){
-				//DE KELVIN A CELCIUS
-				result = temperature - 273.15;
-			}
-			else if (target == FAHRENHEIT){
-				// DE KELVIN A FARENHEIT
-				result = ((9(temperature - 273.15 ))/5)+32;
-			}
-			else {
-				//DE KELVIN A RANKINE
-				result = ((9(temperature - 273.15 ))/5)+491.67;
-			}
-
-		}
-		else{
-			if(target==CELCIUS){
-				//DE RANKINE A CELCIUS
-				result = (5(temperature - 491.67))/9;
-			}
-			else if(target == FAHRENHEIT){
-				//DE RANKINE A FARENHEIT
-				result = temperature - 459.67;
-			}
-			else{
-				//DE RANKINE A KELVIN
-				result = ((5(temperature - 491.67))/9)+273.15;
-			}
-
-		}*/
 
 		document.getElementById('result').textContent = result;
 		//document.getElementById('result_text').textContent = temperature.toString() + ' °X to °Y';
 
         // Error shit
-
+		document.getElementById('error').style.display = 'none';
 		document.getElementById('result_box').style.display = 'block';
 	}
 	</script>
 </body>
 </html>
+
