@@ -10,4 +10,4 @@ def is_palindrome(w):
 
 
 word = input('Por favor ingrese una palabra: ')
-print('La palabra \'' + word + '\'' + (' ' if is_palindrome(word) else ' no ') + 'es capicua')
+print('La palabra \'' + word + '\' ' + ('' if is_palindrome(word) else 'no ') + 'es capicua')

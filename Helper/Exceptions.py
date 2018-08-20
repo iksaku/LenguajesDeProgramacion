@@ -14,5 +14,5 @@ class NumberOutOfRangeException(Exception):
 
 
 class RepeatedNumberException(Exception):
-    """  """
+    """ Error thrown when a number  """
     pass

@@ -1,5 +1,5 @@
-from Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException, RepeatedNumberException
-from HelperFunctions import try_int
+from Helper.Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException, RepeatedNumberException
+from Helper.Functions import try_int
 
 
 def gcd(x, y):
