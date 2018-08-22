@@ -1,5 +1,5 @@
-from Exceptions import InvalidNumberException, NumberOutOfRangeException
-from HelperFunctions import try_int
+from Helper.Exceptions import InvalidNumberException, NumberOutOfRangeException
+from Helper.Functions import try_int
 
 
 class NamedNumbers(object):
