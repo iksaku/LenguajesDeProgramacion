@@ -5,7 +5,7 @@
 """
 
 word = input('Por favor ingrese una palabra: ')
-#word = "10111111000001011110"
+#word = "10111111000001011110" -> length: 20
 
 #particle => frecuency
 counter = {}
