@@ -9,6 +9,14 @@ class Matrix(object):
         self.__columns: int = columns
         self.__data: Dict[int, Dict[int, Union[int, float]]] = {}
 
+    @staticmethod
+    def create_from(l: list):
+        m = Matrix(len(l), len(l[0]))
+        for row in range(0, m.row_count()):
+            for column in range(0, m.column_count()):
+                m.set_value_at(row, column, l[row][column])
+        return m
+
     def row_count(self) -> int:
         return self.__rows
 
@@ -83,7 +91,7 @@ def multiply(a, b) -> Matrix:
                 for column in range(0, c.column_count()):
                     c.set_value_at(row, column, a.value_at(row, column) * b.value_at(row, column))
 
-        elif a.row_count() == b.column_count():
+        elif a.column_count() == b.row_count():
             """
             In case they comply with the 'nm x mp' rule, where:
              - n is the row count of the first matrix
@@ -96,22 +104,55 @@ def multiply(a, b) -> Matrix:
 
             for row in range(0, c.row_count()):
                 for column in range(0, c.column_count()):
+                    value = 0
+                    for i in range(0, a.column_count()):
+                        value += a.value_at(row, i) * b.value_at(i, column)
+                    c.set_value_at(row, column, value)
+
+
                     # TODO: Fix Dot Product
-                    c.set_value_at(row, column, a.value_at(row, column) * b.value_at(column, row))
+                    #print(str(a.value_at(row, column)) + ' * ' + str(b.value_at(column, row)) + ' + ' + str(tmp))
+
+                    # value = a.value_at(row, column) * b.value_at(column, row)
+                    #value = sum(a.get_data()[row][column] * b.get_data()[column][row])
+
+                    #c.set_value_at(row, column, value)
         else:
             raise MatrixMultiplicationSizeException
 
     return c
 
-a = Matrix(2, 3)
-b = Matrix(3, 2)
+"""a = Matrix(1, 3)
+a.set_value_at(0,0, 3)
+a.set_value_at(0,1, 4)
+a.set_value_at(0,2, 2)
 
-i = 1
-for r in range(0, a.row_count()):
-    for col in range(0, a.column_count()):
-        a.set_value_at(r, col, i)
-        i += 1
-for r in range(0, b.row_count()):
-    for col in range(0, b.column_count()):
-        b.set_value_at(r, col, i)
-        i += 1
+b = Matrix(3, 4)
+b.set_value_at(0,0, 13)
+b.set_value_at(0,1, 9)
+b.set_value_at(0,2, 7)
+b.set_value_at(0,3, 15)
+b.set_value_at(1,0, )
+b.set_value_at(1,1, )
+b.set_value_at(1,2, )
+b.set_value_at(1,3, )
+b.set_value_at(2,0, )
+b.set_value_at(2,1, )
+b.set_value_at(2,2, )
+b.set_value_at(2,3, )
+b.set_value_at(3,0, )"""
+
+test1 = Matrix.create_from([[1, 2, 3],
+                            [ 4, 5, 6]])
+
+test2 = Matrix.create_from([[ 7, 8],
+                        [ 9, 10],
+                        [11, 12]])
+
+test_result = multiply(test1, test2)
+
+print(test1)
+print('------------------')
+print(test2)
+print('------------------')
+print(test_result)
