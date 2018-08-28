@@ -4,8 +4,8 @@
                     K * Frecuencia = Caomero mas repetido
 """
 
-word = input('Por favor ingrese una palabra: ')
-#word = "10111111000001011110" -> length: 20
+#word = input('Por favor ingrese una palabra: ')
+word = "10111111000001011110" #-> length: 20
 
 #particle => frecuency
 counter = {}
@@ -31,4 +31,4 @@ for k in range(1, L + 1):
                 highest = (particle, k)
         print('Step: ' + str(k) + ' | Particle: ' + particle + ' | Frequency: ' + str(counter[particle]) + ' | Result: ' + str(counter[particle] * k))
 
-print(highest)
+print('Highest K-mer: ' + str(highest[0]) + ' (Length: ' + str(highest[1]) + ')')
