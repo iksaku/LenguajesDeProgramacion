@@ -10,6 +10,12 @@ class InvalidNumberException(Exception):
 
 class InvalidMatricesException(Exception):
     """ Error thrown when neither of the given arguments is a matrix """
+    pass
+
+
+class InvalidTemperatureScaleException(Exception):
+    """ Error thrown when trying to convert to an unavailable temperature scale """
+    pass
 
 
 class MatrixMultiplicationSizeException(Exception):

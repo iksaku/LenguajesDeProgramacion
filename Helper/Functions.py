@@ -1,6 +1,15 @@
 from Helper.Exceptions import InvalidNumberException
 
 
+def try_float(x):
+    if isinstance(x, float):
+        return x
+
+    try:
+        return float(x)
+    except ValueError:
+        raise InvalidNumberException
+
 def try_int(x):
     if isinstance(x, int):
         return x

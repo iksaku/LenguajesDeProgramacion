@@ -1,6 +1,6 @@
 from typing import Dict, Union
 from Helper.Exceptions import InvalidMatricesException, InvalidNumberException, MatrixMultiplicationSizeException, MatrixSummationSizeException
-from Helper.Functions import is_number
+from Helper.Functions import try_int, try_number, is_number
 
 
 class Matrix(object):
@@ -71,7 +71,6 @@ def multiply(a, b) -> Matrix:
         a: Union[int, float] = b
         b: Matrix = tmp
 
-    c: Matrix
     if not isinstance(a, Matrix):
         """ In case we have a scalar... """
         c = Matrix(b.row_count(), b.column_count())
@@ -108,41 +107,12 @@ def multiply(a, b) -> Matrix:
                     for i in range(0, a.column_count()):
                         value += a.value_at(row, i) * b.value_at(i, column)
                     c.set_value_at(row, column, value)
-
-
-                    # TODO: Fix Dot Product
-                    #print(str(a.value_at(row, column)) + ' * ' + str(b.value_at(column, row)) + ' + ' + str(tmp))
-
-                    # value = a.value_at(row, column) * b.value_at(column, row)
-                    #value = sum(a.get_data()[row][column] * b.get_data()[column][row])
-
-                    #c.set_value_at(row, column, value)
         else:
             raise MatrixMultiplicationSizeException
 
     return c
 
-"""a = Matrix(1, 3)
-a.set_value_at(0,0, 3)
-a.set_value_at(0,1, 4)
-a.set_value_at(0,2, 2)
-
-b = Matrix(3, 4)
-b.set_value_at(0,0, 13)
-b.set_value_at(0,1, 9)
-b.set_value_at(0,2, 7)
-b.set_value_at(0,3, 15)
-b.set_value_at(1,0, )
-b.set_value_at(1,1, )
-b.set_value_at(1,2, )
-b.set_value_at(1,3, )
-b.set_value_at(2,0, )
-b.set_value_at(2,1, )
-b.set_value_at(2,2, )
-b.set_value_at(2,3, )
-b.set_value_at(3,0, )"""
-
-test1 = Matrix.create_from([[1, 2, 3],
+"""test1 = Matrix.create_from([[1, 2, 3],
                             [ 4, 5, 6]])
 
 test2 = Matrix.create_from([[ 7, 8],
@@ -155,4 +125,152 @@ print(test1)
 print('------------------')
 print(test2)
 print('------------------')
-print(test_result)
+print(test_result)"""
+
+while True:
+    try:
+        print('Seleccione una opcion:')
+        print('  1. Suma de Matrices')
+        print('  2. Multiplicación de Matrices')
+        print('  3. Salir')
+        option = input('-> ')
+        print('')
+
+        if option == '1':
+            print('NOTA: La suma de matrices requiere que las 2 matrices sean del mismo tamaño.')
+
+            rows: int = None
+            while rows is None:
+                try:
+                    rows = try_int(input('Ingrese el número de filas de las matrices: '))
+                except InvalidNumberException:
+                    print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+            columns: int = None
+            while columns is None:
+                try:
+                    columns = try_int(input('Ingrese el número de columnas de las matrices: '))
+                except InvalidNumberException:
+                    print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+            print('Proceda a ingresar los datos de ambas matrices...')
+
+            matrices: Dict[int, Matrix] = {}
+            for i in range(0, 2):
+                m = matrices[i] = Matrix(rows, columns)
+                print('')
+                for row in range(0, m.row_count()):
+                    for column in range(0, m.column_count()):
+                        while m.value_at(row, column) is None:
+                            try:
+                                m.set_value_at(row, column, try_number(input(
+                                    'Matriz #' + str(i + 1) + ' | '
+                                    'Valor para la posicion [' + str(row) + '][' + str(column) + ']: '
+                                )))
+                            except InvalidNumberException:
+                                print('[Error] Numero invalido, '
+                                      'por favor ingrese un numero con o sin decimales, '
+                                      'y sin caracteres especiales')
+                print('Matriz #' + str(i + 1) + ':\n' + str(m))
+
+            print('\nResultado de la Suma de ambas matrices:\n' + str(sum_matrices(matrices[0], matrices[1])))
+
+        elif option == '2':
+            while True:
+                print('Seleccione una opcion:')
+                print('  1. Multiplicar una matriz por un numero')
+                print('  2. Multiplicacion de 2 matrices')
+                second_option = input('-> ')
+                print('')
+
+                if second_option == '1':
+                    n: Union[int, float] = None
+                    while n is None:
+                        try:
+                            n = try_number(input('Ingrese el numero por el que se multiplicara la matriz: '))
+                        except InvalidNumberException:
+                            print('[Error] Numero invalido, '
+                                  'por favor ingrese un numero con o sin decimales, '
+                                  'y sin caracteres especiales')
+
+                    rows: int = None
+                    while rows is None:
+                        try:
+                            rows = try_int(input('Ingrese el número de filas de las matriz: '))
+                        except InvalidNumberException:
+                            print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+                    columns: int = None
+                    while columns is None:
+                        try:
+                            columns = try_int(input('Ingrese el número de columnas de las matriz: '))
+                        except InvalidNumberException:
+                            print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+                    print('Proceda a ingresar los datos de la matriz...')
+
+                    matrix = Matrix(rows, columns)
+                    for row in range(0, matrix.row_count()):
+                        for column in range(0, matrix.column_count()):
+                            while matrix.value_at(row, column) is None:
+                                try:
+                                    matrix.set_value_at(row, column, try_number(input(
+                                        'Valor para la posicion [' + str(row) + '][' + str(column) + ']: '
+                                    )))
+                                except InvalidNumberException:
+                                    print('[Error] Numero invalido, '
+                                          'por favor ingrese un numero con o sin decimales, '
+                                          'y sin caracteres especiales')
+                    print('Matriz:\n' + str(Matrix))
+
+                    print('\nResultado de la multiplicacion:\n' + str(multiply(n, matrix)))
+
+                elif second_option == '2':
+                    matrices: Dict[int, Matrix] = {}
+                    print('')
+                    for i in range(0, 2):
+                        rows: int = None
+                        while rows is None:
+                            try:
+                                rows = try_int(input('Ingrese el número de filas de las matriz #' + str(i + 1) + ': '))
+                            except InvalidNumberException:
+                                print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+                        columns: int = None
+                        while columns is None:
+                            try:
+                                columns = try_int(input('Ingrese el número de columnas de las matriz #' + str(i + 1) + ': '))
+                            except InvalidNumberException:
+                                print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
+
+                        m = matrices[i] = Matrix(rows, columns)
+                        for row in range(0, m.row_count()):
+                            for column in range(0, m.column_count()):
+                                while m.value_at(row, column) is None:
+                                    try:
+                                        m.set_value_at(row, column, try_number(input(
+                                            'Valor para la posicion [' + str(row) + '][' + str(column) + ']: '
+                                        )))
+                                    except InvalidNumberException:
+                                        print('[Error] Numero invalido, '
+                                              'por favor ingrese un numero con o sin decimales, '
+                                              'y sin caracteres especiales')
+                        print('Matriz #' + str(i + 1) + ':\n' + str(m))
+
+                    print('\nResultado de la mutliplicacion de las matrices:\n' + str(multiply(matrices[0], matrices[1])))
+                else:
+                    print('[Error] Opción invalida, por favor intentelo nuevamente.')
+                    continue
+
+                break
+        elif option == '3':
+            raise KeyboardInterrupt
+        else:
+            print('[Error] Opción invalida, por favor intentelo nuevamente.')
+            continue
+
+        input('Presione cualquier tecla para continuar...')
+        print('')
+    except KeyboardInterrupt:
+        print('\nTerminando programa...')
+        quit(0)

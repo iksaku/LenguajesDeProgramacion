@@ -4,8 +4,8 @@
                     K * Frecuencia = Caomero mas repetido
 """
 
-#word = input('Por favor ingrese una palabra: ')
-word = "10111111000001011110" #-> length: 20
+word = input('Por favor ingrese una palabra: ')
+#word = "10111111000001011110" #-> length: 20
 
 #particle => frecuency
 counter = {}
