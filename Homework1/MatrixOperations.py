@@ -1,6 +1,6 @@
 from typing import Dict, Union
 from Helper.Exceptions import InvalidMatricesException, InvalidNumberException, MatrixMultiplicationSizeException, MatrixSummationSizeException
-from Helper.Functions import try_int, try_number, is_number
+from Helper.Functions import try_int, try_number, is_number, should_continue
 
 
 class Matrix(object):
@@ -269,8 +269,7 @@ while True:
             print('[Error] Opción invalida, por favor intentelo nuevamente.')
             continue
 
-        input('Presione cualquier tecla para continuar...')
-        print('')
+        should_continue()
     except KeyboardInterrupt:
-        print('\nTerminando programa...')
+        print('\nSaliendo del programa...')
         quit(0)

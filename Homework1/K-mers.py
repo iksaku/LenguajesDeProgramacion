@@ -1,34 +1,42 @@
+from Helper.Functions import should_continue
+
 """
     K-mer, con K = 1
                     Frecuencia
                     K * Frecuencia = Caomero mas repetido
 """
+while True:
+    try:
+        word = input('Por favor ingrese una palabra para evaluar: ')
+        #word = "10111111000001011110" #-> length: 20
 
-word = input('Por favor ingrese una palabra: ')
-#word = "10111111000001011110" #-> length: 20
+        #particle => frecuency
+        counter = {}
 
-#particle => frecuency
-counter = {}
+        # particle => step
+        highest = ('', 0)
 
-# particle => step
-highest = ('', 0)
+        L = len(word)
+        for k in range(1, L + 1):
+            for x in range(0, L - k + 1):
+                particle = word[x:x + k]
+                if particle in counter:
+                    continue
+                for y in range(0, L - k + 1):
+                    stepped_particle = word[y:y + k]
+                    if not particle in counter:
+                        counter[particle] = 0
 
-L = len(word)
-for k in range(1, L + 1):
-    for x in range(0, L - k + 1):
-        particle = word[x:x + k]
-        if particle in counter:
-            continue
-        for y in range(0, L - k + 1):
-            stepped_particle = word[y:y + k]
-            if not particle in counter:
-                counter[particle] = 0
+                    if particle == stepped_particle:
+                        counter[particle] += 1
 
-            if particle == stepped_particle:
-                counter[particle] += 1
+                    if (len(highest[0]) < 1) or ((counter[particle] * k) > (counter[highest[0]] * highest[1])):
+                        highest = (particle, k)
+                print('Step: ' + str(k) + ' | Particle: ' + particle + ' | Frequency: ' + str(counter[particle]) + ' | Result: ' + str(counter[particle] * k))
 
-            if (len(highest[0]) < 1) or ((counter[particle] * k) > (counter[highest[0]] * highest[1])):
-                highest = (particle, k)
-        print('Step: ' + str(k) + ' | Particle: ' + particle + ' | Frequency: ' + str(counter[particle]) + ' | Result: ' + str(counter[particle] * k))
+        print('Highest K-mer: ' + str(highest[0]) + ' (Length: ' + str(highest[1]) + ')')
 
-print('Highest K-mer: ' + str(highest[0]) + ' (Length: ' + str(highest[1]) + ')')
+        should_continue()
+    except KeyboardInterrupt:
+        print('\nSaliendo del programa...')
+        quit(0)

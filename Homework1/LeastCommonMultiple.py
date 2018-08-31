@@ -1,5 +1,5 @@
 from Helper.Exceptions import InsufficientArgumentsException, InvalidNumberException, NumberOutOfRangeException, RepeatedNumberException
-from Helper.Functions import try_int
+from Helper.Functions import try_int, should_continue
 
 
 def gcd(x, y):
@@ -46,11 +46,13 @@ while True:
         print('Calculando Minimo Comun Multiplo de: ' + (', '.join(str(n) for n in numbers)) + '...')
         numbers.sort(reverse=True)
         print('Resultado: ' + str(int(lcm(numbers))) + '\n')
+
+        should_continue()
     except InsufficientArgumentsException:
         print('[Error] Es necesario especificar minimo 2 numeros para continuar con el calculo.')
         print('        Por favor ingrese uno o mas numeros para continuar.')
     except InvalidNumberException:
         print('[Error] Por favor ingrese un numero valido.')
     except KeyboardInterrupt:
-        print('\n\nTerminando programa...')
+        print('\nSaliendo del programa...')
         quit(0)

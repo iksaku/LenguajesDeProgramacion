@@ -1,6 +1,6 @@
 from enum import Enum
 from Helper.Exceptions import InvalidNumberException, InvalidTemperatureScaleException
-from Helper.Functions import try_float
+from Helper.Functions import try_float, should_continue
 
 
 class TemperatureScale(Enum):
@@ -75,13 +75,13 @@ def convert(temperature: Temperature, to_scale: TemperatureScale) -> Temperature
             return Temperature(float(temperature) / 1.8, TemperatureScale.KELVIN)
 
 def get_scale(scale: str) -> TemperatureScale:
-    if option == 'c':
+    if scale== 'c':
         return TemperatureScale.CELSIUS
-    elif option == 'f':
+    elif scale== 'f':
         return TemperatureScale.FAHRENHEIT
-    elif option == 'k':
+    elif scale== 'k':
         return TemperatureScale.KELVIN
-    elif option == 'r':
+    elif scale== 'r':
         return TemperatureScale.RANKINE
     else:
         raise InvalidTemperatureScaleException
@@ -141,11 +141,7 @@ while True:
         print('\nConvirtiendo ' + str(float(temperature)) + '° de escala ' + temperature.scale().name + ' a ' + scale.name + '...')
         print('Resultado: ' + str(round(float(convert(temperature, scale)), 2)) + ' °' + scale.name[0])
 
-        input('\nPresione cualquier tecla para continuar...')
-
-        if input('¿Desea continuar? (S/n): ').lower() == 'n':
-            raise KeyboardInterrupt
-
+        should_continue()
     except KeyboardInterrupt:
-        print('\nTerminando...')
+        print('\nSaliendo del programa...')
         quit(0)

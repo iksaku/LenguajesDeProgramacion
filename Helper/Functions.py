@@ -33,3 +33,8 @@ def try_number(x):
 
 def is_number(x):
     return isinstance(x, int) or isinstance(x, float)
+
+def should_continue():
+    input('\nPresione [Enter] para continuar...')
+    if input('¿Desea continuar? (S/n): ').lower() == 'n':
+        raise KeyboardInterrupt
