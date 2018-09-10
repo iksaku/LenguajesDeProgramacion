@@ -16,7 +16,6 @@ def lcm(number_list):
     return result
 
 
-print('Para salir utilice: Ctrl + C')
 while True:
     try:
         numbers = []
@@ -45,7 +44,7 @@ while True:
 
         print('Calculando Minimo Comun Multiplo de: ' + (', '.join(str(n) for n in numbers)) + '...')
         numbers.sort(reverse=True)
-        print('Resultado: ' + str(int(lcm(numbers))) + '\n')
+        print('Resultado: ' + str(int(lcm(numbers))))
 
         should_continue()
     except InsufficientArgumentsException:

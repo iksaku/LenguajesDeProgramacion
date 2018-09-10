@@ -143,6 +143,9 @@ while True:
             while rows is None:
                 try:
                     rows = try_int(input('Ingrese el número de filas de las matrices: '))
+                    if rows < 1:
+                        print('[Error] Por favor ingrese una cantidad de filas mayor a 0.')
+                        rows = None
                 except InvalidNumberException:
                     print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -150,6 +153,9 @@ while True:
             while columns is None:
                 try:
                     columns = try_int(input('Ingrese el número de columnas de las matrices: '))
+                    if columns < 1:
+                        print('[Error] Por favor ingrese una cantidad de columnas mayor a 0.')
+                        columns = None
                 except InvalidNumberException:
                     print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -197,6 +203,9 @@ while True:
                     while rows is None:
                         try:
                             rows = try_int(input('Ingrese el número de filas de las matriz: '))
+                            if rows < 1:
+                                print('[Error] Por favor ingrese una cantidad de filas mayor a 0.')
+                                rows = None
                         except InvalidNumberException:
                             print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -204,6 +213,9 @@ while True:
                     while columns is None:
                         try:
                             columns = try_int(input('Ingrese el número de columnas de las matriz: '))
+                            if columns < 1:
+                                print('[Error] Por favor ingrese una cantidad de columnas mayor a 0.')
+                                columns = None
                         except InvalidNumberException:
                             print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -233,6 +245,9 @@ while True:
                         while rows is None:
                             try:
                                 rows = try_int(input('Ingrese el número de filas de las matriz #' + str(i + 1) + ': '))
+                                if rows < 1:
+                                    print('[Error] Por favor ingrese una cantidad de filas mayor a 0.')
+                                    rows = None
                             except InvalidNumberException:
                                 print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -240,6 +255,9 @@ while True:
                         while columns is None:
                             try:
                                 columns = try_int(input('Ingrese el número de columnas de las matriz #' + str(i + 1) + ': '))
+                                if columns < 1:
+                                    print('[Error] Por favor ingrese una cantidad de columnas mayor a 0.')
+                                    columns = None
                             except InvalidNumberException:
                                 print('[Error] Numero invalido, por favor ingrese un numero sin decimales')
 
@@ -259,14 +277,14 @@ while True:
 
                     print('\nResultado de la mutliplicacion de las matrices:\n' + str(multiply(matrices[0], matrices[1])))
                 else:
-                    print('[Error] Opción invalida, por favor intentelo nuevamente.')
+                    print('[Error] Opcion invalida, por favor intentelo nuevamente.')
                     continue
 
                 break
         elif option == '3':
             raise KeyboardInterrupt
         else:
-            print('[Error] Opción invalida, por favor intentelo nuevamente.')
+            print('[Error] Opcion invalida, por favor intentelo nuevamente.')
             continue
 
         should_continue()

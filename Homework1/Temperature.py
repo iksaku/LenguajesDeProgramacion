@@ -1,3 +1,5 @@
+# Las absolutas no pueden ser negativas
+
 from enum import Enum
 from Helper.Exceptions import InvalidNumberException, InvalidTemperatureScaleException
 from Helper.Functions import try_float, should_continue
