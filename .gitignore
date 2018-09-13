@@ -1,5 +1,6 @@
 *.ini
 *.rap.backup*
+*.lisp~
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
@@ -259,3 +260,17 @@ ebin/*.beam
 rel/example_project
 .concrete/DEV_MODE
 .rebar
+### Mercury template
+Mercury/
+Mercury.modules
+*.mh
+*.err
+*.init
+*.dll
+*.exe
+*.a
+*.so
+*.dylib
+*.beams
+*.d
+*.c_date
