@@ -3,7 +3,7 @@
 2. Database 2
 3. Diametro del n° Segmento del caparzón de un molusco (Razón Aurea)
 4. Llenar la tabla por la columna scheme
-5. Determinar el tipo de triangulo según sus medidas y/o ángulos 
+5. Determinar el tipo de triangulo según sus medidas
 6. Avance del PIA
 
 ### Database 1 (Contact List)
