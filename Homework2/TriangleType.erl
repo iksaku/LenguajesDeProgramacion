@@ -12,14 +12,15 @@
 -export([bySides/0]).
 
 tryInt(Lado) ->
-    {ok, [Tmp]} = io:fread("Porfavor ingrese la medida del " ++ Lado ++ " lado del Triangulo: ", "~d"),
+    {Status, Tmp} = io:fread("Porfavor ingrese la medida del " ++ Lado ++ " lado del Triangulo: ", "~d"),
     if
-        is_integer(Tmp) ->
+        Status == ok ->
+            [Value] = Tmp,
             if
-                Tmp < 1 ->
+                Value < 1 ->
                     io:fwrite("~n[Error] Por favor introduzca un numero mayor a cero.~n"),
                     tryInt(Lado);
-                true -> Tmp % Returns Input number when valid :D
+                true -> Value % Returns Input number when valid :D
             end;
         true ->
             io:fwrite("~n[Error] Numero invalido, por favor intentelo denuevo.~n"),
@@ -37,4 +38,5 @@ bySides() ->
         true -> Type = "Escaleno"
     end,
 
+    io:fwrite("~nLas medidas de su triangulo son: ~w, ~w, ~w.~n", [A, B, C]),
     io:fwrite("Su triangulo es de tipo '~s'~n", [Type]).
