@@ -7,17 +7,8 @@ Investigate a Program which uses the following reserved words:
 - Extends
 - False
 
-### Bonus points for exams
 
-- (= x y)
-  + Compares value.
-  + Compares type.
-  + Only works with numbers
-- (eq x y)
-  + Compares to same instance (same object, same memory address).
-- (eql x y)
-  + Like ´eq´, but ensures values are of the same type
-- (equal x y)
-  + 
-- (equalp x y)
-  + 
+### PIA
+
+- We must port the Board Game _Diplomacy_ to console using _Perl_.
+- Use of the integrated `random` function is forbidden, we must create one. Look for `Generador Congruencial Mixto`.

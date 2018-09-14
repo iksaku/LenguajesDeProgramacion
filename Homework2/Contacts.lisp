@@ -5,7 +5,7 @@
 (defun add-dir (cd) (push cd *db*))
 		
 (defun dump-db ()
-	(format t "~{~{~a:~10t~a~%~}~%~}" *db* ))
+	(format t "~{~{~a:~10t~a~%~}~%~}" *db* ) (values))
 
 (defun prompt-read (prompt)
 	(format *query-io* "~a: " prompt)
@@ -22,15 +22,15 @@
 	(loop (add-dir (prompt-for-cd))
 		(if (not (y-or-n-p "Another? [Y/N]: ")) (return))))
 
-(defun save-db (directoryDataBase)
-	(with-open-file (out directoryDataBase
+(defun save-db (dbName)
+	(with-open-file (out dbName
 					:direction :output
 					:if-exists :supersede)
 		(with-standard-io-Syntax
 			(print *db* out))))
 
-(defun load-db (directoryDataBase)
-	(with-open-file (in directoryDataBase)
+(defun load-db (dbName)
+	(with-open-file (in dbName)
 		(with-standard-io-syntax
 			(setf *db* (read in)))))
 			
