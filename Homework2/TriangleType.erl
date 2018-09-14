@@ -34,7 +34,7 @@ bySides() ->
 
     if
         (A == B) and (A == C) -> Type = "Equilatero";
-        (A == C) or (A == B) or (B == C) -> Type = "Isoceles";
+        (A == C) or (A == B) or (B == C) -> Type = "Isosceles";
         true -> Type = "Escaleno"
     end,
 
