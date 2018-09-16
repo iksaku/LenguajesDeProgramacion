@@ -1,10 +1,10 @@
 # Contents
 
-1. Database #1.
-2. Database #2.
-3. Diameter of the nth segment of mollusk's shell using the "Golden Ratio".
+1. [Database #1](#database-1).
+2. [Database #2](#database-2).
+3. [Diameter of the nth segment of mollusk's shell using the "Golden Ratio"](#diameter-of-nth-segment).
 4. Fill the `scheme` column in the given Haskell-Erlang-Scheme document.
-5. Determine the type of a triangle by the size of its sides.
+5. [Determine the type of a triangle by the size of its sides](#determine-the-type-of-triangle).
 6. First PIA's progress review.
 
 
