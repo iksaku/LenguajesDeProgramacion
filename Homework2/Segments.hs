@@ -4,17 +4,21 @@ fibonacci n
     | n == 0    = 1
     | otherwise = (fibonacci (n - 1)) + (fibonacci (n - 2))
 
-goldenRatio :: Integer -> Integer -> Float -> Float
-goldenRatio n segment diameter
-    | n <= 0 || n > segment     = 0
-    | n == segment              = diameter
-    | otherwise                 = diameter * fromIntegral (fibonacci n) / fromIntegral (fibonacci (n + 1))
+goldenRatio :: Integer -> Float -> Integer -> Float
+goldenRatio currentSegment previousDiameter totalSegments
+    | currentSegment <= 0 || currentSegment > totalSegments =
+        0
+    | currentSegment == totalSegments =
+        previousDiameter
+    | otherwise =
+        previousDiameter * fromIntegral (fibonacci currentSegment) / fromIntegral (fibonacci (currentSegment + 1))
 
-test :: Integer -> Integer -> Float -> IO()
-test n segment diameter
-    | n <= 0    = return ()
+test :: Integer -> Float -> Integer -> IO()
+test currentSegment previousDiameter totalSegments
+    | currentSegment <= 0    = return ()
     | otherwise = do
-        putStrLn $ "Diameter of segment " ++ show segment ++ " starts with " ++ show diameter ++ " and i = " ++ show n ++ " and got: " ++ show (goldenRatio n segment diameter)
-        test (n - 1) segment (goldenRatio n segment diameter)
+        let diameter = goldenRatio currentSegment previousDiameter totalSegments
+        putStrLn $ "Diameter of segment " ++ show currentSegment ++ " is: " ++ show diameter
+        test (currentSegment - 1) diameter totalSegments
 
-main = test 9 9 70
+main = test 9 70 9
