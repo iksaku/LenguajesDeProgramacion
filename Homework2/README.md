@@ -41,5 +41,7 @@
 
 ## On-going Notes
 
+- We can open an Erlang Console in the cli by running `erl`, and exit by running the command `halt().` inside the Console.
 - We can skip Erlang's compilation process by using [Erlang Scripts](http://erlang.org/doc/man/escript.html)
-- We can also skip Haskell's compilation process by using [Haskell's runghc](http://downloads.haskell.org/~ghc/latest/docs/html/users_guide/runghc.html)
+- We can also skip Haskell's compilation process by using [Haskell's runghc](http://downloads.haskell.org/~ghc/latest/docs/html/users_guide/runghc.html).
+- We can open a Haskell Console in the cli by running `ghci`, and exit by running the command `:quit` inside the Console.

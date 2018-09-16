@@ -1,3 +1,5 @@
+import Text.Read
+
 fibonacci :: Integer -> Integer
 fibonacci n
     | n < 0     = 0
@@ -13,12 +15,32 @@ goldenRatio currentSegment previousDiameter totalSegments
     | otherwise =
         previousDiameter * fromIntegral (fibonacci currentSegment) / fromIntegral (fibonacci (currentSegment + 1))
 
-test :: Integer -> Float -> Integer -> IO()
-test currentSegment previousDiameter totalSegments
+recursiveCalculate :: Integer -> Float -> Integer -> IO()
+recursiveCalculate currentSegment previousDiameter totalSegments
     | currentSegment <= 0    = return ()
     | otherwise = do
         let diameter = goldenRatio currentSegment previousDiameter totalSegments
-        putStrLn $ "Diameter of segment " ++ show currentSegment ++ " is: " ++ show diameter
-        test (currentSegment - 1) diameter totalSegments
+        putStrLn $ "Diametro del segmento " ++ show currentSegment ++ ": " ++ show diameter
+        recursiveCalculate (currentSegment - 1) diameter totalSegments
 
-main = test 9 70 9
+try_int :: String -> IO Integer
+try_int prompt = do
+    putStr prompt
+    input <- getLine
+    case readMaybe input :: Maybe Integer of
+        Just x -> return x
+        Nothing -> putStrLn "\n[Error] Numero invalido, por favor intentelo denuevo." >> try_int prompt
+
+try_float :: String -> IO Float
+try_float prompt = do
+    putStr prompt
+    input <- getLine
+    case readMaybe input :: Maybe Float of
+        Just x -> return x
+        Nothing -> putStrLn "\n[Error] Numero invalido, por favor intentelo denuevo." >> try_float prompt
+
+main = do
+    segment <- try_int "Por favor especifique el numero de segmento deseado: "
+    diameter <- try_float "Por favor especifique el diametro del segmento actual: "
+    putStrLn ""
+    recursiveCalculate segment diameter segment
