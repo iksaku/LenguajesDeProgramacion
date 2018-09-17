@@ -1,9 +1,18 @@
 #!/usr/bin/perl
 package Functions;
 use Moose;
-use IO::Prompter;
 use Data::Types qw/:all/;
 use Exceptions;
+
+sub prompt {
+    my $prompt = shift;
+    
+    print $prompt;
+    my $input = <STDIN>;
+    chomp($input);
+
+    return $input;
+}
 
 sub try_float {
     my $x = shift;
@@ -42,12 +51,10 @@ sub is_number {
 }
 
 sub should_continue {
-    print "\nPresione [Enter] para continuar...";
-    <STDIN>;
-
-    my $in = prompt("¿Desea continuar? (Y/n): ", -yn);
-
-    if ((lc $in) == "n") {
+    prompt("\n\nPresione [Enter] para continuar...");
+    if ((lc prompt("¿Desea continuar? (S/n): ")) eq "n") {
         die Exceptions::KeyboardInterrupt->new(message => "");
     }
 }
+
+1;

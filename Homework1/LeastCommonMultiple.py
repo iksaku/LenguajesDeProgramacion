@@ -26,7 +26,7 @@ while True:
         c_loop = 1
         while c_loop <= loops:
             try:
-                n = try_int(input('Por favor ingrese el ' + str(c_loop) + '° numero: '))
+                n = try_int(input('\nPor favor ingrese el ' + str(c_loop) + '° numero: '))
 
                 if n < 1:
                     raise NumberOutOfRangeException
@@ -36,9 +36,9 @@ while True:
                 numbers.append(n)
                 c_loop += 1
             except InvalidNumberException:
-                print('[Error] Por favor ingrese un numero valido.\n')
+                print('[Error] Por favor ingrese un numero valido.')
             except NumberOutOfRangeException:
-                print('[Error] Por favor ingrese un numero mayor a 0.\n')
+                print('[Error] Por favor ingrese un numero mayor a 0.')
             except RepeatedNumberException:
                 print('[Error] Numero repetido, por favor ingrese un numero diferente.')
 

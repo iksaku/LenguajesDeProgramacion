@@ -1,3 +1,9 @@
+package Exceptions;
+use Moose;
+$SIG{'INT'} = sub {
+    die Exceptions::KeyboardInterrupt->new(message => "SIGINT");
+};
+
 package Exceptions::Base;
 use Moose;
 extends qw(Moose::Exception);
@@ -18,7 +24,7 @@ package Exceptions::InvalidTemperatureScale;
 use Moose;
 extends "Exceptions::Base";
 
-package Exception::KeyboardInterrupt;
+package Exceptions::KeyboardInterrupt;
 use Moose;
 extends "Exceptions::Base";
 
