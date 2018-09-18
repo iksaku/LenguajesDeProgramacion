@@ -1,5 +1,3 @@
-# Las absolutas no pueden ser negativas
-
 from enum import Enum
 from Helper.Exceptions import InvalidNumberException, InvalidTemperatureScaleException
 from Helper.Functions import try_float, should_continue
@@ -107,16 +105,21 @@ while True:
 
             break
 
+        temperature: Temperature
         while True:
             try:
                 temperature_input = try_float(input('Por favor ingrese la temperatura a convertir: '))
+
+                temperature = Temperature(temperature_input, scale)
+
+                if float(convert(temperature, TemperatureScale.KELVIN)) < 0:
+                    print('[Error] La temperatura no puede ser menor al 0 absoluto (Kelvin o Rankine), por favor ingrese otra temperatura\n')
+                    continue
             except InvalidNumberException:
                 print('[Error] Numero invalido, por favor ingrese un numero valido')
                 continue
 
             break
-
-        temperature = Temperature(temperature_input, scale)
 
         while True:
             print('Por favor seleccione la escala de temperatura destino:')
