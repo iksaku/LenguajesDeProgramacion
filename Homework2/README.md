@@ -6,6 +6,7 @@
 4. Fill the `scheme` column in the given Haskell-Erlang-Scheme document.
 5. [Determine the type of a triangle by the size of its sides](#determine-the-type-of-triangle).
 6. First PIA's progress review.
+7. [Surprise program in a surprise language](#surprise-program).
 
 
 ### Database #1
@@ -37,6 +38,14 @@
 
 - This script must be written in Erlang
 - User gives out the size of each of the triangle's sides and we will tell the type of the triangle based on the sizes.
+
+
+## Surprise program
+- Program will be written in Scala.
+- Part A: Hours that a person has lived. Using as inputs the birthday and today dates.
+- Part B: Display Hours, minutes and seconds lived by a person, but:
+  + Specifying the birthday date and city.
+  + The actual date and city its living.
 
 
 ## On-going Notes

@@ -107,10 +107,8 @@
 (add_city (make-city "Tucson"))
 (add_city (make-city "Quito"))
 (add_city (make-city "Cali"))
+
 (defun dump-db ()
 	(format t "~{~{~a:~10t~a~%~}~%~}" *db* ))
-(defun select (selector-fn)
-	(remove-if-not selector-fn *db*))
-(defun name-selector (name)
-	#'(lambda (cd) (equal (getf cd :name) name)))
+
 

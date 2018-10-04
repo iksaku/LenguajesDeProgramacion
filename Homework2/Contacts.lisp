@@ -35,7 +35,7 @@
 			(setf *db* (read in)))))
 			
 (defun select (selector-fn)
-	(remove-if-not selector-fn *bd*))
+	(remove-if-not selector-fn *db*))
 
 (defun gender-selector (gender)
 	#'(lambda (cd) (equal (getf cd :gender) gender)))
@@ -59,15 +59,3 @@
 					(if email    (setf (getf row :email) email))
 					(if gender   (setf (getf row :gender) gender)))
 					row) *db*)))
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
