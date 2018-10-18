@@ -84,7 +84,7 @@ class Player {
     }
 
     get color() {
-        return; // TODO...
+        return Board.playerColor(this.id);
     }
 }
 
