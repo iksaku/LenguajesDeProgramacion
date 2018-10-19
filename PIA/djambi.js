@@ -66,6 +66,7 @@ class Square {
         this.x = x;
         this.y = y;
         this.isCenter = isCenter;
+        this.piece = null;
     }
 
     get displayName() {
@@ -99,7 +100,8 @@ class Board {
     static get playerColor(id) {
         // TODO: Make sure these colors are correcly represented in CSS...
         // Or change this colors to respective Hexadecimal colors...
-        let colors = ["Green", "Yellow", "Red", "Blue"];
+        // BTW... This is the actual order of play :D
+        let colors = ["Red", "Blue", "Yellow", "Green"];
         return colors.id;
     }
 
@@ -117,12 +119,80 @@ class Board {
         // Set Players
         this.players = []
         for (var count = 0; count < 4; count++) {
-            this.players = new Player(count, "Player " + (count + 1));
+            var player = new Player(count, "Player " + (count + 1));
+            this.players[count] = player;
+
+            // Set Pieces
+            let xStart = player.id < 2 ? 9 : 0;
+            let yStart = player.id % 2 == 0 ? 0 : 9;
+            let xStep = player.id < 2 ? -1 : 1;
+            let yStep = player.id % 2 == 0 ? 1 : -1;
+
+            for (var x = xStart; (x >= 0 && x <= 3) || (x >= 7 && x <= 9); x += xStep) {
+                for (var y = yStart; (y >= 0 && y <= 3) || (y >= 7 && y <= 9); y += yStep) {
+                    let square = this.getSquare(x,y);
+                    
+                    let row = Math.abs(x - xStart);
+                    let col = Math.abs(y - yStart);
+                    var pieceType = null;
+                    switch(row) {
+                        case 0: // First Row
+                            switch (col) {
+                                case 0: // First Column
+                                    pieceType = Chief;
+                                    break;
+                                case 1: // Second Column
+                                    pieceType = Assassin;
+                                    break;
+                                case 2: // Third Column
+                                    pieceType = Militant;
+                                    break;
+                            }
+                            break;
+                        case 1: // Second Row
+                            switch (col) {
+                                case 0: // First Column
+                                    pieceType = Reporter;
+                                    break;
+                                case 1: // Second Column
+                                    pieceType = Diplomat;
+                                    break;
+                                case 2: // Third Column
+                                    pieceType = Militant;
+                                    break;
+                            }
+                            break;
+                        case 2: // Third Row
+                            switch (col) {
+                                case 0: // First Column
+                                    pieceType = Militant;
+                                    break;
+                                case 1: // Second Column
+                                    pieceType = Militant;
+                                    break;
+                                case 2: // Third Column
+                                    pieceType = Necromobile;
+                                    break;
+                            }
+                            break;
+                    }
+
+                    if (pieceType == null) continue;
+
+                    square.piece = new pieceType(player, square);
+                }
+            }
         }
 
         this.draw();
     }
 
+    /**
+     * 
+     * @param {int} x 
+     * @param {int} y 
+     * @returns Square|null
+     */
     getSquare(x, y) {
         try {
             return this.squares[x][y];
