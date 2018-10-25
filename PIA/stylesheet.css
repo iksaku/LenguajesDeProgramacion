@@ -14,7 +14,6 @@
     width: 90vw;
     height: 90vw;
 }
-
 @media screen and (min-width: 576px) {
     /* Small screen */
     #board {
@@ -22,7 +21,6 @@
         height: 70vw;
     }
 }
-
 @media screen and (min-width: 768px) {
     /* Medium screen */
     #board {
@@ -30,7 +28,6 @@
         height: 60vw;
     }
 }
-
 @media screen and (min-width: 992px) {
     /* Large screen */
     #board {
@@ -38,7 +35,6 @@
         height: 50vw;
     }
 }
-
 @media screen and (min-width: 1200px) {
     /* Extra large screen */
     #board {
@@ -54,7 +50,6 @@
     text-align: center;
     font-weight: bold;
 }
-
 #board div:hover {
     border-color: orange;
     background-color: whitesmoke;
@@ -68,7 +63,6 @@
 .centerSquare {
     background-color: darkslategray;
 }
-
 .centerSquare:hover {
     background: darkslategray !important;
 }
@@ -76,15 +70,27 @@
 .red {
     color: darkred;
 }
+.red svg circle {
+    fill: red;
+}
 
 .blue {
     color: darkblue;
+}
+.blue svg circle {
+    fill: blue;
 }
 
 .yellow {
     color: darkgoldenrod;
 }
+.yellow svg circle {
+    fill: darkgoldenrod;
+}
 
 .green {
     color: darkgreen;
+}
+.green svg circle {
+    fill: darkgreen;
 }
