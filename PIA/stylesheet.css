@@ -1,0 +1,90 @@
+#board {
+    margin: 0 auto;
+    padding: 0;
+    border: 1px solid black;
+    background-color: lightgray;
+
+    /* Grid Properties */
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+
+    /* Extra small screen*/
+    width: 90vw;
+    height: 90vw;
+}
+
+@media screen and (min-width: 576px) {
+    /* Small screen */
+    #board {
+        width: 70vw;
+        height: 70vw;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    /* Medium screen */
+    #board {
+        width: 60vw;
+        height: 60vw;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    /* Large screen */
+    #board {
+        width: 50vw;
+        height: 50vw;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    /* Extra large screen */
+    #board {
+        width: 50vw;
+        height: 50vw;
+    }
+}
+
+#board div {
+    margin: 0;
+    padding: 0;
+    border: 3px solid black;
+    text-align: center;
+    font-weight: bold;
+}
+
+#board div:hover {
+    border-color: orange;
+    background-color: whitesmoke;
+}
+
+.highlight {
+    border-color: orange;
+    background-color: lightgray;
+}
+
+.centerSquare {
+    background-color: darkslategray;
+}
+
+.centerSquare:hover {
+    background: darkslategray !important;
+}
+
+.red {
+    color: darkred;
+}
+
+.blue {
+    color: darkblue;
+}
+
+.yellow {
+    color: darkgoldenrod;
+}
+
+.green {
+    color: darkgreen;
+}
