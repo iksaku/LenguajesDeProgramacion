@@ -1,4 +1,4 @@
-class Piece {
+class GenericPiece {
     constructor(player, square) {
         this.player = player;
         this.square = square;
@@ -22,13 +22,8 @@ class Piece {
         return false;
     }
 
-    onCapture() {
-        this.alive = false;
-        // TODO: Make corpse...
-    }
-
-    calculatePossibleMoves() {
-        // TODO...
+    highlight(state) {
+        // TODO
     }
 
     couldMoveTo(targetSquare) {
@@ -43,8 +38,8 @@ class Piece {
         if (x == targetSquare.x || y == targetSquare.y) {
             isInValidDirection =
                     this.stepLimit == null ||
-                    (Math.abs(x - targetSquare.x) <= this.stepLimit) || 
-                    (Math.abs(y - targetSquare.y) <= this.stepLimit);
+                    ((Math.abs(x - targetSquare.x) <= this.stepLimit) && 
+                    (Math.abs(y - targetSquare.y) <= this.stepLimit));
         }
         else if (Math.abs(x - targetSquare.x) == Math.abs(y - targetSquare.y)) {
             isDiagonalMove = true;
@@ -55,45 +50,62 @@ class Piece {
 
         if (!isInValidDirection) return false;
 
-        xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
-        yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
-        currentSquare = this.square;
+        var xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
+        var yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
+        var currentSquare = this.square;
 
+        // TODO: For some reason, this doesn't break when there's a piece in the path...
         if (isDiagonalMove) {
-            for (x += xStep, y += xStep; currentSquare != targetSquare; x += xStep, y += yStep) {
+            for (x += xStep, y += xStep; (currentSquare.x - targetSquare.x) * xStep > 0; x += xStep, y += yStep) {
                 currentSquare = this.square.board.getSquare(x, y);
                 if (currentSquare.piece != null) return false;
             }
         } else {
-            for (x += xStep; currentSquare != targetSquare; x += xStep) {
-                for (y += yStep; currentSquare != targetSquare; y += yStep) {
+            for (x += xStep; (currentSquare.x - targetSquare.x) * xStep > 0; x += xStep) {
+                for (y += yStep; (currentSquare.y - targetSquare.y) * yStep > 0; y += yStep) {
                     currentSquare = this.square.board.getSquare(x, y);
                     if (currentSquare.piece != null) return false;
                 }
             }
         }
 
-        if (targetSquare.piece.isAlive()) {
+        if (targetSquare.piece == null)
+            return true;
+        else if (targetSquare.piece.isAlive())
             return this.canKill() || this.canMovePiece();
-        } else {
+        else
             return this.canMoveCorpse();
-        }
     }
 
     moveTo(targetSquare) {
         if (!this.couldMoveTo(targetSquare)) {
-            // TODO: Alert
-            return;
+            alert("Movimiento no valido");
+            return false;
         }
 
         this.square.piece = null;
 
-        movedPiece = targetSquare.piece;
+        var targetPiece = targetSquare.piece;
+
         targetSquare.piece = this;
+        this.square = targetSquare;
+        this.player.clean();
 
-        if (movedPiece.isAlive() && this.canKill()) movedPiece.alive = false;
+        if (targetPiece != null) {
+            if (targetPiece.isAlive() && this.canKill()) targetPiece.alive = false;
+            this.player.moving = targetPiece;
+            // TODO: Tell to drop corpse or moved piece in other square...
+        }
 
-        this.player.moving = movedPiece;
+        return true;
+    }
+
+    onCapture() {
+        // TODO: Make corpse...
+    }
+
+    calculatePossibleMoves() {
+        // TODO...
     }
 
     onMove(targetSquare) {
@@ -101,18 +113,20 @@ class Piece {
     }
 }
 
-class Chief extends Piece {}
-class Assassin extends Piece {}
-class Reporter extends Piece {}
+class Chief extends GenericPiece {}
 
-class Militant extends Piece {
+class Assassin extends GenericPiece {}
+
+class Reporter extends GenericPiece {}
+
+class Militant extends GenericPiece {
     constructor(player, square) {
         super(player, square);
         this.stepLimit = 2;
     }
 }
 
-class Diplomat extends Piece {
+class Diplomat extends GenericPiece {
     get canKill() {
         return false;
     }
@@ -122,7 +136,7 @@ class Diplomat extends Piece {
     }
 }
 
-class Necromobile extends Piece {
+class Necromobile extends GenericPiece {
     get canKill() {
         return false;
     }
@@ -142,7 +156,7 @@ class Square {
     }
 
     get displayName() {
-        return Board.columnLetter(this.y).toLowerCase() + (this.x + 1);
+        return Board.getColumnLetter(this.y) + (this.x + 1);
     }
 
     get isOcuppied() {
@@ -167,30 +181,8 @@ class Square {
 
         if (this.piece == null) return;
 
-        var toAppend;
-        switch(this.piece.constructor) {
-            case Chief:
-                toAppend = "C";
-                break;
-            case Assassin:
-                toAppend = "A";
-                break;
-            case Reporter:
-                toAppend = "R";
-                break;
-            case Militant:
-                toAppend = "M";
-                break;
-            case Diplomat:
-                toAppend = "D";
-                break;
-            case Necromobile:
-                toAppend = "N";
-                break;
-        }
-
         square.className += this.piece.player.color.toLowerCase();
-        square.innerHTML = toAppend;
+        square.innerHTML = game.svg.get(this.piece);
     }
 }
 
@@ -205,21 +197,49 @@ class Player {
         return Board.playerColor(this.id);
     }
 
-    onClick(targetSquare) {
+    clean() {
+        console.log("Cleaning player...");
+        if (this.moving != null) {
+            console.log("Deselecting piece...");
+            this.moving.highlight(false);
+            this.moving = null;
+        }
+    }
+
+    onClick(square) {
         if (this.moving == null) {
-            if (targetSquare.piece == null) return;
-            this.moving = targetSquare.piece;
+            if (square.piece == null) {
+                console.log("Empty square... Ignoring...");
+                return;
+            }
+            console.log("Selecting piece: " + square.piece.constructor.name);
+            this.moving = square.piece;
+            this.moving.highlight(true);
         } else {
-            // Try moving
-            this.moving.moveTo(targetSquare);
+            if (this.moving == square.piece) {
+                console.log("Deselecting piece...");
+                this.clean();
+                return;
+            }
+            console.log("Attempting to move piece '" + this.moving.constructor.name + "' to '" + square.displayName + "'");
+            this.moving.moveTo(square);
         }
     }
 }
 
 class Board {
-    static columnLetter(column) {
-        let columns = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-        return columns[column];
+    constructor() {
+        document.body.addEventListener("keypress", function (e) {
+            if (e.key == "Escape") game.currentPlayer.clean();
+        });
+    }
+
+    static get columns() {
+        return ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+    }
+
+    static getColumnLetter(column) {
+        return Board.columns[column];
     }
 
     static playerColor(id) {
@@ -230,12 +250,24 @@ class Board {
         return colors[id];
     }
 
+    static onClick(square) {
+        var targetSquare = game.board.getSquareByName(square.id);
+
+        game.currentPlayer.onClick(targetSquare);
+    }
+
     getSquare(x, y) {
         try {
             return this.squares[x][y];
         } catch (TypeError) {
             return null;
         }
+    }
+
+    getSquareByName(name) {
+        var x = parseInt(name[1]) - 1;
+        var y = Board.columns.indexOf(name[0]);
+        return this.getSquare(x, y);
     }
 
     regenerate() {
@@ -252,7 +284,7 @@ class Board {
                 this.squares[x][y] = new Square(x, y, this, x == 4 && y == 4);
                 
                 let square = this.getSquare(x, y);
-                board.innerHTML += '<div id="' + square.displayName + '"></div>';
+                board.innerHTML += '<div id="' + square.displayName + '" onclick="Board.onClick(this)"></div>';
                 square.render();
             }
         }
@@ -327,5 +359,89 @@ class Board {
     }
 }
 
-var board = new Board();
-board.regenerate();
+class SVGStore {
+    constructor() {
+        this.store = {};
+        this._requests = [];
+        this.pieces.forEach(this.request);
+    }
+
+    get pieces() {
+        return [Chief, Assassin, Reporter, Militant, Diplomat, Necromobile];
+    }
+
+    get ready() {
+        for (var i = 0; i < this.pieces.length; ++i) {
+            if (this.get(this.pieces[i]) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    request(piece) {
+        var name = String(piece.name);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", getBasePath() + "/img/" + name.toLowerCase() + ".svg", true);
+        xhr.overrideMimeType("img/svg+html");
+
+        xhr.onload = function(e) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    game.svg.store[name] = xhr.responseText;
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        }
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        }
+
+        xhr.send(null);
+    }
+
+    get(piece) {
+        return this.store[piece.constructor.name];
+    }
+}
+
+class Game {
+    constructor() {
+        this.svg = new SVGStore();
+        this.board = new Board();
+        this.turn = 0;
+    }
+
+    get currentPlayer() {
+        return this.board.players[this.turn];
+    }
+
+    nextTurn() {
+        this.currentPlayer.clean();
+        
+        this.turn += 1;
+        if (this.turn > 3) this.turn = 0;
+    }
+
+    start() {
+        setTimeout(() => {
+            game.restart();
+        }, 10);
+    }
+
+    restart() {
+        this.board.regenerate();
+    }
+}
+
+function getBasePath() {
+    var actualPath = window.location.href;
+    var parts = actualPath.split("/");
+    parts.pop();
+    return parts.join("/")
+}
+
+var game = new Game();
+game.start();
