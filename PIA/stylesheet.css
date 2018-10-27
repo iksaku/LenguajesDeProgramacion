@@ -63,8 +63,8 @@
 }
 
 .highlight {
-    border-color: orange;
-    background-color: lightgray;
+    border-color: orange !important;
+    background-color: whitesmoke !important;
 }
 
 .centerSquare {

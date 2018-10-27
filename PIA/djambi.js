@@ -22,10 +22,6 @@ class GenericPiece {
         return false;
     }
 
-    highlight(state) {
-        // TODO
-    }
-
     couldMoveTo(targetSquare) {
         if (targetSquare == this.square) return false;
 
@@ -53,20 +49,12 @@ class GenericPiece {
         var xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
         var yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
         var currentSquare = this.square;
-
-        // TODO: For some reason, this doesn't break when there's a piece in the path...
-        if (isDiagonalMove) {
-            for (x += xStep, y += xStep; (currentSquare.x - targetSquare.x) * xStep > 0; x += xStep, y += yStep) {
-                currentSquare = this.square.board.getSquare(x, y);
-                if (currentSquare.piece != null) return false;
-            }
-        } else {
-            for (x += xStep; (currentSquare.x - targetSquare.x) * xStep > 0; x += xStep) {
-                for (y += yStep; (currentSquare.y - targetSquare.y) * yStep > 0; y += yStep) {
-                    currentSquare = this.square.board.getSquare(x, y);
-                    if (currentSquare.piece != null) return false;
-                }
-            }
+        
+        for (x += xStep, y += yStep; ((currentSquare.x - targetSquare.x) * xStep <= 0) && ((currentSquare.y - targetSquare.y) * yStep <= 0); x += xStep, y += yStep) {
+            currentSquare = this.square.board.getSquare(x, y);
+            console.log("Current square (" + x + "," + y + ") is " + (currentSquare.piece == null ? "empty" : "occupied"));
+            if (currentSquare == targetSquare) break;
+            else if (currentSquare.piece != null) return false;
         }
 
         if (targetSquare.piece == null)
@@ -89,6 +77,7 @@ class GenericPiece {
 
         targetSquare.piece = this;
         this.square = targetSquare;
+
         this.player.clean();
 
         if (targetPiece != null) {
@@ -105,7 +94,7 @@ class GenericPiece {
     }
 
     calculatePossibleMoves() {
-        // TODO...
+        // TODO... Maybe?
     }
 
     onMove(targetSquare) {
@@ -134,6 +123,8 @@ class Diplomat extends GenericPiece {
     get canMovePiece() {
         return false;
     }
+
+    // Based on ruling... There's no mention that Diplomat can't move another piece of its same owner...
 }
 
 class Necromobile extends GenericPiece {
@@ -169,6 +160,8 @@ class Square {
 
     set piece(piece) {
         this.ownedPiece = piece;
+        if (this.ownedPiece == null) this.highlight = false;
+
         this.render();
     }
 
@@ -177,7 +170,8 @@ class Square {
         square.innerHTML = "";
         square.className = "";
 
-        if (this.isCenter) square.className += "centerSquare";
+        if (this.highlight) square.className += "highlight ";
+        if (this.isCenter) square.className += "centerSquare ";
 
         if (this.piece == null) return;
 
@@ -198,32 +192,23 @@ class Player {
     }
 
     clean() {
-        console.log("Cleaning player...");
         if (this.moving != null) {
-            console.log("Deselecting piece...");
-            this.moving.highlight(false);
             this.moving = null;
         }
     }
 
     onClick(square) {
+        if (square.piece != null && square.piece.player != this) return;
+
         if (this.moving == null) {
-            if (square.piece == null) {
-                console.log("Empty square... Ignoring...");
-                return;
-            }
-            console.log("Selecting piece: " + square.piece.constructor.name);
+            if (square.piece == null) return;
+
             this.moving = square.piece;
-            this.moving.highlight(true);
-        } else {
-            if (this.moving == square.piece) {
-                console.log("Deselecting piece...");
-                this.clean();
-                return;
-            }
-            console.log("Attempting to move piece '" + this.moving.constructor.name + "' to '" + square.displayName + "'");
-            this.moving.moveTo(square);
+            square.highlight = true;
+            square.render();
         }
+        else if (this.moving == square.piece) this.clean();
+        else this.moving.moveTo(square);
     }
 }
 
