@@ -207,7 +207,11 @@ class Player {
             square.highlight = true;
             square.render();
         }
-        else if (this.moving == square.piece) this.clean();
+        else if (this.moving == square.piece) {
+            square.highlight = false;
+            square.render();
+            this.clean();
+        }
         else this.moving.moveTo(square);
     }
 }
