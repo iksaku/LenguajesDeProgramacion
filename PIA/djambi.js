@@ -52,7 +52,6 @@ class GenericPiece {
         
         for (x += xStep, y += yStep; ((currentSquare.x - targetSquare.x) * xStep <= 0) && ((currentSquare.y - targetSquare.y) * yStep <= 0); x += xStep, y += yStep) {
             currentSquare = this.square.board.getSquare(x, y);
-            console.log("Current square (" + x + "," + y + ") is " + (currentSquare.piece == null ? "empty" : "occupied"));
             if (currentSquare == targetSquare) break;
             else if (currentSquare.piece != null) return false;
         }
@@ -181,9 +180,9 @@ class Square {
 }
 
 class Player {
-    constructor(id, name) {
+    constructor(id) {
         this.id = id;
-        this.name = name;
+        this.name = "Jugador " + (id + 1);
         this.moving = null;
     }
 
@@ -212,7 +211,9 @@ class Player {
             square.render();
             this.clean();
         }
-        else this.moving.moveTo(square);
+        else if (this.moving.moveTo(square)) {
+            game.nextTurn();
+        }
     }
 }
 
@@ -281,14 +282,14 @@ class Board {
         // Set Players
         this.players = []
         for (var count = 0; count < 4; count++) {
-            var player = new Player(count, "Player " + (count + 1));
+            var player = new Player(count);
             this.players[count] = player;
 
             // Set Pieces
             let xStart = player.id < 2 ? 8 : 0;
-            let yStart = player.id % 2 == 0 ? 0 : 8;
+            let yStart = (player.id == 0 || player.id == 3) ? 0 : 8;
             let xStep = player.id < 2 ? -1 : 1;
-            let yStep = player.id % 2 == 0 ? 1 : -1;
+            let yStep = (player.id == 0 || player.id == 3) ? 1 : -1;
 
             for (var x = xStart; (x >= 0 && x < 3) || (x >= 6 && x < 9); x += xStep) {
                 for (var y = yStart; (y >= 0 && y < 3) || (y >= 6 && y < 9); y += yStep) {
@@ -400,18 +401,26 @@ class Game {
     constructor() {
         this.svg = new SVGStore();
         this.board = new Board();
-        this.turn = 0;
+        this.turn = -1;
     }
 
     get currentPlayer() {
         return this.board.players[this.turn];
     }
 
+    broadcastPlayerInTurn() {
+        console.log("Turno actual: " + this.currentPlayer.name);
+    }
+
     nextTurn() {
-        this.currentPlayer.clean();
+        if (this.currentPlayer != null) {
+            this.currentPlayer.clean();
+        }
         
         this.turn += 1;
-        if (this.turn > 3) this.turn = 0;
+        if (this.turn < 0 || this.turn > 3) this.turn = 0;
+        this.broadcastPlayerInTurn();
+        document.getElementById("board").className = this.currentPlayer.color.toLowerCase() + "-turn";
     }
 
     start() {
@@ -422,6 +431,7 @@ class Game {
 
     restart() {
         this.board.regenerate();
+        this.nextTurn();
     }
 }
 

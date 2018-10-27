@@ -76,6 +76,7 @@
 
 .red {
     color: darkred;
+    cursor: not-allowed;
 }
 .red svg circle {
     fill: red;
@@ -83,6 +84,7 @@
 
 .blue {
     color: darkblue;
+    cursor: not-allowed;
 }
 .blue svg circle {
     fill: blue;
@@ -90,6 +92,7 @@
 
 .yellow {
     color: darkgoldenrod;
+    cursor: not-allowed;
 }
 .yellow svg circle {
     fill: darkgoldenrod;
@@ -97,7 +100,29 @@
 
 .green {
     color: darkgreen;
+    cursor: not-allowed;
 }
 .green svg circle {
     fill: darkgreen;
+}
+
+.corpse {
+    /* TODO */
+    cursor: not-allowed !important;
+}
+/*.corpse svg circle {
+    TODO... Or maybe we don't need an SVG at all... Gotta investigate
+}*/
+
+.red-turn .red {
+    cursor: default;
+}
+.blue-turn .blue {
+    cursor: default;
+}
+.green-turn .green {
+    cursor: default;
+}
+.yellow-turn .yellow {
+    cursor: default;
 }
