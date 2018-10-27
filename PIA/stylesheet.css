@@ -115,14 +115,14 @@
 }*/
 
 .red-turn .red {
-    cursor: default;
+    cursor: pointer;
 }
 .blue-turn .blue {
-    cursor: default;
+    cursor: pointer;
 }
 .green-turn .green {
-    cursor: default;
+    cursor: pointer;
 }
 .yellow-turn .yellow {
-    cursor: default;
+    cursor: pointer;
 }
