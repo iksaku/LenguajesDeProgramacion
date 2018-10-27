@@ -1,1 +1,6 @@
-*.svg filter=lfs diff=lfs merge=lfs -text
+* text=auto
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.svg binary
