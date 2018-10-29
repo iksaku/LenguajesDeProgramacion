@@ -58,7 +58,7 @@ class GenericPiece {
 
         if (targetSquare.piece == null)
             return true;
-        else if (targetSquare.piece.isAlive())
+        else if (targetSquare.piece.isAlive)
             return this.canKill() || this.canMovePiece();
         else
             return this.canMoveCorpse();
@@ -205,7 +205,7 @@ class Player {
             this.color.toLowerCase() + "-turn";
         
         if (highlightPieces) {
-            document.getElementById("board").className =
+            document.getElementById("board").className +=
                 " " + this.color.toLowerCase() + "-turn-highlight";
         }
     }
