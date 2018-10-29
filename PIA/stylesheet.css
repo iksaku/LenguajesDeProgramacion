@@ -1,3 +1,10 @@
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #board {
     margin: 0 auto;
     padding: 0;
@@ -46,25 +53,25 @@
 #board div {
     margin: 0;
     padding: 0;
+    overflow: hidden;
     border: 3px solid black;
     text-align: center;
     font-weight: bold;
     position: relative;
 }
-#board div:hover {
-    border-color: orange;
-    background-color: whitesmoke;
+
+@media (hover: hover) {
+    #board div:hover {
+        border-color: orange;
+        background-color: whitesmoke;
+    }
 }
+
 #board div svg {
     position:absolute;
     top:50%;
     bottom:50%;
     transform:translate(-50%, -50%);
-}
-
-.highlight {
-    border-color: orange !important;
-    background-color: whitesmoke !important;
 }
 
 .centerSquare {
@@ -87,7 +94,7 @@
     cursor: not-allowed;
 }
 .blue svg circle {
-    fill: blue;
+    fill: darkblue;
 }
 
 .yellow {
@@ -114,15 +121,17 @@
     TODO... Or maybe we don't need an SVG at all... Gotta investigate
 }*/
 
-.red-turn .red {
-    cursor: pointer;
-}
-.blue-turn .blue {
-    cursor: pointer;
-}
-.green-turn .green {
-    cursor: pointer;
-}
+.red-turn .red,
+.blue-turn .blue,
+.green-turn .green,
 .yellow-turn .yellow {
     cursor: pointer;
+}
+.highlight,
+.red-turn-highlight .red,
+.blue-turn-highlight .blue,
+.green-turn-highlight .green,
+.yellow-turn-highlight .yellow {
+    border-color: orange !important;
+    background-color: whitesmoke !important;
 }

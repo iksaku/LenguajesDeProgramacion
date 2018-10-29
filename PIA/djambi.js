@@ -190,9 +190,23 @@ class Player {
         return Board.playerColor(this.id);
     }
 
-    clean() {
+    clean(turnContinues = false) {
         if (this.moving != null) {
             this.moving = null;
+        }
+        
+        if (turnContinues) {
+            this.onTurnBegin(true);
+        }
+    }
+    
+    onTurnBegin(highlightPieces = false) {
+        document.getElementById("board").className =
+            this.color.toLowerCase() + "-turn";
+        
+        if (highlightPieces) {
+            document.getElementById("board").className =
+                " " + this.color.toLowerCase() + "-turn-highlight";
         }
     }
 
@@ -205,11 +219,13 @@ class Player {
             this.moving = square.piece;
             square.highlight = true;
             square.render();
+            
+            this.onTurnBegin(false);
         }
         else if (this.moving == square.piece) {
             square.highlight = false;
             square.render();
-            this.clean();
+            this.clean(true);
         }
         else if (this.moving.moveTo(square)) {
             game.nextTurn();
@@ -401,7 +417,6 @@ class Game {
     constructor() {
         this.svg = new SVGStore();
         this.board = new Board();
-        this.turn = -1;
     }
 
     get currentPlayer() {
@@ -420,16 +435,17 @@ class Game {
         this.turn += 1;
         if (this.turn < 0 || this.turn > 3) this.turn = 0;
         this.broadcastPlayerInTurn();
-        document.getElementById("board").className = this.currentPlayer.color.toLowerCase() + "-turn";
+        this.currentPlayer.onTurnBegin(true);
     }
 
     start() {
         setTimeout(() => {
             game.restart();
-        }, 10);
+        }, 250);
     }
 
     restart() {
+        this.turn = -1;
         this.board.regenerate();
         this.nextTurn();
     }
