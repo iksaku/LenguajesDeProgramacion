@@ -4,11 +4,7 @@ class GenericPiece {
         this.square = square;
         this.alive = true;
         this.stepLimit = null;
-    }
-
-    get isAlive() {
-        return this.alive;
-    }
+    } 
 
     get canKill() {
         return true;
@@ -25,43 +21,43 @@ class GenericPiece {
     couldMoveTo(targetSquare) {
         if (targetSquare == this.square) return false;
 
-        var isInValidDirection = false;
-        var isDiagonalMove = false;
-
-        var x = this.square.x;
-        var y = this.square.y;
-
-        if (x == targetSquare.x || y == targetSquare.y) {
-            isInValidDirection =
-                    this.stepLimit == null ||
-                    ((Math.abs(x - targetSquare.x) <= this.stepLimit) && 
-                    (Math.abs(y - targetSquare.y) <= this.stepLimit));
-        }
-        else if (Math.abs(x - targetSquare.x) == Math.abs(y - targetSquare.y)) {
-            isDiagonalMove = true;
-            isInValidDirection =
-                    this.stepLimit == null ||
-                    Math.abs(x - targetSquare.x) <= this.stepLimit;
-        }
-
-        if (!isInValidDirection) return false;
-
-        var xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
-        var yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
-        var currentSquare = this.square;
-        
-        for (x += xStep, y += yStep; ((currentSquare.x - targetSquare.x) * xStep <= 0) && ((currentSquare.y - targetSquare.y) * yStep <= 0); x += xStep, y += yStep) {
-            currentSquare = this.square.board.getSquare(x, y);
-            if (currentSquare == targetSquare) break;
-            else if (currentSquare.piece != null) return false;
+        if (this.alive) {
+            var isInValidDirection = false;
+            
+            var x = this.square.x;
+            var y = this.square.y;
+    
+            if (x == targetSquare.x || y == targetSquare.y) {
+                isInValidDirection =
+                        this.stepLimit == null ||
+                        ((Math.abs(x - targetSquare.x) <= this.stepLimit) && 
+                        (Math.abs(y - targetSquare.y) <= this.stepLimit));
+            }
+            else if (Math.abs(x - targetSquare.x) == Math.abs(y - targetSquare.y)) {
+                isInValidDirection =
+                        this.stepLimit == null ||
+                        Math.abs(x - targetSquare.x) <= this.stepLimit;
+            }
+    
+            if (!isInValidDirection) return false;
+    
+            var xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
+            var yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
+            var currentSquare = this.square;
+            
+            for (x += xStep, y += yStep; ((currentSquare.x - targetSquare.x) * xStep <= 0) && ((currentSquare.y - targetSquare.y) * yStep <= 0); x += xStep, y += yStep) {
+                currentSquare = this.square.board.getSquare(x, y);
+                if (currentSquare == targetSquare) break;
+                else if (currentSquare.piece != null) return false;
+            }
         }
 
         if (targetSquare.piece == null)
             return true;
-        else if (targetSquare.piece.isAlive)
-            return this.canKill() || this.canMovePiece();
+        else if (targetSquare.piece.alive)
+            return this.canKill || this.canMovePiece;
         else
-            return this.canMoveCorpse();
+            return this.canMoveCorpse;
     }
 
     moveTo(targetSquare) {
@@ -70,18 +66,19 @@ class GenericPiece {
             return false;
         }
 
-        this.square.piece = null;
+        if (this.square != null) this.square.piece = null;
 
         var targetPiece = targetSquare.piece;
+        if (targetPiece != null) targetPiece.square = null;
 
         targetSquare.piece = this;
         this.square = targetSquare;
 
-        this.player.clean();
+        game.currentPlayer.clean();
 
         if (targetPiece != null) {
-            if (targetPiece.isAlive() && this.canKill()) targetPiece.alive = false;
-            this.player.moving = targetPiece;
+            if (targetPiece.alive && this.canKill) targetPiece.alive = false;
+            game.currentPlayer.moving = targetPiece;
             // TODO: Tell to drop corpse or moved piece in other square...
         }
 
@@ -175,6 +172,8 @@ class Square {
         if (this.piece == null) return;
 
         square.className += this.piece.player.color.toLowerCase();
+        if (!this.piece.alive) square.className += " corpse";
+        
         square.innerHTML = game.svg.get(this.piece);
     }
 }
@@ -211,10 +210,10 @@ class Player {
     }
 
     onClick(square) {
-        if (square.piece != null && square.piece.player != this) return;
-
         if (this.moving == null) {
             if (square.piece == null) return;
+            else if (square.piece != null && square.piece.player != this) return;
+
 
             this.moving = square.piece;
             square.highlight = true;
@@ -227,7 +226,7 @@ class Player {
             square.render();
             this.clean(true);
         }
-        else if (this.moving.moveTo(square)) {
+        else if (this.moving.moveTo(square) && this.moving == null) {
             game.nextTurn();
         }
     }

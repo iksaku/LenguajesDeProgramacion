@@ -117,9 +117,24 @@
     /* TODO */
     cursor: not-allowed !important;
 }
-/*.corpse svg circle {
-    TODO... Or maybe we don't need an SVG at all... Gotta investigate
-}*/
+.corpse svg circle {
+    fill: black !important;
+}
+
+.red-turn .red,
+.blue-turn .blue,
+.yellow-turn .yellow,
+.green-turn .green{
+    cursor: pointer;
+}
+.highlight,
+.red-turn-highlight .red,
+.blue-turn-highlight .blue,
+.yellow-turn-highlight .yellow,
+.green-turn-highlight .green{
+    border-color: orange !important;
+    background-color: whitesmoke !important;
+}
 
 .red-turn .red,
 .blue-turn .blue,
