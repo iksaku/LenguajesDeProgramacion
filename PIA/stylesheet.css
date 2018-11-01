@@ -54,17 +54,13 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 3px solid black;
+    /*border: 3px solid black;*/
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
     text-align: center;
     font-weight: bold;
     position: relative;
-}
-
-@media (hover: hover) {
-    #board div:hover {
-        border-color: orange;
-        background-color: whitesmoke;
-    }
 }
 
 #board div svg {
@@ -116,22 +112,24 @@
 .corpse {
     /* TODO */
     cursor: not-allowed !important;
+    border-color: black !important;
+    background-color: lightgray !important;
 }
-/*.corpse svg circle {
-    TODO... Or maybe we don't need an SVG at all... Gotta investigate
-}*/
+.corpse svg circle {
+    fill: black !important;
+}
 
 .red-turn .red,
 .blue-turn .blue,
-.green-turn .green,
-.yellow-turn .yellow {
+.yellow-turn .yellow,
+.green-turn .green {
     cursor: pointer;
 }
 .highlight,
 .red-turn-highlight .red,
 .blue-turn-highlight .blue,
-.green-turn-highlight .green,
-.yellow-turn-highlight .yellow {
+.yellow-turn-highlight .yellow,
+.green-turn-highlight .green {
     border-color: orange !important;
     background-color: whitesmoke !important;
 }

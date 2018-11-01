@@ -21,7 +21,8 @@ class GenericPiece {
     couldMoveTo(targetSquare) {
         if (targetSquare == this.square) return false;
 
-        if (this.alive) {
+        if (this.alive && this.square != null) {
+            // If Alive and doesn't belong to a Square, it is being moved by a diplomat
             var isInValidDirection = false;
 
             var x = this.square.x;
@@ -54,10 +55,10 @@ class GenericPiece {
 
         if (targetSquare.piece == null)
             return true;
-        else if (targetSquare.piece.alive)
+        else if (targetSquare.piece.alive && targetSquare.piece.player != this.player)
             return this.canKill || this.canMovePiece;
         else
-            return this.canMoveCorpse;
+            return this.canMoveCorpse && !targetSquare.piece.alive;
     }
 
     moveTo(targetSquare) {
@@ -69,6 +70,7 @@ class GenericPiece {
         if (this.square != null) this.square.piece = null;
 
         var targetPiece = targetSquare.piece;
+        if (targetPiece != null) targetPiece.square = null;
 
         this.square = targetSquare;
         this.square.piece = this;
@@ -124,7 +126,7 @@ class Diplomat extends GenericPiece {
     }
 
     get canMovePiece() {
-        return false;
+        return true;
     }
 
     // Based on ruling... There's no mention that Diplomat can't move another piece of its same owner...
@@ -136,7 +138,7 @@ class Necromobile extends GenericPiece {
     }
 
     get canMoveCorpse() {
-        return false;
+        return true;
     }
 }
 
@@ -179,6 +181,8 @@ class Square {
         if (this.piece == null) return;
 
         square.className += this.piece.player.color.toLowerCase();
+        if (!this.piece.alive) square.className += " corpse";
+        
         square.innerHTML = game.svg.get(this.piece);
     }
 }
@@ -351,12 +355,15 @@ class Player {
             document.getElementById("board").className +=
                 " " + this.color.toLowerCase() + "-turn-highlight";
         }
+
+        // TODO: Highlight individual pieces and render them... So we can avoid highlightnig corpses :P
     }
 
     onClick(square) {
         if (this.moving == null) {
             if (square.piece == null) return;
             else if (square.piece != null && square.piece.player != this) return;
+            else if (!square.piece.alive) return;
 
             this.moving = square.piece;
             square.highlight = true;
