@@ -126,10 +126,10 @@
     cursor: pointer;
 }
 .highlight,
-.red-turn-highlight .red,
-.blue-turn-highlight .blue,
-.yellow-turn-highlight .yellow,
-.green-turn-highlight .green {
+.red-turn-highlight .red:not(.corpse),
+.blue-turn-highlight .blue:not(.corpse),
+.yellow-turn-highlight .yellow:not(.corpse),
+.green-turn-highlight .green:not(.corpse) {
     border-color: orange !important;
     background-color: whitesmoke !important;
 }
