@@ -124,529 +124,531 @@ especie(amurensis).
 especie(decussatus).
 especie(calcitrans).
 /*Miembros animalia*/
-animalia(buitre).
-animalia(pavo).
-animalia(cuervo).
-animalia(oveja).
-animalia(ciervo).
-animalia(buey).
-animalia(jirafa).
-animalia(leopardo).
-animalia(tigre).
-animalia(nutria).
-animalia(comadreja).
-animalia(foca).
-animalia(mapache).
-animalia(ballena).
-animalia(armadillo).
-animalia(rinoceronte).
-animalia(cebra).
-animalia(asno).
-animalia(medusa).
-animalia(ostra).
-animalia(camaron).
-animalia(ciempies).
-animalia(mariposa).
-animalia(esponja).
-animalia(amarilla).
-animalia(avispa_arborea).
-animalia(anemona_gigante).
-animalia(estrella_del_pacifico).
-animalia(almeja).
-animalia(ostra).
-animalia(mosca).
+animalia(gyps_bengalensis).
+animalia(melleagris_galopavo).
+animalia(corvus_corax).
+animalia(ovis_aries).
+animalia(cervus_elaphus).
+animalia(ovibos_moschatus).
+animalia(giraffa_camelopardalis).
+animalia(panthera_pardus).
+animalia(panthera_tigris).
+animalia(aonyx_cinarea).
+animalia(mustela_nivalis).
+animalia(phoca_vitulina).
+animalia(procyon_lotor).
+animalia(balaenoptera_musculus).
+animalia(priodontes_maximus).
+animalia(diceros_bicornis).
+animalia(equus_burchellii).
+animalia(equus_asinus).
+animalia(aurelia_aurita).
+animalia(ostrea_edulis).
+animalia(alpheus_armatus).
+animalia(haplophilus_subterraneus).
+animalia(pararge_aegeria).
+animalia(agelas_oroides).
+animalia(dolichovespula_sylvestries).
+animalia(telmatactis_cricoides).
+animalia(asterias_amurensis).
+animalia(tapes_decussatus).
+animalia(stomoxys_calcitrans).
 /*Miembros FILO*/
 /*Miembros chordata*/
-chordata(buitre).
-chordata(pavo).
-chordata(cuervo).
-chordata(oveja).
-chordata(ciervo).
-chordata(buey).
-chordata(jirafa).
-chordata(leopardo).
-chordata(tigre).
-chordata(nutria).
-chordata(comadreja).
-chordata(foca).
-chordata(mapache).
-chordata(ballena).
-chordata(armadillo).
-chordata(rinoceronte).
-chordata(cebra).
-chordata(asno).
+chordata(gyps_bengalensis).
+chordata(melleagris_galopavo).
+chordata(corvus_corax).
+chordata(ovis_aries).
+chordata(cervus_elaphus).
+chordata(ovibos_moschatus).
+chordata(giraffa_camelopardalis).
+chordata(panthera_pardus).
+chordata(panthera_tigris).
+chordata(aonyx_cinarea).
+chordata(mustela_nivalis).
+chordata(phoca_vitulina).
+chordata(procyon_lotor).
+chordata(balaenoptera_musculus).
+chordata(priodontes_maximus).
+chordata(diceros_bicornis).
+chordata(equus_burchellii).
+chordata(equus_asinus).
 /*Miembros cnidaria*/
-cnidaria(medusa).
+cnidaria(aurelia_aurita).
 cnidaria(anemona_gigante).
 /*Miembros mollusca*/
-mollusca(ostra).
-mollusca(almeja).
+mollusca(ostrea_edulis).
+mollusca(tapes_decussatus).
 /*Miembros arthropoda*/
-arthropoda(camaron).
-arthropoda(ciempies).
-arthropoda(mariposa).
-arthropoda(avispa_arborea).
-arthropoda(mosca).
+arthropoda(alpheus_armatus).
+arthropoda(haplophilus_subterraneus).
+arthropoda(pararge_aegeria).
+arthropoda(dolichovespula_sylvestries).
+arthropoda(stomoxys_calcitrans).
 /*Miembros porifera*/
-porifera(esponja).
+porifera(agelas_oroides).
 /*Miembros echinodermata*/
-echinodermata(estrella_del_pacifico).
+echinodermata(asterias_amurensis).
 /*Miembros CLASE*/
 /*Miembros aves*/
-aves(buitre).
-aves(pavo).
-aves(cuervo).
+aves(gyps_bengalensis).
+aves(melleagris_galopavo).
+aves(corvus_corax).
 /*Miembros mammalia*/
-mammalia(oveja).
-mammalia(ciervo).
-mammalia(buey).
-mammalia(jirafa).
-mammalia(leopardo).
-mammalia(tigre).
-mammalia(nutria).
-mammalia(comadreja).
-mammalia(foca).
-mammalia(mapache).
-mammalia(ballena).
-mammalia(armadillo).
-mammalia(rinoceronte).
-mammalia(cebra).
-mammalia(asno).
+mammalia(ovis_aries).
+mammalia(cervus_elaphus).
+mammalia(ovibos_moschatus).
+mammalia(giraffa_camelopardalis).
+mammalia(panthera_pardus).
+mammalia(panthera_tigris).
+mammalia(aonyx_cinarea).
+mammalia(mustela_nivalis).
+mammalia(phoca_vitulina).
+mammalia(procyon_lotor).
+mammalia(balaenoptera_musculus).
+mammalia(priodontes_maximus).
+mammalia(diceros_bicornis).
+mammalia(equus_burchellii).
+mammalia(equus_asinus).
 /*Miembros scyphozoa*/
-scyphozoa(medusa).
+scyphozoa(aurelia_aurita).
 /*Miembros bivalvia*/
-bivalvia(ostra).
-bivalvia(almeja).
+bivalvia(ostrea_edulis).
+bivalvia(tapes_decussatus).
 /*Miembros crustacea*/
-crustacea(camaron).
+crustacea(alpheus_armatus).
 /*Miembros chilopoda*/
-chilopoda(ciempies).
+chilopoda(haplophilus_subterraneus).
 /*Miembros insecta*/
-insecta(mariposa).
-insecta(avispa_arborea).
-insecta(mosca).
+insecta(pararge_aegeria).
+insecta(dolichovespula_sylvestries).
+insecta(stomoxys_calcitrans).
 /*Miembros demospongiae*/
-demospongiae(esponja).
+demospongiae(agelas_oroides).
 /*Miembros anthozoa*/
 anthozoa(anemona_gigante).
 /*Miembros asteroidea*/
-asteroidea(estrella_del_pacifico).
+asteroidea(asterias_amurensis).
 /*Miembros ORDEN*/
 /*Miembros falconiformes*/
-falconiformes(buitre).
+falconiformes(gyps_bengalensis).
 /*Miembros galliformes*/
-galliformes(pavo).
+galliformes(melleagris_galopavo).
 /*Miembros passeriformes*/
-passeriformes(cuervo).
+passeriformes(corvus_corax).
 /*Miembros artiodactyla*/
-artiodactyla(oveja).
-artiodactyla(ciervo).
-artiodactyla(buey).
-artiodactyla(jirafa).
+artiodactyla(ovis_aries).
+artiodactyla(cervus_elaphus).
+artiodactyla(ovibos_moschatus).
+artiodactyla(giraffa_camelopardalis).
 /*Miembros carnivora*/
-carnivora(leopardo).
-carnivora(tigre).
-carnivora(nutria).
-carnivora(comadreja).
-carnivora(foca).
-carnivora(mapache).
+carnivora(panthera_pardus).
+carnivora(panthera_tigris).
+carnivora(aonyx_cinarea).
+carnivora(mustela_nivalis).
+carnivora(phoca_vitulina).
+carnivora(procyon_lotor).
 /*Miembros cetacea*/
-cetacea(ballena).
+cetacea(balaenoptera_musculus).
 /*Miembros cingulata*/
-cingulata(armadillo).
+cingulata(priodontes_maximus).
 /*Miembros perissodactyla*/
-perissodactyla(rinoceronte).
+perissodactyla(diceros_bicornis).
 /*Miembros perissodactyla*/
-perissodactyla(cebra).
-perissodactyla(asno).
+perissodactyla(equus_burchellii).
+perissodactyla(equus_asinus).
 /*Miembros semaeotomeae*/
-semaeotomeae(medusa).
+semaeotomeae(aurelia_aurita).
 /*Miembros ostreoida*/
-ostreoida(ostra).
+ostreoida(ostrea_edulis).
 /*Miembros decapoda*/
-decapoda(camaron).
+decapoda(alpheus_armatus).
 /*Miembros geophilomorpha*/
-geophilomorpha(ciempies).
+geophilomorpha(haplophilus_subterraneus).
 /*Miembros lepidoptera*/
-lepidoptera(mariposa).
+lepidoptera(pararge_aegeria).
 /*Miembros agelasida*/
-agelasida(esponja).
+agelasida(agelas_oroides).
 /*Miembros hymenoptera*/
-hymenoptera(avispa_arborea).
+hymenoptera(dolichovespula_sylvestries).
 /*Miembros actiniaria*/
 actiniaria(anemona_gigante).
 /*Miembros forcipulatida*/
-forcipulatida(estrella_del_pacifico).
+forcipulatida(asterias_amurensis).
 /*Miembros veneroidea*/
-veneroidea(almeja).
+veneroidea(tapes_decussatus).
 /*Miembros diptera*/
-diptera(mosca).
+diptera(stomoxys_calcitrans).
 /*Miembros FAMILIA*/
 /*Miembros accipitridae*/
-accipitridae(buitre).
+accipitridae(gyps_bengalensis).
 /*Miembros phasianidae*/
-phasianidae(pavo).
+phasianidae(melleagris_galopavo).
 /*Miembros corvidae*/
-corvidae(cuervo).
+corvidae(corvus_corax).
 /*Miembros bovidae*/
-bovidae(oveja).
-bovidae(buey).
+bovidae(ovis_aries).
+bovidae(ovibos_moschatus).
 /*Miembros cervidae*/
-cervidae(ciervo).
+cervidae(cervus_elaphus).
 /*Miembros giraffidae*/
-giraffidae(jirafa).
+giraffidae(giraffa_camelopardalis).
 /*Miembros felidae*/
-felidae(leopardo).
-felidae(tigre).
+felidae(panthera_pardus).
+felidae(panthera_tigris).
 /*Miembros mustelidae*/
-mustelidae(nutria).
-mustelidae(comadreja).
+mustelidae(aonyx_cinarea).
+mustelidae(mustela_nivalis).
 /*Miembros phocidae*/
-phocidae(foca).
+phocidae(phoca_vitulina).
 /*Miembros procyonidae*/
-procyonidae(mapache).
+procyonidae(procyon_lotor).
 /*Miembros balaenopteridae*/
-balaenopteridae(ballena).
+balaenopteridae(balaenoptera_musculus).
 /*Miembros dasypodidae*/
-dasypodidae(armadillo).
+dasypodidae(priodontes_maximus).
 /*Miembros rhinocerotidae*/
-rhinocerotidae(rinoceronte).
+rhinocerotidae(diceros_bicornis).
 /*Miembros equidae*/
-equidae(cebra).
-equidae(asno).
+equidae(equus_burchellii).
+equidae(equus_asinus).
 /*Miembros ulmaridae*/
-ulmaridae(medusa).
+ulmaridae(aurelia_aurita).
 /*Miembros ostreidae*/
-ostreidae(ostra).
+ostreidae(ostrea_edulis).
 /*Miembros alpheidae*/
-alpheidae(camaron).
+alpheidae(alpheus_armatus).
 /*Miembros himantariidae*/
-himantariidae(ciempies).
+himantariidae(haplophilus_subterraneus).
 /*Miembros nymphalidae*/
-nymphalidae(mariposa).
+nymphalidae(pararge_aegeria).
 /*Miembros agelasidae*/
-agelasidae(esponja).
+agelasidae(agelas_oroides).
 /*Miembros vespidae*/
-vespidae(avispa_arborea).
+vespidae(dolichovespula_sylvestries).
 /*Miembros isophellidae*/
 isophellidae(anemona_gigante).
 /*Miembros asteriidae*/
-asteriidae(estrella_del_pacifico).
+asteriidae(asterias_amurensis).
 /*Miembros veneridae*/
-veneridae(almeja).
+veneridae(tapes_decussatus).
 /*Miembros muscidae*/
-muscidae(mosca).
+muscidae(stomoxys_calcitrans).
 /*Miembros GENERO*/
-gyps(buitre).
-melleagris(pavo).
-corvus(cuervo).
-ovis(oveja).
-ciervo(cervus).
-ovibos(buey).
-giraffa(jirafa).
-panthera(leopardo).
-panthera(tigre).
-aonyx(nutria).
-mustela(comadreja).
-phoca(foca).
-procyon(mapache).
-balaenoptera(ballena).
-priodontes(armadillo).
-diceros(rinoceronte).
-equus(cebra).
-equus(asno).
-aurelia(medusa).
-ostrea(ostra).
-alpheus(camaron).
-haplophilus(ciempies).
-pararge(mariposa).
-agelas(esponja).
-dolichovespula(avispa_arborea).
+gyps(gyps_bengalensis).
+melleagris(melleagris_galopavo).
+corvus(corvus_corax).
+ovis(ovis_aries).
+cervus_elaphus(cervus).
+ovibos(ovibos_moschatus).
+giraffa(giraffa_camelopardalis).
+panthera(panthera_pardus).
+panthera(panthera_tigris).
+aonyx(aonyx_cinarea).
+mustela(mustela_nivalis).
+phoca(phoca_vitulina).
+procyon(procyon_lotor).
+balaenoptera(balaenoptera_musculus).
+priodontes(priodontes_maximus).
+diceros(diceros_bicornis).
+equus(equus_burchellii).
+equus(equus_asinus).
+aurelia(aurelia_aurita).
+ostrea(ostrea_edulis).
+alpheus(alpheus_armatus).
+haplophilus(haplophilus_subterraneus).
+pararge(pararge_aegeria).
+agelas(agelas_oroides).
+dolichovespula(dolichovespula_sylvestries).
 telmatactis(anemona_gigante).
-asterias(estrella_del_pacifico).
-tapes(almeja).
-mosca(stomoxys).
+asterias(asterias_amurensis).
+tapes(tapes_decussatus).
+stomoxys_calcitrans(stomoxys).
 /*Miembros especie*/
-bengalensis(buitre).
-galopavo(pavo).
-corax(cuervo).
-aries(oveja).
-elaphus(ciervo).
-moschatus(buey).
-camelopardalis(jirafa).
-pardus(leopardo).
-tigris(tigre).
-cinarea(nutria).
-nivalis(comadreja).
-vitulina(foca).
-lotor(mapache).
-musculus(ballena).
-maximus(armadillo).
-bicornis(rinoceronte).
-burchelli(cebra).
-asinus(asno).
-aurita(medusa).
-edulis(ostra).
-armatus(camaron).
-subterraneus(ciempies).
-aegeria(mariposa).
-oroides(esponja).
-sylvestries(avispa_arborea).
+bengalensis(gyps_bengalensis).
+galomelleagris_galopavo(melleagris_galopavo).
+corax(corvus_corax).
+aries(ovis_aries).
+elaphus(cervus_elaphus).
+moschatus(ovibos_moschatus).
+camelopardalis(giraffa_camelopardalis).
+pardus(panthera_pardus).
+tigris(panthera_tigris).
+cinarea(aonyx_cinarea).
+nivalis(mustela_nivalis).
+vitulina(phoca_vitulina).
+lotor(procyon_lotor).
+musculus(balaenoptera_musculus).
+maximus(priodontes_maximus).
+bicornis(diceros_bicornis).
+burchelli(equus_burchellii).
+asinus(equus_asinus).
+aurita(aurelia_aurita).
+edulis(ostrea_edulis).
+armatus(alpheus_armatus).
+subterraneus(haplophilus_subterraneus).
+aegeria(pararge_aegeria).
+oroides(agelas_oroides).
+sylvestries(dolichovespula_sylvestries).
 cricoides(anemona_gigante).
-amurensis(estrella_del_pacifico).
-decussatus(almeja).
-calcitrans(mosca).
+amurensis(asterias_amurensis).
+decussatus(tapes_decussatus).
+calcitrans(stomoxys_calcitrans).
 
 /*Es reino de*/
-es_reino_de(buitre,animalia).
-es_reino_de(pavo,animalia).
-es_reino_de(cuervo,animalia).
-es_reino_de(oveja,animalia).
-es_reino_de(ciervo,animalia).
-es_reino_de(buey,animalia).
-es_reino_de(jirafa,animalia).
-es_reino_de(leopardo,animalia).
-es_reino_de(tigre,animalia).
-es_reino_de(nutria,animalia).
-es_reino_de(comadreja,animalia).
-es_reino_de(foca,animalia).
-es_reino_de(mapache,animalia).
-es_reino_de(ballena,animalia).
-es_reino_de(armadillo,animalia).
-es_reino_de(rinoceronte,animalia).
-es_reino_de(cebra,animalia).
-es_reino_de(asno,animalia).
-es_reino_de(medusa,animalia).
-es_reino_de(ostra,animalia).
-es_reino_de(camaron,animalia).
-es_reino_de(ciempies,animalia).
-es_reino_de(mariposa,animalia).
-es_reino_de(esponja,animalia).
-es_reino_de(avispa_arborea,animalia).
+es_reino_de(gyps_bengalensis,animalia).
+es_reino_de(melleagris_galopavo,animalia).
+es_reino_de(corvus_corax,animalia).
+es_reino_de(ovis_aries,animalia).
+es_reino_de(cervus_elaphus,animalia).
+es_reino_de(ovibos_moschatus,animalia).
+es_reino_de(giraffa_camelopardalis,animalia).
+es_reino_de(panthera_pardus,animalia).
+es_reino_de(panthera_tigris,animalia).
+es_reino_de(aonyx_cinarea,animalia).
+es_reino_de(mustela_nivalis,animalia).
+es_reino_de(phoca_vitulina,animalia).
+es_reino_de(procyon_lotor,animalia).
+es_reino_de(balaenoptera_musculus,animalia).
+es_reino_de(priodontes_maximus,animalia).
+es_reino_de(diceros_bicornis,animalia).
+es_reino_de(equus_burchellii,animalia).
+es_reino_de(equus_asinus,animalia).
+es_reino_de(aurelia_aurita,animalia).
+es_reino_de(ostrea_edulis,animalia).
+es_reino_de(alpheus_armatus,animalia).
+es_reino_de(haplophilus_subterraneus,animalia).
+es_reino_de(pararge_aegeria,animalia).
+es_reino_de(agelas_oroides,animalia).
+es_reino_de(dolichovespula_sylvestries,animalia).
 es_reino_de(anemona_gigante,animalia).
-es_reino_de(estrella_del_pacifico,animalia).
-es_reino_de(almeja,animalia).
-es_reino_de(mosca,animalia).
+es_reino_de(asterias_amurensis,animalia).
+es_reino_de(tapes_decussatus,animalia).
+es_reino_de(stomoxys_calcitrans,animalia).
 
 /*Es filo de*/
-es_filo_de(buitre,chordata).
-es_filo_de(pavo,chordata).
-es_filo_de(cuervo,chordata).
-es_filo_de(oveja,chordata).
-es_filo_de(ciervo,chordata).
-es_filo_de(buey,chordata).
-es_filo_de(jirafa,chordata).
-es_filo_de(leopardo,chordata).
-es_filo_de(tigre,chordata).
-es_filo_de(nutria,chordata).
-es_filo_de(comadreja,chordata).
-es_filo_de(foca,chordata).
-es_filo_de(mapache,chordata).
-es_filo_de(ballena,chordata).
-es_filo_de(armadillo,chordata).
-es_filo_de(rinoceronte,chordata).
-es_filo_de(cebra,chordata).
-es_filo_de(asno,chordata).
-es_filo_de(medusa,cnidaria).
-es_filo_de(ostra,mollusca).
-es_filo_de(camaron,arthropoda).
-es_filo_de(ciempies,arthropoda).
-es_filo_de(mariposa,arthropoda).
-es_filo_de(esponja,porifera).
-es_filo_de(avispa_arborea,arthropoda).
+es_filo_de(gyps_bengalensis,chordata).
+es_filo_de(melleagris_galopavo,chordata).
+es_filo_de(corvus_corax,chordata).
+es_filo_de(ovis_aries,chordata).
+es_filo_de(cervus_elaphus,chordata).
+es_filo_de(ovibos_moschatus,chordata).
+es_filo_de(giraffa_camelopardalis,chordata).
+es_filo_de(panthera_pardus,chordata).
+es_filo_de(panthera_tigris,chordata).
+es_filo_de(aonyx_cinarea,chordata).
+es_filo_de(mustela_nivalis,chordata).
+es_filo_de(phoca_vitulina,chordata).
+es_filo_de(procyon_lotor,chordata).
+es_filo_de(balaenoptera_musculus,chordata).
+es_filo_de(priodontes_maximus,chordata).
+es_filo_de(diceros_bicornis,chordata).
+es_filo_de(equus_burchellii,chordata).
+es_filo_de(equus_asinus,chordata).
+es_filo_de(aurelia_aurita,cnidaria).
+es_filo_de(ostrea_edulis,mollusca).
+es_filo_de(alpheus_armatus,arthropoda).
+es_filo_de(haplophilus_subterraneus,arthropoda).
+es_filo_de(pararge_aegeria,arthropoda).
+es_filo_de(agelas_oroides,porifera).
+es_filo_de(dolichovespula_sylvestries,arthropoda).
 es_filo_de(anemona_gigante,cnidaria).
-es_filo_de(estrella_del_pacifico,echinodermata).
-es_filo_de(almeja,mollusca).
-es_filo_de(mosca,arthropoda).
+es_filo_de(asterias_amurensis,echinodermata).
+es_filo_de(tapes_decussatus,mollusca).
+es_filo_de(stomoxys_calcitrans,arthropoda).
 
 /*Es clase de*/
-es_clase_de(buitre,aves).
-es_clase_de(pavo,aves).
-es_clase_de(cuervo,aves).
-es_clase_de(oveja,mammalia).
-es_clase_de(ciervo,mammalia).
-es_clase_de(buey,mammalia).
-es_clase_de(jirafa,mammalia).
-es_clase_de(leopardo,mammalia).
-es_clase_de(tigre,mammalia).
-es_clase_de(nutria,mammalia).
-es_clase_de(comadreja,mammalia).
-es_clase_de(foca,mammalia).
-es_clase_de(mapache,mammalia).
-es_clase_de(ballena,mammalia).
-es_clase_de(armadillo,mammalia).
-es_clase_de(rinoceronte,mammalia).
-es_clase_de(cebra,mammalia).
-es_clase_de(asno,mammalia).
-es_clase_de(medusa,scyphozoa).
-es_clase_de(ostra,bivalvia).
-es_clase_de(camaron,crustacea).
-es_clase_de(ciempies,chilopoda).
-es_clase_de(mariposa,insecta).
-es_clase_de(esponja,demospongiae).
-es_clase_de(avispa_arborea,insecta).
+es_clase_de(gyps_bengalensis,aves).
+es_clase_de(melleagris_galopavo,aves).
+es_clase_de(corvus_corax,aves).
+es_clase_de(ovis_aries,mammalia).
+es_clase_de(cervus_elaphus,mammalia).
+es_clase_de(ovibos_moschatus,mammalia).
+es_clase_de(giraffa_camelopardalis,mammalia).
+es_clase_de(panthera_pardus,mammalia).
+es_clase_de(panthera_tigris,mammalia).
+es_clase_de(aonyx_cinarea,mammalia).
+es_clase_de(mustela_nivalis,mammalia).
+es_clase_de(phoca_vitulina,mammalia).
+es_clase_de(procyon_lotor,mammalia).
+es_clase_de(balaenoptera_musculus,mammalia).
+es_clase_de(priodontes_maximus,mammalia).
+es_clase_de(diceros_bicornis,mammalia).
+es_clase_de(equus_burchellii,mammalia).
+es_clase_de(equus_asinus,mammalia).
+es_clase_de(aurelia_aurita,scyphozoa).
+es_clase_de(ostrea_edulis,bivalvia).
+es_clase_de(alpheus_armatus,crustacea).
+es_clase_de(haplophilus_subterraneus,chilopoda).
+es_clase_de(pararge_aegeria,insecta).
+es_clase_de(agelas_oroides,demospongiae).
+es_clase_de(dolichovespula_sylvestries,insecta).
 es_clase_de(anemona_gigante,anthozoa).
-es_clase_de(estrella_del_pacifico,asteroidea).
-es_clase_de(almeja,bivalvia).
-es_clase_de(mosca,insecta).
+es_clase_de(asterias_amurensis,asteroidea).
+es_clase_de(tapes_decussatus,bivalvia).
+es_clase_de(stomoxys_calcitrans,insecta).
 
 /*Es orden de*/
-es_orden_de(buitre,falconiformes).
-es_orden_de(pavo,galliformes).
-es_orden_de(cuervo,passeriformes).
-es_orden_de(oveja,artiodactyla).
-es_orden_de(ciervo,artiodactyla).
-es_orden_de(buey,artiodactyla).
-es_orden_de(jirafa,artiodactyla).
-es_orden_de(leopardo,carnivora).
-es_orden_de(tigre,carnivora).
-es_orden_de(nutria,carnivora).
-es_orden_de(comadreja,carnivora).
-es_orden_de(foca,carnivora).
-es_orden_de(mapache,carnivora).
-es_orden_de(ballena,cetacea).
-es_orden_de(armadillo,cingulata).
-es_orden_de(rinoceronte,perissodactyla).
-es_orden_de(cebra,perissodactyla).
-es_orden_de(asno,perissodactyla).
-es_orden_de(medusa,semaeotomeae).
-es_orden_de(ostra,ostreoida).
-es_orden_de(camaron,decapoda).
-es_orden_de(ciempies,geophilomorpha).
-es_orden_de(mariposa,lepidoptera).
-es_orden_de(esponja,agelasida).
-es_orden_de(avispa_arborea,hymenoptera).
+es_orden_de(gyps_bengalensis,falconiformes).
+es_orden_de(melleagris_galopavo,galliformes).
+es_orden_de(corvus_corax,passeriformes).
+es_orden_de(ovis_aries,artiodactyla).
+es_orden_de(cervus_elaphus,artiodactyla).
+es_orden_de(ovibos_moschatus,artiodactyla).
+es_orden_de(giraffa_camelopardalis,artiodactyla).
+es_orden_de(panthera_pardus,carnivora).
+es_orden_de(panthera_tigris,carnivora).
+es_orden_de(aonyx_cinarea,carnivora).
+es_orden_de(mustela_nivalis,carnivora).
+es_orden_de(phoca_vitulina,carnivora).
+es_orden_de(procyon_lotor,carnivora).
+es_orden_de(balaenoptera_musculus,cetacea).
+es_orden_de(priodontes_maximus,cingulata).
+es_orden_de(diceros_bicornis,perissodactyla).
+es_orden_de(equus_burchellii,perissodactyla).
+es_orden_de(equus_asinus,perissodactyla).
+es_orden_de(aurelia_aurita,semaeotomeae).
+es_orden_de(ostrea_edulis,ostreoida).
+es_orden_de(alpheus_armatus,decapoda).
+es_orden_de(haplophilus_subterraneus,geophilomorpha).
+es_orden_de(pararge_aegeria,lepidoptera).
+es_orden_de(agelas_oroides,agelasida).
+es_orden_de(dolichovespula_sylvestries,hymenoptera).
 es_orden_de(anemona_gigante,actiniaria).
-es_orden_de(estrella_del_pacifico,forcipulatida).
-es_orden_de(almeja,veneroidea).
-es_orden_de(mosca,diptera).
+es_orden_de(asterias_amurensis,forcipulatida).
+es_orden_de(tapes_decussatus,veneroidea).
+es_orden_de(stomoxys_calcitrans,diptera).
 
 /*Es familia de*/
-es_la_familia_de(buitre,accipitridae).
-es_la_familia_de(pavo,phasianidae).
-es_la_familia_de(cuervo,corvidae).
-es_la_familia_de(oveja,bovidae).
-es_la_familia_de(ciervo,cervidae).
-es_la_familia_de(buey,bovidae).
-es_la_familia_de(jirafa,giraffidae).
-es_la_familia_de(leopardo,felidae).
-es_la_familia_de(tigre,felidae).
-es_la_familia_de(nutria,mustelidae).
-es_la_familia_de(comadreja,mustelidae).
-es_la_familia_de(foca,phocidae).
-es_la_familia_de(mapache,procyonidae).
-es_la_familia_de(ballena,balaenopteridae).
-es_la_familia_de(armadillo,dasypodidae).
-es_la_familia_de(rinoceronte,rhinocerotidae).
-es_la_familia_de(cebra,equidae).
-es_la_familia_de(asno,equidae).
-es_la_familia_de(medusa,ulmaridae).
-es_la_familia_de(ostra,ostreidae).
-es_la_familia_de(camaron,alpheidae).
-es_la_familia_de(ciempies,himantariidae).
-es_la_familia_de(mariposa,nymphalidae).
-es_la_familia_de(esponja,agelasidae).
-es_la_familia_de(avispa_arborea,vespidae).
+es_la_familia_de(gyps_bengalensis,accipitridae).
+es_la_familia_de(melleagris_galopavo,phasianidae).
+es_la_familia_de(corvus_corax,corvidae).
+es_la_familia_de(ovis_aries,bovidae).
+es_la_familia_de(cervus_elaphus,cervidae).
+es_la_familia_de(ovibos_moschatus,bovidae).
+es_la_familia_de(giraffa_camelopardalis,giraffidae).
+es_la_familia_de(panthera_pardus,felidae).
+es_la_familia_de(panthera_tigris,felidae).
+es_la_familia_de(aonyx_cinarea,mustelidae).
+es_la_familia_de(mustela_nivalis,mustelidae).
+es_la_familia_de(phoca_vitulina,phocidae).
+es_la_familia_de(procyon_lotor,procyonidae).
+es_la_familia_de(balaenoptera_musculus,balaenopteridae).
+es_la_familia_de(priodontes_maximus,dasypodidae).
+es_la_familia_de(diceros_bicornis,rhinocerotidae).
+es_la_familia_de(equus_burchellii,equidae).
+es_la_familia_de(equus_asinus,equidae).
+es_la_familia_de(aurelia_aurita,ulmaridae).
+es_la_familia_de(ostrea_edulis,ostreidae).
+es_la_familia_de(alpheus_armatus,alpheidae).
+es_la_familia_de(haplophilus_subterraneus,himantariidae).
+es_la_familia_de(pararge_aegeria,nymphalidae).
+es_la_familia_de(agelas_oroides,agelasidae).
+es_la_familia_de(dolichovespula_sylvestries,vespidae).
 es_la_familia_de(anemona_gigante,isophellidae).
-es_la_familia_de(estrella_del_pacifico,asteriidae).
-es_la_familia_de(almeja,veneridae).
-es_la_familia_de(mosca,muscidae).
+es_la_familia_de(asterias_amurensis,asteriidae).
+es_la_familia_de(tapes_decussatus,veneridae).
+es_la_familia_de(stomoxys_calcitrans,muscidae).
 
 /*Es genero de*/
-es_el_genero_de(buitre,gyps).
-es_el_genero_de(pavo,melleagris).
-es_el_genero_de(cuervo,corvus).
-es_el_genero_de(oveja,ovis).
-es_el_genero_de(ciervo,cervus).
-es_el_genero_de(buey,ovibos).
-es_el_genero_de(jirafa,giraffa).
-es_el_genero_de(leopardo,panthera).
-es_el_genero_de(tigre,panthera).
-es_el_genero_de(nutria,aonyx).
-es_el_genero_de(comadreja,mustela).
-es_el_genero_de(foca,phoca).
-es_el_genero_de(mapache,procyon).
-es_el_genero_de(ballena,balaenoptera).
-es_el_genero_de(armadillo,priodontes).
-es_el_genero_de(rinoceronte,diceros).
-es_el_genero_de(cebra,equus).
-es_el_genero_de(asno,equus).
-es_el_genero_de(medusa,aurelia).
-es_el_genero_de(ostra,ostrea).
-es_el_genero_de(camaron,alpheus).
-es_el_genero_de(ciempies,haplophilus).
-es_el_genero_de(mariposa,pararge).
-es_el_genero_de(esponja,agelas).
-es_el_genero_de(avispa_arborea,dolichovespula).
+es_el_genero_de(gyps_bengalensis,gyps).
+es_el_genero_de(melleagris_galopavo,melleagris).
+es_el_genero_de(corvus_corax,corvus).
+es_el_genero_de(ovis_aries,ovis).
+es_el_genero_de(cervus_elaphus,cervus).
+es_el_genero_de(ovibos_moschatus,ovibos).
+es_el_genero_de(giraffa_camelopardalis,giraffa).
+es_el_genero_de(panthera_pardus,panthera).
+es_el_genero_de(panthera_tigris,panthera).
+es_el_genero_de(aonyx_cinarea,aonyx).
+es_el_genero_de(mustela_nivalis,mustela).
+es_el_genero_de(phoca_vitulina,phoca).
+es_el_genero_de(procyon_lotor,procyon).
+es_el_genero_de(balaenoptera_musculus,balaenoptera).
+es_el_genero_de(priodontes_maximus,priodontes).
+es_el_genero_de(diceros_bicornis,diceros).
+es_el_genero_de(equus_burchellii,equus).
+es_el_genero_de(equus_asinus,equus).
+es_el_genero_de(aurelia_aurita,aurelia).
+es_el_genero_de(ostrea_edulis,ostrea).
+es_el_genero_de(alpheus_armatus,alpheus).
+es_el_genero_de(haplophilus_subterraneus,haplophilus).
+es_el_genero_de(pararge_aegeria,pararge).
+es_el_genero_de(agelas_oroides,agelas).
+es_el_genero_de(dolichovespula_sylvestries,dolichovespula).
 es_el_genero_de(anemona_gigante,telmatactis).
-es_el_genero_de(estrella_del_pacifico,asterias).
-es_el_genero_de(almeja,tapes).
-es_el_genero_de(mosca,stomoxys).
+es_el_genero_de(asterias_amurensis,asterias).
+es_el_genero_de(tapes_decussatus,tapes).
+es_el_genero_de(stomoxys_calcitrans,stomoxys).
 
 /*Es especia de*/
-es_especie_de(buitre,bengalensis).
-es_especie_de(pavo,galopavo).
-es_especie_de(cuervo,corax).
-es_especie_de(oveja,aries).
-es_especie_de(ciervo,elaphus).
-es_especie_de(buey,moschatus).
-es_especie_de(jirafa,camelopardalis).
-es_especie_de(leopardo,pardus).
-es_especie_de(tigre,tigris).
-es_especie_de(nutria,cinarea).
-es_especie_de(comadreja,nivalis).
-es_especie_de(foca,vitulina).
-es_especie_de(mapache,lotor).
-es_especie_de(ballena,musculus).
-es_especie_de(armadillo,maximus).
-es_especie_de(rinoceronte,bicornis).
-es_especie_de(cebra,burchelli).
-es_especie_de(asno,asinus).
-es_especie_de(medusa,aurita).
-es_especie_de(ostra,edulis).
-es_especie_de(camaron,armatus).
-es_especie_de(ciempies,subterraneus).
-es_especie_de(mariposa,aegeria).
-es_especie_de(esponja,oroides).
-es_especie_de(avispa_arborea,sylvestries).
+es_especie_de(gyps_bengalensis,bengalensis).
+es_especie_de(melleagris_galopavo,galomelleagris_galopavo).
+es_especie_de(corvus_corax,corax).
+es_especie_de(ovis_aries,aries).
+es_especie_de(cervus_elaphus,elaphus).
+es_especie_de(ovibos_moschatus,moschatus).
+es_especie_de(giraffa_camelopardalis,camelopardalis).
+es_especie_de(panthera_pardus,pardus).
+es_especie_de(panthera_tigris,tigris).
+es_especie_de(aonyx_cinarea,cinarea).
+es_especie_de(mustela_nivalis,nivalis).
+es_especie_de(phoca_vitulina,vitulina).
+es_especie_de(procyon_lotor,lotor).
+es_especie_de(balaenoptera_musculus,musculus).
+es_especie_de(priodontes_maximus,maximus).
+es_especie_de(diceros_bicornis,bicornis).
+es_especie_de(equus_burchellii,burchelli).
+es_especie_de(equus_asinus,asinus).
+es_especie_de(aurelia_aurita,aurita).
+es_especie_de(ostrea_edulis,edulis).
+es_especie_de(alpheus_armatus,armatus).
+es_especie_de(haplophilus_subterraneus,subterraneus).
+es_especie_de(pararge_aegeria,aegeria).
+es_especie_de(agelas_oroides,oroides).
+es_especie_de(dolichovespula_sylvestries,sylvestries).
 es_especie_de(anemona_gigante,cricoides).
-es_especie_de(estrella_del_pacifico,amurensis).
-es_especie_de(almeja,decussatus).
-es_especie_de(mosca,calcitrans).
+es_especie_de(asterias_amurensis,amurensis).
+es_especie_de(tapes_decussatus,decussatus).
+es_especie_de(stomoxys_calcitrans,calcitrans).
 
-/*Taxonomias*/
-taxonomia(buitre,animalia,chordata,aves,falconiformes,accipitridae,gyps,bengalensis).
-taxonomia(pavo,animalia,chordata,aves,galliformes,phasianidae,melleagris,galopavo).
-taxonomia(cuervo,animalia,chordata,aves,passeriformes,corvidae,corvus,corax).
-taxonomia(oveja,animalia,chordata,mammalia,artiodactyla,bovidae,ovis,aries).
-taxonomia(ciervo,animalia,chordata,mammalia,artiodactyla,cervidae,cervus,elaphus).
-taxonomia(buey,animalia,chordata,mammalia,artiodactyla,bovidae,ovibos,moschatus).
-taxonomia(jirafa,animalia,chordata,mammalia,artiodactyla,giraffidae,giraffa,camelopardalis).
-taxonomia(leopardo,animalia,chordata,mammalia,carnivora,felidae,panthera,pardus).
-taxonomia(tigre,animalia,chordata,mammalia,carnivora,felidae,panthera,tigris).
-taxonomia(nutria,animalia,chordata,mammalia,carnivora,mustelidae,aonyx,cinarea).
-taxonomia(comadreja,animalia,chordata,mammalia,carnivora,mustelidae,mustela,nivalis).
-taxonomia(foca,animalia,chordata,mammalia,carnivora,phocidae,phoca,vitulina).
-taxonomia(mapache,animalia,chordata,mammalia,carnivora,procyonidae,procyon,lotor).
-taxonomia(ballena,animalia,chordata,mammalia,cetacea,balaenopteridae,balaenoptera,musculus).
-taxonomia(armadillo,animalia,chordata,mammalia,cingulata,dasypodidae,priodontes,maximus).
-taxonomia(rinoceronte,animalia,chordata,mammalia,perissodactyla,rhinocerotidae,diceros,bicornis).
-taxonomia(cebra,animalia,chordata,mammalia,perissodactyla,equidae,equus,burchellii).
-taxonomia(asno,animalia,chordata,mammalia,perissodactyla,equidae,equus,asinus).
-taxonomia(medusa,animalia,cnidaria,scyphozoa,semaeotomeae,ulmaridae,aurelia,aurita).
-taxonomia(ostra,animalia,mollusca,bivalvia,ostreoida,ostreidae,ostrea,edulis).
-taxonomia(camaron,animalia,arthropoda,crustacea,decapoda,alpheidae,alpheus,armatus).
-taxonomia(ciempies,animalia,arthropoda,chilopoda,geophilomorpha,himantariidae,haplophilus,subterraneus).
-taxonomia(mariposa,animalia,arthropoda,insecta,lepidoptera,nymphalidae,pararge,aegeria).
-taxonomia(esponja,animalia,porifera,demospongiae,agelasida,agelasidae,agelas,oroides).
-taxonomia(avispa_arborea,animalia,arthropoda,insecta,hymenoptera,vespidae,dolichovespula,sylvestries).
+/*Taxonomias. Esto no lo ocupé xd*/
+taxonomia(gyps_bengalensis,animalia,chordata,aves,falconiformes,accipitridae,gyps,bengalensis).
+taxonomia(melleagris_galopavo,animalia,chordata,aves,galliformes,phasianidae,melleagris,galomelleagris_galopavo).
+taxonomia(corvus_corax,animalia,chordata,aves,passeriformes,corvidae,corvus,corax).
+taxonomia(ovis_aries,animalia,chordata,mammalia,artiodactyla,bovidae,ovis,aries).
+taxonomia(cervus_elaphus,animalia,chordata,mammalia,artiodactyla,cervidae,cervus,elaphus).
+taxonomia(ovibos_moschatus,animalia,chordata,mammalia,artiodactyla,bovidae,ovibos,moschatus).
+taxonomia(giraffa_camelopardalis,animalia,chordata,mammalia,artiodactyla,giraffidae,giraffa,camelopardalis).
+taxonomia(panthera_pardus,animalia,chordata,mammalia,carnivora,felidae,panthera,pardus).
+taxonomia(panthera_tigris,animalia,chordata,mammalia,carnivora,felidae,panthera,tigris).
+taxonomia(aonyx_cinarea,animalia,chordata,mammalia,carnivora,mustelidae,aonyx,cinarea).
+taxonomia(mustela_nivalis,animalia,chordata,mammalia,carnivora,mustelidae,mustela,nivalis).
+taxonomia(phoca_vitulina,animalia,chordata,mammalia,carnivora,phocidae,phoca,vitulina).
+taxonomia(procyon_lotor,animalia,chordata,mammalia,carnivora,procyonidae,procyon,lotor).
+taxonomia(balaenoptera_musculus,animalia,chordata,mammalia,cetacea,balaenopteridae,balaenoptera,musculus).
+taxonomia(priodontes_maximus,animalia,chordata,mammalia,cingulata,dasypodidae,priodontes,maximus).
+taxonomia(diceros_bicornis,animalia,chordata,mammalia,perissodactyla,rhinocerotidae,diceros,bicornis).
+taxonomia(equus_burchellii,animalia,chordata,mammalia,perissodactyla,equidae,equus,burchellii).
+taxonomia(equus_asinus,animalia,chordata,mammalia,perissodactyla,equidae,equus,asinus).
+taxonomia(aurelia_aurita,animalia,cnidaria,scyphozoa,semaeotomeae,ulmaridae,aurelia,aurita).
+taxonomia(ostrea_edulis,animalia,mollusca,bivalvia,ostreoida,ostreidae,ostrea,edulis).
+taxonomia(alpheus_armatus,animalia,arthropoda,crustacea,decapoda,alpheidae,alpheus,armatus).
+taxonomia(haplophilus_subterraneus,animalia,arthropoda,chilopoda,geophilomorpha,himantariidae,haplophilus,subterraneus).
+taxonomia(pararge_aegeria,animalia,arthropoda,insecta,lepidoptera,nymphalidae,pararge,aegeria).
+taxonomia(agelas_oroides,animalia,porifera,demospongiae,agelasida,agelasidae,agelas,oroides).
+taxonomia(dolichovespula_sylvestries,animalia,arthropoda,insecta,hymenoptera,vespidae,dolichovespula,sylvestries).
 taxonomia(anemona_gigante,animalia,cnidaria,anthozoa,actiniaria,isophellidae,telmatactis,cricoides).
-taxonomia(estrella_del_pacifico,animalia,echinodermata,asteroidea,forcipulatida,asteriidae,asterias,amurensis).
-taxonomia(almeja,animalia,mollusca,bivalvia,veneroidea,veneridae,tapes,decussatus).
-taxonomia(mosca,animalia,arthropoda,insecta,diptera,muscidae,stomoxys,calcitrans).
+taxonomia(asterias_amurensis,animalia,echinodermata,asteroidea,forcipulatida,asteriidae,asterias,amurensis).
+taxonomia(tapes_decussatus,animalia,mollusca,bivalvia,veneroidea,veneridae,tapes,decussatus).
+taxonomia(stomoxys_calcitrans,animalia,arthropoda,insecta,diptera,muscidae,stomoxys,calcitrans).
 
+
+
+/*Pregunta si X pertenece a Y*/
 pertenece(Y,X):-es_reino_de(X,Y);es_filo_de(X,Y);es_clase_de(X,Y);es_orden_de(X,Y);es_la_familia_de(X,Y);es_el_genero_de(X,Y);es_especie_de(X,Y).
 
+/*Compara si X y Y pertenecen a un mismo Z (clasicicacion taxonomica*/
 c_reino(X,Y):-es_reino_de(X,Z),es_reino_de(Y,Z),write('Reino: '),write(Z).
 c_filo(X,Y):-es_filo_de(X,Z),es_filo_de(Y,Z),write('filo: '),write(Z).
 c_clase(X,Y):-es_clase_de(X,Z),es_clase_de(Y,Z),write('clase: '),write(Z).
@@ -655,4 +657,5 @@ c_familia(X,Y):-es_la_familia_de(X,Z),es_la_familia_de(Y,Z),write('familia: '),w
 c_genero(X,Y):-es_el_genero_de(X,Z),es_el_genero_de(Y,Z),write('genero: '),write(Z).
 c_especie(X,Y):-es_especie_de(X,Z),es_especie_de(Y,Z),write('especie: '),write(Z).
 
+/*Engloba todas las comparaciones, por lo que es la que se ejecuta.*/
 compara(X,Y):-c_reino(X,Y);c_filo(X,Y);c_clase(X,Y);c_orden(X,Y);c_familia(X,Y);c_genero(X,Y);c_especie(X,Y).
