@@ -5,6 +5,10 @@
   transform: translate(-50%, -50%);
 }
 
+svg path {
+    fill: black;
+}
+
 #board {
     margin: 0 auto;
     padding: 0;
@@ -76,47 +80,40 @@
 .centerSquare:hover {
     background: darkslategray !important;
 }
-
-.red {
-    color: darkred;
+.centerSquare:not(.corpse) svg circle {
+    stroke: violet !important;
+    stroke-width: 2;
 }
+.centerSquare svg circle {
+    stroke: navajowhite;
+    stroke-width: 2;
+}
+
 .red svg circle {
     fill: red;
 }
 
-.blue {
-    color: darkblue;
-}
 .blue svg circle {
-    fill: darkblue;
+    fill: dodgerblue;
 }
 
-.yellow {
-    color: darkgoldenrod;
-}
 .yellow svg circle {
-    fill: darkgoldenrod;
+    fill: gold;
 }
 
-.green {
-    color: darkgreen;
-}
 .green svg circle {
-    fill: darkgreen;
+    fill: limegreen;
 }
 
 .corpse {
     /* TODO */
     border-color: black !important;
+}
+.corpse:not(.centerSquare) {
     background-color: lightgray !important;
 }
 .corpse svg circle {
     fill: black !important;
-}
-
-.in-power svg circle {
-    stroke: gold;
-    stroke-width: 4;
 }
 
 .highlight,
