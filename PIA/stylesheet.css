@@ -120,10 +120,10 @@
 }
 
 .highlight,
-.red-turn .red,
-.blue-turn .blue,
-.yellow-turn .yellow,
-.green-turn .green {
+.red-turn .red:not(.corpse),
+.blue-turn .blue:not(.corpse),
+.yellow-turn .yellow:not(.corpse),
+.green-turn .green:not(.corpse) {
     border-color: orange !important;
     background-color: whitesmoke !important;
 }

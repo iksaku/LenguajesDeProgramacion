@@ -43,10 +43,12 @@ function canMoveCorpse(piece) {
 }
 
 // Game Logic
-function nextTurn() {
+function nextTurn(visuals = true) {
     game.currentTurn++;
     if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
     movingPiece = null;
+
+    if (visuals) highlightPlayerPieces(true);
 }
 
 function isMovementValid() {
@@ -99,6 +101,10 @@ function tryMovePiece() {
     }
 
     // TODO: Actually move the piece :P
+
+    highlightPlayerPieces(false);
+    renderSquare(...selectedSquare);
+    movingPiece = null;
     return true;
 }
 
@@ -111,10 +117,12 @@ function onClick(element) {
 
         movingPiece = selectedPiece;
         selectedSquare = getSquareByName(element.id);
+        highlightPlayerPieces(false);
         renderSquare(selectedSquare[0], selectedSquare[1], true);
     }
     else if (movingPiece === selectedPiece) {
         renderSquare(...getSquareByName(element.id));
+        highlightPlayerPieces(true);
         movingPiece = null;
     }
     else {
@@ -123,6 +131,11 @@ function onClick(element) {
             nextTurn();
         }
     }
+}
+
+function highlightPlayerPieces(status = true) {
+    game.board.dom.className = "";
+    if (status) game.board.dom.className = colors[game.currentTurn].toLowerCase() + '-turn';
 }
 
 function renderSquare(x, y, highlight = false) {
@@ -225,7 +238,7 @@ function generateBoard() {
             }
         }
 
-        nextTurn();
+        nextTurn(false);
     }
 
     renderBoard();
@@ -233,11 +246,11 @@ function generateBoard() {
 
 function start() {
     if (svgStore.length < 1) pieces.forEach(requestPieceSvg);
-    game.board.dom.innerHTML =
-        '<h1 style="grid-column: 5; grid-row: 5">' + (svgStore.length < 1 ? 'Loading' : 'Resetting') + '...</h1>';
+    game.board.dom.innerHTML = '<h1 style="grid-column: 5; grid-row: 5">Loading...</h1>';
     setTimeout(() => {
         generateBoard();
-        game.currentTurn = 0;
+        game.currentTurn = -1;
+        nextTurn();
     }, 300);
 }
 
