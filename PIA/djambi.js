@@ -156,11 +156,6 @@ function tryMovePiece() {
     }
     else movingPiece = null;
 
-    // [DONE] TODO: Diplomat moves alive enemy pieces
-    // [DONE] TODO: Assassin switches place with killed piece
-    // [DONE] TODO: Necromobile moves corpses
-    // [DONE] TODO: Reporter kills pieces directly next to him (except diagonally)
-
     highlightPlayerPieces(false);
     renderSquare(...selectedSquare);
     renderSquare(...targetSquare);
