@@ -1,0 +1,3 @@
+type :: date
+real :: day, month, year
+end type date

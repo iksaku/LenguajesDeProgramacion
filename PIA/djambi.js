@@ -1,481 +1,299 @@
-class GenericPiece {
-    constructor(player, square) {
-        this.player = player;
-        this.square = square;
-        this.alive = true;
-        this.stepLimit = null;
-    }
+/**
+ * TODO: What happens when Chief is in Maze
+ * TODO: Identify when a player looses
+ * TODO:
+ */
+// Declare Variables and Constants
+const chief = {name: "Chief", id: 0};
+const assassin = {name: "Assassin", id: 1};
+const reporter = {name: "Reporter", id: 2};
+const militant = {name: "Militant", id: 3};
+const diplomat = {name: "Diplomat", id: 4};
+const necromobile = {name: "Necromobile", id: 5};
+const pieces = [chief, assassin, reporter, militant, diplomat, necromobile];
+const columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+const colors = ["Red", "Blue", "Yellow", "Green"];
+const game = {
+    board: {
+        dom: document.getElementById("board"),
+        squares: {}
+    },
+    currentTurn: -1,
+    players: []
+};
+const svgStore = [];
+let x = 0, xStart = 0, xStep = 0;
+let y = 0, yStart = 0, yStep = 0;
+let row = 0, col = 0;
+let isInValidDirection = false;
+var square, selectedSquare, targetSquare;
+var piece, selectedPiece, movingPiece;
 
-    get canKill() {
-        return true;
-    }
+// Piece Logic
+function canKill(piece) {
+    return piece !== diplomat && piece !== necromobile;
+}
 
-    get canMovePiece() {
-        return false;
-    }
+function canMovePiece(piece) {
+    return piece === diplomat;
+}
 
-    get canMoveCorpse() {
-        return false;
-    }
+function canMoveCorpse(piece) {
+    return piece === necromobile;
+}
 
-    couldMoveTo(targetSquare) {
-        if (targetSquare == this.square) return false;
+// Game Logic
+function nextTurn() {
+    game.currentTurn++;
+    if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
+    movingPiece = null;
+}
 
-        if (this.alive && this.square != null) {
-            // If Alive and doesn't belong to a Square, it is being moved by a diplomat
-            var isInValidDirection = false;
+function isMovementValid() {
+    if (selectedSquare === targetSquare) return false;
 
-            var x = this.square.x;
-            var y = this.square.y;
+    if (!movingPiece.beingMovedByDiplomat) {
+        isInValidDirection = false;
 
-            if (x == targetSquare.x || y == targetSquare.y) {
-                isInValidDirection =
-                        this.stepLimit == null ||
-                        ((Math.abs(x - targetSquare.x) <= this.stepLimit) && 
-                        (Math.abs(y - targetSquare.y) <= this.stepLimit));
-            }
-            else if (Math.abs(x - targetSquare.x) == Math.abs(y - targetSquare.y)) {
-                isInValidDirection =
-                        this.stepLimit == null ||
-                        Math.abs(x - targetSquare.x) <= this.stepLimit;
-            }
+        [x, y] = selectedSquare;
 
-            if (!isInValidDirection) return false;
-
-            var xStep = (x == targetSquare.x ? 0 : (x < targetSquare.x ? 1 : -1));
-            var yStep = (y == targetSquare.y ? 0 : (y < targetSquare.y ? 1 : -1));
-            var currentSquare = this.square;
-            
-            for (x += xStep, y += yStep; ((currentSquare.x - targetSquare.x) * xStep <= 0) && ((currentSquare.y - targetSquare.y) * yStep <= 0); x += xStep, y += yStep) {
-                currentSquare = this.square.board.getSquare(x, y);
-                if (currentSquare == targetSquare) break;
-                else if (currentSquare.piece != null) return false;
-            }
+        if (x === targetSquare[0] || y === targetSquare[1]) {
+            isInValidDirection =
+                movingPiece.type !== militant ||
+                ((Math.abs(x - targetSquare[0]) <= 2) &&
+                    (Math.abs(y - targetSquare[1]) <= 2));
+        }
+        else if (Math.abs(x - targetSquare[0]) === Math.abs(y - targetSquare[1])) {
+            isInValidDirection =
+                movingPiece.type !== militant ||
+                Math.abs(x - targetSquare[0]) <= 2;
         }
 
-        if (targetSquare.piece == null)
-            return true;
-        else if (targetSquare.piece.alive && targetSquare.piece.player != this.player)
-            return this.canKill || this.canMovePiece;
-        else
-            return this.canMoveCorpse && !targetSquare.piece.alive;
-    }
+        if (!isInValidDirection) return false;
 
-    moveTo(targetSquare) {
-        if (!this.couldMoveTo(targetSquare)) {
-            alert("Movimiento no valido");
-            return false;
-        }
+        xStep = (x === targetSquare[0] ? 0 : (x < targetSquare[0] ? 1 : -1));
+        yStep = (y === targetSquare[1] ? 0 : (y < targetSquare[1] ? 1 : -1));
 
-        if (this.square != null) this.square.piece = null;
-
-        var targetPiece = targetSquare.piece;
-        if (targetPiece != null) targetPiece.square = null;
-
-        this.square = targetSquare;
-        this.square.piece = this;
-
-        game.currentPlayer.clean();
-
-        if (targetPiece != null) {
-            if (targetPiece.alive && this.canKill) {
-                targetPiece.alive = false;
-                targetPiece.square = null;
-            }
-            game.currentPlayer.moving = targetPiece;
-            // TODO: Tell to drop corpse or moved piece in other square...
-        }
-
-        return true;
-    }
-
-    onCapture() {
-        // TODO: Make corpse...
-    }
-
-    calculatePossibleMoves() {
-        // TODO... Maybe?
-    }
-
-    onMove(targetSquare) {
-        // TODO: Implement, so pieces with different effects on move can be modified
-    }
-}
-
-class Chief extends GenericPiece {
-    constructor(player, square) {
-        super(player, square);
-        this.player.chief = this;
-    }
-}
-
-class Assassin extends GenericPiece {}
-
-class Reporter extends GenericPiece {}
-
-class Militant extends GenericPiece {
-    constructor(player, square) {
-        super(player, square);
-        this.stepLimit = 2;
-    }
-}
-
-class Diplomat extends GenericPiece {
-    get canKill() {
-        return false;
-    }
-
-    get canMovePiece() {
-        return true;
-    }
-
-    // Based on ruling... There's no mention that Diplomat can't move another piece of its same owner...
-}
-
-class Necromobile extends GenericPiece {
-    get canKill() {
-        return false;
-    }
-
-    get canMoveCorpse() {
-        return true;
-    }
-}
-
-class Square {
-    constructor(x, y, board, isCenter = false) {
-        this.x = x;
-        this.y = y;
-        this.isCenter = isCenter;
-        this.ownedPiece = null;
-        this.board = board;
-    }
-
-    get displayName() {
-        return Board.getColumnLetter(this.y) + (this.x + 1);
-    }
-
-    get isOcuppied() {
-        return this.piece !== null;
-    }
-
-    get piece() {
-        return this.ownedPiece;
-    }
-
-    set piece(piece) {
-        this.ownedPiece = piece;
-        if (this.ownedPiece == null) this.highlight = false;
-
-        this.render();
-    }
-
-    render() {
-        var square = document.getElementById(this.displayName);
-        square.innerHTML = "";
-        square.className = "";
-
-        if (this.highlight) square.className += "highlight ";
-        if (this.isCenter) square.className += "centerSquare ";
-
-        if (this.piece == null) return;
-
-        square.className += this.piece.player.color.toLowerCase();
-        if (!this.piece.alive) square.className += " corpse";
-        
-        square.innerHTML = game.svg.get(this.piece);
-    }
-}
-
-class Board {
-    constructor() {
-        document.body.addEventListener("keypress", function (e) {
-            if (e.key == "Escape") game.currentPlayer.clean();
-        });
-    }
-
-    static get columns() {
-        return ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-    }
-
-    static getColumnLetter(column) {
-        return Board.columns[column];
-    }
-
-    static playerColor(id) {
-        // TODO: Make sure these colors are correcly represented in CSS...
-        // Or change this colors to respective Hexadecimal colors...
-        // BTW... This is the actual order of play :D
-        let colors = ["Red", "Blue", "Yellow", "Green"];
-        return colors[id];
-    }
-
-    static onClick(square) {
-        var targetSquare = game.board.getSquareByName(square.id);
-
-        game.currentPlayer.onClick(targetSquare);
-    }
-
-    getSquare(x, y) {
-        try {
-            return this.squares[x][y];
-        } catch (TypeError) {
-            return null;
+        for (x += xStep, y += yStep; ((x - targetSquare[0]) * xStep <= 0) &&
+                                     ((y - targetSquare[1]) * yStep <= 0);
+             x += xStep, y += yStep) {
+            if ([x, y] === targetSquare) break;
+            else if (isOccupied(x, y)) return false;
         }
     }
 
-    getSquareByName(name) {
-        var x = parseInt(name[1]) - 1;
-        var y = Board.columns.indexOf(name[0]);
-        return this.getSquare(x, y);
+    if (!isOccupied(...targetSquare))
+        return true;
+    else if (!movingPiece.alive)
+        return false;
+    else if (movingPiece.alive && getPiece(...targetSquare).owner !== game.currentTurn)
+        return canKill(movingPiece) || canMovePiece(movingPiece);
+    else
+        return canMoveCorpse(movingPiece) && !getPiece(...targetSquare).alive;
+}
+
+function tryMovePiece() {
+    if (!isMovementValid()) {
+        alert("Movimiento no válido.");
+        return false;
     }
 
-    regenerate() {
-        // Empty the board
-        var board = document.getElementById("board");
-        board.innerHTML = "";
+    // TODO: Actually move the piece :P
+    return true;
+}
 
-        // Set the board
-        this.squares = []
-        for (var x = 0; x < 9; x++) {
-            this.squares[x] = [];
+function onClick(element) {
+    selectedPiece = getPieceByName(element.id);
+    if (movingPiece == null) {
+        if (selectedPiece=== null) return;
+        else if (selectedPiece.owner !== game.currentTurn) return;
+        else if (!selectedPiece.alive) return;
 
-            for (var y = 0; y < 9; y++) {
-                this.squares[x][y] = new Square(x, y, this, x == 4 && y == 4);
+        movingPiece = selectedPiece;
+        selectedSquare = getSquareByName(element.id);
+        renderSquare(selectedSquare[0], selectedSquare[1], true);
+    }
+    else if (movingPiece === selectedPiece) {
+        renderSquare(...getSquareByName(element.id));
+        movingPiece = null;
+    }
+    else {
+        targetSquare = getSquareByName(element.id);
+        if (tryMovePiece() && movingPiece === null) {
+            nextTurn();
+        }
+    }
+}
+
+function renderSquare(x, y, highlight = false) {
+    square = document.getElementById(squareName(x, y));
+    square.innerHTML = "";
+    square.className = "";
+
+    if (highlight) square.className += "highlight ";
+    if (isCenterSquare(x, y)) square.className += "centerSquare in-power ";
+
+    if (!isOccupied(x, y)) return;
+
+    piece = getPiece(x, y);
+    square.className += colors[piece.owner].toLowerCase();
+    if (!piece.alive) square.className += " corpse";
+    square.innerHTML = svgStore[piece.type.id];
+}
+
+function renderBoard() {
+    for (x = 0; x < 9; x++) {
+        for (y = 0; y < 9; y++) {
+            game.board.dom.innerHTML += '<div id="' + squareName(x, y) + '" onclick="onClick(this);"></div>';
+            renderSquare(x, y);
+        }
+    }
+}
+
+function generateBoard() {
+    game.board.dom.innerHTML = "";
+    game.board.squares = {};
+    game.currentTurn = 0;
+    game.players = [];
+
+    while (!(game.currentTurn in game.players)) {
+        game.players.push('Player ' + (game.currentTurn + 1));
+
+        xStart = game.currentTurn < 2 ? 8 : 0;
+        yStart = (game.currentTurn === 0 || game.currentTurn === 3) ? 0 : 8;
+        xStep = game.currentTurn < 2 ? -1 : 1;
+        yStep = (game.currentTurn === 0 || game.currentTurn === 3) ? 1 : -1;
+
+        for (x = xStart; (x >= 0 && x < 3) || (x >= 6 && x < 9); x += xStep) {
+            for (y = yStart; (y >= 0 && y < 3) || (y >= 6 && y < 9); y += yStep) {
+                row = Math.abs(x - xStart);
+                col = Math.abs(y - yStart);
+                selectedPiece = null;
                 
-                let square = this.getSquare(x, y);
-                board.innerHTML += '<div id="' + square.displayName + '" onclick="Board.onClick(this)"></div>';
-                square.render();
-            }
-        }
-
-        // Set Players
-        this.players = []
-        for (var count = 0; count < 4; count++) {
-            var player = new Player(count);
-            this.players[count] = player;
-
-            // Set Pieces
-            let xStart = player.id < 2 ? 8 : 0;
-            let yStart = (player.id == 0 || player.id == 3) ? 0 : 8;
-            let xStep = player.id < 2 ? -1 : 1;
-            let yStep = (player.id == 0 || player.id == 3) ? 1 : -1;
-
-            for (var x = xStart; (x >= 0 && x < 3) || (x >= 6 && x < 9); x += xStep) {
-                for (var y = yStart; (y >= 0 && y < 3) || (y >= 6 && y < 9); y += yStep) {
-                    let square = this.getSquare(x,y);
-                    
-                    let row = Math.abs(x - xStart);
-                    let col = Math.abs(y - yStart);
-                    var pieceType = null;
-                    switch(row) {
-                        case 0: // First Row
-                            switch (col) {
-                                case 0: // First Column
-                                    pieceType = Chief;
-                                    break;
-                                case 1: // Second Column
-                                    pieceType = Assassin;
-                                    break;
-                                case 2: // Third Column
-                                    pieceType = Militant;
-                                    break;
-                            }
-                            break;
-                        case 1: // Second Row
-                            switch (col) {
-                                case 0: // First Column
-                                    pieceType = Reporter;
-                                    break;
-                                case 1: // Second Column
-                                    pieceType = Diplomat;
-                                    break;
-                                case 2: // Third Column
-                                    pieceType = Militant;
-                                    break;
-                            }
-                            break;
-                        case 2: // Third Row
-                            switch (col) {
-                                case 0: // First Column
-                                    pieceType = Militant;
-                                    break;
-                                case 1: // Second Column
-                                    pieceType = Militant;
-                                    break;
-                                case 2: // Third Column
-                                    pieceType = Necromobile;
-                                    break;
-                            }
-                            break;
-                    }
-
-                    if (pieceType == null) continue;
-
-                    square.piece = new pieceType(player, square);
+                switch(row) {
+                    case 0: // First Row
+                        switch (col) {
+                            case 0: // First Column
+                                selectedPiece = chief;
+                                break;
+                            case 1: // Second Column
+                                selectedPiece = assassin;
+                                break;
+                            case 2: // Third Column
+                                selectedPiece = militant;
+                                break;
+                        }
+                        break;
+                    case 1: // Second Row
+                        switch (col) {
+                            case 0: // First Column
+                                selectedPiece = reporter;
+                                break;
+                            case 1: // Second Column
+                                selectedPiece = diplomat;
+                                break;
+                            case 2: // Third Column
+                                selectedPiece = militant;
+                                break;
+                        }
+                        break;
+                    case 2: // Third Row
+                        switch (col) {
+                            case 0: // First Column
+                                selectedPiece = militant;
+                                break;
+                            case 1: // Second Column
+                                selectedPiece = militant;
+                                break;
+                            case 2: // Third Column
+                                selectedPiece = necromobile;
+                                break;
+                        }
+                        break;
                 }
+
+                if (selectedPiece === null) continue;
+
+                if (!(x in game.board.squares)) game.board.squares[x] = {};
+
+                game.board.squares[x][y] = {
+                    type: selectedPiece,
+                    owner: game.currentTurn,
+                    alive: true,
+                    beingMovedByDiplomat: false
+                };
             }
         }
+
+        nextTurn();
     }
+
+    renderBoard();
 }
 
-class Player {
-    constructor(id) {
-        this.id = id;
-        this.name = "Jugador " + (id + 1);
-        this.moving = null;
-        this.chief = null;
-        this.playing = true;
-    }
-
-    get color() {
-        return Board.playerColor(this.id);
-    }
-
-    clean(turnContinues = false) {
-        if (this.moving != null) {
-            this.moving = null;
-        }
-        
-        if (turnContinues) {
-            this.onTurnBegin(true);
-        }
-    }
-
-    onDefeat() {
-        // TODO
-        this.playing = false;
-    }
-    
-    onTurnBegin(highlightPieces = false) {
-        document.getElementById("board").className =
-            this.color.toLowerCase() + "-turn";
-        
-        if (highlightPieces) {
-            document.getElementById("board").className +=
-                " " + this.color.toLowerCase() + "-turn-highlight";
-        }
-
-        // TODO: Highlight individual pieces and render them... So we can avoid highlightnig corpses :P
-    }
-
-    onClick(square) {
-        if (this.moving == null) {
-            if (square.piece == null) return;
-            else if (square.piece != null && square.piece.player != this) return;
-            else if (!square.piece.alive) return;
-
-            this.moving = square.piece;
-            square.highlight = true;
-            square.render();
-            
-            this.onTurnBegin(false);
-        }
-        else if (this.moving == square.piece) {
-            square.highlight = false;
-            square.render();
-            this.clean(true);
-        }
-        else if (this.moving.moveTo(square) && this.moving == null) {
-            game.nextTurn();
-        }
-    }
+function start() {
+    if (svgStore.length < 1) pieces.forEach(requestPieceSvg);
+    game.board.dom.innerHTML =
+        '<h1 style="grid-column: 5; grid-row: 5">' + (svgStore.length < 1 ? 'Loading' : 'Resetting') + '...</h1>';
+    setTimeout(() => {
+        generateBoard();
+        game.currentTurn = 0;
+    }, 300);
 }
 
-class SVGStore {
-    constructor() {
-        this.store = {};
-        this._requests = [];
-        this.pieces.forEach(this.request);
-    }
+// Utilities
+function getPiece(x, y) {
+    if (!isOccupied(x, y)) return null;
+    return game.board.squares[x][y];
+}
 
-    get pieces() {
-        return [Chief, Assassin, Reporter, Militant, Diplomat, Necromobile];
-    }
+function getPieceByName(name) {
+    return getPiece(...getSquareByName(name));
+}
 
-    get ready() {
-        for (var i = 0; i < this.pieces.length; ++i) {
-            if (this.get(this.pieces[i]) == null) {
-                return false;
+function isOccupied(x, y) {
+    return (x in game.board.squares) && (y in game.board.squares[x]);
+}
+
+function isCenterSquare(x, y) {
+    return x === 4 && y === 4;
+}
+
+function squareName(x, y) {
+    return columns[y] + (x + 1);
+}
+
+function getSquareByName(name) {
+    return [name[1] - 1, columns.indexOf(name[0])];
+}
+
+function requestPieceSvg(piece) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", getBasePath() + "/img/" + piece.name.toLowerCase() + ".svg", true);
+    xhr.overrideMimeType("img/svg+html");
+
+    xhr.onload = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                svgStore[piece.id] = xhr.responseText;
+            } else {
+                console.error(xhr.statusText);
             }
         }
-        return true;
-    }
+    };
+    xhr.onerror = function () {
+        console.error(xhr.statusText);
+    };
 
-    request(piece) {
-        var name = String(piece.name);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", getBasePath() + "/img/" + name.toLowerCase() + ".svg", true);
-        xhr.overrideMimeType("img/svg+html");
-
-        xhr.onload = function(e) {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    game.svg.store[name] = xhr.responseText;
-                } else {
-                    console.error(xhr.statusText);
-                }
-            }
-        }
-        xhr.onerror = function (e) {
-            console.error(xhr.statusText);
-        }
-
-        xhr.send(null);
-    }
-
-    get(piece) {
-        return this.store[piece.constructor.name];
-    }
-}
-
-class Game {
-    constructor() {
-        this.svg = new SVGStore();
-        this.board = new Board();
-    }
-
-    get currentPlayer() {
-        return this.board.players[this.turn];
-    }
-
-    broadcastPlayerInTurn() {
-        console.log("Turno actual: " + this.currentPlayer.name);
-    }
-
-    nextTurn() {
-        if (this.currentPlayer != null) {
-            this.currentPlayer.clean();
-        }
-        
-        this.turn += 1;
-        if (this.turn < 0 || this.turn > 3) this.turn = 0;
-        this.broadcastPlayerInTurn();
-        this.currentPlayer.onTurnBegin(true);
-
-        // TODO: Check if chief of a player is cornered, if so, player loses
-    }
-
-    start() {
-        setTimeout(() => {
-            game.restart();
-        }, 250);
-    }
-
-    restart() {
-        this.turn = -1;
-        this.board.regenerate();
-        this.nextTurn();
-    }
+    xhr.send(null);
 }
 
 function getBasePath() {
-    var actualPath = window.location.href;
-    var parts = actualPath.split("/");
+    const actualPath = window.location.href;
+    const parts = actualPath.split("/");
     parts.pop();
-    return parts.join("/")
+    return parts.join("/");
 }
 
-var game = new Game();
-game.start();
+// Start Game
+start();

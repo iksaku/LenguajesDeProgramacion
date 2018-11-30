@@ -79,7 +79,6 @@
 
 .red {
     color: darkred;
-    cursor: not-allowed;
 }
 .red svg circle {
     fill: red;
@@ -87,7 +86,6 @@
 
 .blue {
     color: darkblue;
-    cursor: not-allowed;
 }
 .blue svg circle {
     fill: darkblue;
@@ -95,7 +93,6 @@
 
 .yellow {
     color: darkgoldenrod;
-    cursor: not-allowed;
 }
 .yellow svg circle {
     fill: darkgoldenrod;
@@ -103,7 +100,6 @@
 
 .green {
     color: darkgreen;
-    cursor: not-allowed;
 }
 .green svg circle {
     fill: darkgreen;
@@ -111,7 +107,6 @@
 
 .corpse {
     /* TODO */
-    cursor: not-allowed !important;
     border-color: black !important;
     background-color: lightgray !important;
 }
@@ -119,17 +114,16 @@
     fill: black !important;
 }
 
+.in-power svg circle {
+    stroke: gold;
+    stroke-width: 4;
+}
+
+.highlight,
 .red-turn .red,
 .blue-turn .blue,
 .yellow-turn .yellow,
 .green-turn .green {
-    cursor: pointer;
-}
-.highlight,
-.red-turn-highlight .red,
-.blue-turn-highlight .blue,
-.yellow-turn-highlight .yellow,
-.green-turn-highlight .green {
     border-color: orange !important;
     background-color: whitesmoke !important;
 }
