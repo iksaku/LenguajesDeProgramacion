@@ -1,7 +1,6 @@
 /**
  * TODO: What happens when Chief is in Maze
  * TODO: Identify when a player looses
- * TODO:
  */
 // Declare Variables and Constants
 const chief = {name: "Chief", id: 0};
@@ -101,6 +100,10 @@ function tryMovePiece() {
     }
 
     // TODO: Actually move the piece :P
+    // TODO: Diplomat moves alive enemy pieces
+    // TODO: Assassin switches place with killed piece
+    // TODO: Necromobile moves corpses
+    // TODO: Reporter kills pieces directly next to him (except diagonally)
 
     highlightPlayerPieces(false);
     renderSquare(...selectedSquare);
