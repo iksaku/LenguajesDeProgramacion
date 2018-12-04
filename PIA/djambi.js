@@ -98,10 +98,10 @@ function isMovementValid() {
         return movingPiece.type === chief;
     else if (movingPiece === getPieceInMaze())
         return !isOccupied(...targetSquare);
+    else if (!movingPiece.alive)
+        return !isCenterSquare(...targetSquare);
     else if (!isOccupied(...targetSquare))
         return true;
-    else if (!movingPiece.alive)
-        return false;
     else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== game.currentTurn)
         return canKillDirectly(movingPiece) || canMovePiece(movingPiece);
     else
