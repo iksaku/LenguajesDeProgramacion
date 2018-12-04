@@ -118,43 +118,43 @@ function tryMovePiece() {
 
     targetPiece = getPiece(...targetSquare);
 
-    movingPiece.beingMovedByDiplomat = false;
     setPiece(targetSquare[0], targetSquare[1], movingPiece);
 
-    if (movingPiece.type === reporter && movingPiece.alive) {
-        [x, y] = targetSquare;
-        killInPlace(x - 1, y);
-        killInPlace(x + 1, y);
-        killInPlace(x, y - 1);
-        killInPlace(x, y + 1);
-    }
-
-    if (targetPiece !== null) {
-        /*if (targetPiece.alive && canKillDirectly(movingPiece)) {
-            targetPiece.alive = false;
-
-            if (movingPiece.type === assassin) {
-                setPiece(selectedSquare[0], selectedSquare[1], targetPiece);
-            } else {
-                movingPiece = targetPiece;
+    if (movingPiece !== null) {
+        if (!movingPiece.beingMovedByDiplomat) {
+            if (movingPiece.type === reporter && movingPiece.alive) {
+                if (movingPiece !== getPieceInMaze()) {
+                    [x, y] = targetSquare;
+                    killInPlace(x - 1, y);
+                    killInPlace(x + 1, y);
+                    killInPlace(x, y - 1);
+                    killInPlace(x, y + 1);
+                    movingPiece = null;
+                }
+                else selectedSquare = [4, 4];
             }
-        }*/
-
-        if (targetPiece.alive && canKillDirectly(movingPiece)) targetPiece.alive = false;
-
-        if (movingPiece.type === assassin) {
-            setPiece(selectedSquare[0], selectedSquare[1], targetPiece);
-            movingPiece = null;
+            else if (targetPiece !== null) {
+                if (targetPiece.alive && canKillDirectly(movingPiece)) targetPiece.alive = false;
+        
+                if (movingPiece.type === assassin) {
+                    setPiece(selectedSquare[0], selectedSquare[1], targetPiece);
+                    movingPiece = null;
+                } else {
+                    if (movingPiece.type === diplomat) targetPiece.beingMovedByDiplomat = true;
+                    movingPiece = targetPiece;
+                }
+            }
+            else if (getPieceInMaze() !== null && !canBeInMaze(getPieceInMaze())){
+                movingPiece = getPieceInMaze();
+                selectedSquare = [4, 4];
+            }
+            else movingPiece = null;
         } else {
-            if (movingPiece.type === diplomat) targetPiece.beingMovedByDiplomat = true;
-            movingPiece = targetPiece;
+            movingPiece.beingMovedByDiplomat = false;
+            setPiece(targetSquare[0], targetSquare[1], movingPiece);
+            movingPiece = null;
         }
     }
-    else if (getPieceInMaze() !== null && !canBeInMaze(getPieceInMaze())){
-        movingPiece = getPieceInMaze();
-        selectedSquare = [4, 4];
-    }
-    else movingPiece = null;
 
     highlightPlayerPieces(false);
     renderSquare(...selectedSquare);
