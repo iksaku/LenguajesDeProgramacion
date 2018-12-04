@@ -64,7 +64,7 @@ function nextTurn(visuals = true) {
 function isMovementValid() {
     if (selectedSquare === targetSquare) return false;
 
-    if (movingPiece.alive && !movingPiece.beingMovedByDiplomat && (movingPiece !== getPieceInMaze() || movingPiece === chief)) {
+    if (movingPiece.alive && !movingPiece.beingMovedByDiplomat && (movingPiece !== getPieceInMaze() || movingPiece.type === chief)) {
         isInValidDirection = false;
 
         [x, y] = selectedSquare;
@@ -95,7 +95,7 @@ function isMovementValid() {
     }
 
     if (movingPiece.beingMovedByDiplomat && isCenterSquare(...targetSquare))
-        return false;
+        return movingPiece.type === chief;
     else if (movingPiece === getPieceInMaze())
         return !isOccupied(...targetSquare);
     else if (!isOccupied(...targetSquare))
