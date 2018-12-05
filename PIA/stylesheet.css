@@ -105,6 +105,10 @@ svg path {
     fill: limegreen;
 }
 
+.gray svg circle {
+    fill: gray;
+}
+
 .corpse {
     /* TODO */
     border-color: black !important;
