@@ -13,22 +13,23 @@ const pieces = [chief, assassin, reporter, militant, diplomat, necromobile];
 const columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
 const colors = ["Red", "Blue", "Yellow", "Green"];
 const game = {
+    started: false,
     board: {
         dom: document.getElementById("board"),
         squares: {}
     },
     currentTurn: -1,
-    players: []
+    players: {}
 };
 const svgStore = [];
 let x = 0, xStart = 0, xStep = 0;
 let y = 0, yStart = 0, yStep = 0;
 let row = 0, col = 0;
 let isInValidDirection = false;
-var square, selectedSquare, targetSquare;
+let isLeadPlayerExtraTurn = false;
+var square, selectedSquare, targetSquare, centerSquare = [4, 4];
 var piece, movingPiece, targetPiece;
 
-// Piece Logic
 function canKillDirectly(piece) {
     return piece.type !== diplomat && piece.type !== necromobile && piece.type !== reporter;
 }
@@ -47,22 +48,13 @@ function canBeInMaze(piece) {
 
 function killInPlace(x, y) {
     piece = getPiece(x, y);
-    if (piece === null || piece.owner === game.currentTurn) return;
+    if (piece === null || piece.owner === getCurrentPlayer().id) return;
     piece.alive = false;
     setPiece(x, y, piece);
 }
 
-// Game Logic
-function nextTurn(visuals = true) {
-    game.currentTurn++;
-    if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
-    movingPiece = null;
-
-    if (visuals) highlightPlayerPieces(true);
-}
-
 function isMovementValid() {
-    if (selectedSquare === targetSquare) return false;
+    if (selectedSquare === targetSquare || (targetSquare === centerSquare && getPieceInMaze() === null)) return false;
 
     if (movingPiece.alive && !movingPiece.beingMovedByDiplomat && (movingPiece !== getPieceInMaze() || movingPiece === chief)) {
         isInValidDirection = false;
@@ -102,7 +94,9 @@ function isMovementValid() {
         return true;
     else if (!movingPiece.alive)
         return false;
-    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== game.currentTurn)
+    else if (movingPiece.type === militant && targetSquare === centerSquare && getPieceInMaze() !== null)
+        return false;
+    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== getCurrentPlayer().id)
         return canKillDirectly(movingPiece) || canMovePiece(movingPiece);
     else
         return canMoveCorpse(movingPiece) && !getPiece(...targetSquare).alive;
@@ -130,16 +124,6 @@ function tryMovePiece() {
     }
 
     if (targetPiece !== null) {
-        /*if (targetPiece.alive && canKillDirectly(movingPiece)) {
-            targetPiece.alive = false;
-
-            if (movingPiece.type === assassin) {
-                setPiece(selectedSquare[0], selectedSquare[1], targetPiece);
-            } else {
-                movingPiece = targetPiece;
-            }
-        }*/
-
         if (targetPiece.alive && canKillDirectly(movingPiece)) targetPiece.alive = false;
 
         if (movingPiece.type === assassin) {
@@ -152,7 +136,7 @@ function tryMovePiece() {
     }
     else if (getPieceInMaze() !== null && !canBeInMaze(getPieceInMaze())){
         movingPiece = getPieceInMaze();
-        selectedSquare = [4, 4];
+        selectedSquare = centerSquare;
     }
     else movingPiece = null;
 
@@ -166,7 +150,7 @@ function onClick(element) {
     piece = getPieceByName(element.id);
     if (movingPiece == null) {
         if (piece=== null) return;
-        else if (piece.owner !== game.currentTurn) return;
+        else if (piece.owner !== getCurrentPlayer().id) return;
         else if (!piece.alive) return;
 
         movingPiece = piece;
@@ -189,7 +173,7 @@ function onClick(element) {
 
 function highlightPlayerPieces(status = true) {
     game.board.dom.className = "";
-    if (status) game.board.dom.className = colors[game.currentTurn].toLowerCase() + '-turn';
+    if (status) game.board.dom.className = colors[getCurrentPlayer().id].toLowerCase() + '-turn';
 }
 
 function renderSquare(x, y, highlight = false) {
@@ -221,12 +205,17 @@ function generateBoard() {
     game.board.dom.innerHTML = "";
     game.board.squares = {};
     game.currentTurn = 0;
-    game.players = [];
+    game.players = {};
 
     renderBoard();
 
     while (!(game.currentTurn in game.players)) {
-        game.players.push('Player ' + (game.currentTurn + 1));
+        game.players[game.currentTurn] = {
+            id: game.currentTurn,
+            name: 'Player ' + (game.currentTurn + 1),
+            playing: true,
+            chief: null
+        };
 
         xStart = game.currentTurn < 2 ? 8 : 0;
         yStart = (game.currentTurn === 0 || game.currentTurn === 3) ? 0 : 8;
@@ -287,26 +276,94 @@ function generateBoard() {
                     type: piece,
                     owner: game.currentTurn,
                     alive: true,
-                    beingMovedByDiplomat: false
+                    beingMovedByDiplomat: false,
+                    x: x,
+                    y: y
                 });
+
+                if (piece === chief) game.players[game.currentTurn].chief = piece;
             }
         }
 
-        nextTurn(false);
+        nextTurn();
     }
 }
 
 function start() {
     if (svgStore.length < 1) pieces.forEach(requestPieceSvg);
     game.board.dom.innerHTML = '<h1 style="grid-column: 5; grid-row: 5">Loading...</h1>';
+    game.started = false;
     setTimeout(() => {
         generateBoard();
         game.currentTurn = -1;
+        game.started = true;
         nextTurn();
     }, 300);
 }
 
-// Utilities
+function getCurrentPlayer() {
+    return getPlayer(isLeadPlayerExtraTurn && getPieceInMaze() !== null ? getPieceInMaze().owner : game.currentTurn);
+}
+
+function getPlayer(id) {
+    if (id < 0 || id > 3) return null;
+    return game.players[id];
+}
+
+function nextTurn() {
+    if (!isLeadPlayerExtraTurn && getPieceInMaze() !== null) {
+        isLeadPlayerExtraTurn = true;
+    } else {
+        game.currentTurn++;
+        if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
+    }
+
+    if (game.started) {
+        checkChiefInMaze();
+
+        if (!canPlayerContinue(game.currentTurn)) game.players[game.currentTurn].playing = false;
+
+        if (!getCurrentPlayer().playing) {
+            nextTurn();
+            return;
+        }
+
+        movingPiece = null;
+
+        highlightPlayerPieces(true);
+    }
+}
+
+function canPlayerContinue(id) {
+    piece = getPlayer(id).chief;
+
+    if (piece === getPieceInMaze()) return true;
+    if (piece === null || !piece.alive) return false;
+
+    for (x = piece.x - 1; x <= piece.x + 1; ++x) {
+        for (y = piece.y - 1; y <= piece.y + 1; ++y) {
+            targetPiece = getPiece(x, y);
+            if (targetPiece === null || targetPiece.alive) return false;
+        }
+    }
+
+    return true;
+}
+
+function checkChiefInMaze() {
+    if (getPiece(...centerSquare) === null) return;
+
+    for (x = 0; x < 9; ++x) {
+        for (y = 0; y < 9; ++y) {
+            piece = getPiece(x, y);
+            if (piece === null || getPlayer(piece.owner).playing) continue;
+
+            piece.owner = getPieceInMaze().owner;
+            setPiece(x, y, piece);
+        }
+    }
+}
+
 function getPiece(x, y) {
     if (!isOccupied(x, y)) return null;
     return game.board.squares[x][y];
@@ -317,7 +374,7 @@ function getPieceByName(name) {
 }
 
 function getPieceInMaze() {
-    return getPiece(4, 4);
+    return getPiece(...centerSquare);
 }
 
 function setPiece(x, y, piece) {
@@ -330,6 +387,8 @@ function setPiece(x, y, piece) {
     } else {
         if (!(x in game.board.squares)) game.board.squares[x] = {};
 
+        piece.x = x;
+        piece.y = y;
         game.board.squares[x][y] = piece;
     }
     renderSquare(x, y);
