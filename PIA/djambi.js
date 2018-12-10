@@ -18,6 +18,7 @@ const game = {
         dom: document.getElementById("board"),
         squares: {}
     },
+    previousTurn: -1,
     currentTurn: -1,
     players: []
 };
@@ -26,8 +27,9 @@ let x = 0, xStart = 0, xStep = 0;
 let y = 0, yStart = 0, yStep = 0;
 let row = 0, col = 0;
 let isInValidDirection = false;
-let isLeadPlayerExtraTurn = false;
+let hasLooped = true;
 let targetPlayer;
+var alertMessage;
 var square, selectedSquare, targetSquare, centerSquare = [4, 4];
 var piece, movingPiece, targetPiece;
 
@@ -55,7 +57,15 @@ function killInPlace(x, y) {
 }
 
 function isMovementValid() {
-    if (selectedSquare === targetSquare || (targetSquare === centerSquare && getPieceInMaze() === null)) return false;
+    alertMessage = "Movimiento no válido.\n\n";
+    if (selectedSquare === targetSquare) {
+        alertMessage += "No puedes moverte a la misma casilla.";
+        return false;
+    }
+    if (targetSquare === centerSquare && getPieceInMaze() === null) {
+        alertMessage += "El centro del tablero está vacío.";
+        return false;
+    }
 
     if (movingPiece.alive && !movingPiece.beingMovedByDiplomat && (movingPiece !== getPieceInMaze() || movingPiece.type === chief)) {
         isInValidDirection = false;
@@ -67,14 +77,20 @@ function isMovementValid() {
                 movingPiece.type !== militant ||
                 ((Math.abs(x - targetSquare[0]) <= 2) &&
                     (Math.abs(y - targetSquare[1]) <= 2));
+            if (!isInValidDirection) alertMessage += "Un militante solo puede moverse un máximo de 2 casillas.";
         }
         else if (Math.abs(x - targetSquare[0]) === Math.abs(y - targetSquare[1])) {
             isInValidDirection =
                 movingPiece.type !== militant ||
                 Math.abs(x - targetSquare[0]) <= 2;
+            if (!isInValidDirection) alertMessage += "Un militante solo puede moverse un máximo de 2 casillas.";
         }
 
-        if (!isInValidDirection) return false;
+        if (!isInValidDirection) {
+            if (alertMessage.indexOf("militante") < 0)
+                alertMessage += "Solo se pueden mover piezas verticalmente, horizontalmente y de forma diagonal (casillas conectadas esquina con esquina en la misma dirección).";
+            return false;
+        }
 
         xStep = (x === targetSquare[0] ? 0 : (x < targetSquare[0] ? 1 : -1));
         yStep = (y === targetSquare[1] ? 0 : (y < targetSquare[1] ? 1 : -1));
@@ -83,29 +99,74 @@ function isMovementValid() {
                                      ((y - targetSquare[1]) * yStep <= 0);
              x += xStep, y += yStep) {
             if (x === targetSquare[0] && y === targetSquare[1]) break;
-            else if (isOccupied(x, y)) return false;
+            else if (isOccupied(x, y)) {
+                alertMessage += "No se puede realizar esta acción debido a que otra pieza se encuentra obstruyendo el paso.";
+                return false;
+            }
         }
     }
 
-    if (movingPiece.beingMovedByDiplomat && isCenterSquare(...targetSquare))
-        return !isOccupied(...targetSquare) && movingPiece.type === chief;
-    else if (movingPiece === getPieceInMaze())
-        return !isOccupied(...targetSquare);
-    else if (!movingPiece.alive)
-        return !isCenterSquare(...targetSquare) && !isOccupied(...targetSquare);
-    else if (!isOccupied(...targetSquare))
+    targetPiece = getPiece(...targetSquare);
+
+    if (movingPiece.beingMovedByDiplomat && isCenterSquare(...targetSquare)) {
+        if (isOccupied(...targetSquare) && movingPiece.type === chief) {
+            alertMessage += "No se puede mover piezas al centro del tablero con el diplomata ya que este porque se encuentra ocupado por otra pieza.";
+            return false;
+        }
         return true;
-    else if (movingPiece.type === militant && targetSquare === centerSquare && getPieceInMaze() !== null)
+    }
+    else if (movingPiece === getPieceInMaze()) {
+        if (isOccupied(...targetSquare)) {
+            alertMessage += "No se puede mover esta pieza del centro del tablero.";
+            return false;
+        }
+        return true;
+    }
+    else if (!movingPiece.alive) {
+        if (isCenterSquare(...targetSquare)) {
+            alertMessage += "No se puede mover un cadáver al centro del tablero.";
+            return false;
+        }
+        if (isOccupied(...targetSquare)) {
+            alertMessage += "No se puede colocar el cadáver en una casilla ocupada por otra pieza.";
+            return false;
+        }
+        return true;
+    }
+    else if (!isOccupied(...targetSquare)) {
+        return true;
+    }
+    else if (movingPiece.type === militant && targetSquare === centerSquare && getPieceInMaze() !== null) {
+        alertMessage += "No se puede matar la pieza Jefe de otro jugador con un militante cuando esta se encuentra al centro del tablero.";
         return false;
-    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== getCurrentPlayer().id)
+    }
+    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== getCurrentPlayer().id) {
+        if (!canKillDirectly(movingPiece) && !canMovePiece(movingPiece)) {
+            alertMessage += "Esta pieza no puede interactuar con otras piezas vivas (matar o mover)";
+            if (movingPiece.type !== necromobile) alertMessage += " de manera directa";
+            alertMessage += ".";
+            return false;
+        }
         return canKillDirectly(movingPiece) || canMovePiece(movingPiece);
-    else
-        return canMoveCorpse(movingPiece) && !getPiece(...targetSquare).alive;
+    }
+    else if (targetPiece === null || movingPiece.owner !== targetPiece.owner){
+        if (!canMoveCorpse(movingPiece) || getPiece(...targetSquare).alive) {
+            alertMessage += "Esta pieza no puede interactuar con cadáveres.";
+            return false;
+        }
+        return true;
+    }
+    else {
+        alertMessage += "No se puede interactuar entre piezas del mismo jugador.";
+        return false;
+    }
 }
 
 function tryMovePiece() {
     if (!isMovementValid()) {
-        alert("Movimiento no válido.");
+        alertMessage += "\n\nPor favor realize otra acción, seleccione una casilla donde no haya piezas o cambie de pieza a mover.";
+        alertMessage += "\n(Para cambiar de pieza seleccione nuevamente la pieza que se encuentra resaltada, posteriormente, seleccione otra pieza disponible, es decir, que se encuentre resaltada.)";
+        alert(alertMessage);
         return false;
     }
 
@@ -313,6 +374,7 @@ function start() {
     game.started = false;
     setTimeout(() => {
         generateBoard();
+        game.previousTurn = -1;
         game.currentTurn = -1;
         game.started = true;
         nextTurn();
@@ -320,11 +382,11 @@ function start() {
 }
 
 function getCurrentPlayer() {
-    return getPlayer(isLeadPlayerExtraTurn && getPieceInMaze() !== null ? getPieceInMaze().owner : game.currentTurn);
+    return getPlayer(game.currentTurn);
 }
 
 function getPlayer(id) {
-    if (id < 0 || id > 3) return null;
+    if (id < 0 || id > 3 || !(id in game.players)) return null;
     return game.players[id];
 }
 
@@ -333,12 +395,37 @@ function nextTurn() {
     movingPiece = null;
     targetPiece = null;
 
-    if (!isLeadPlayerExtraTurn && getPieceInMaze() !== null && getPieceInMaze().owner !== game.currentTurn) {
-        isLeadPlayerExtraTurn = true;
+    if (game.previousTurn < 0 || game.previousTurn > 3) game.previousTurn = game.currentTurn;
+
+    if (getPieceInMaze() !== null && getPieceInMaze().owner !== game.currentTurn) {
+        game.previousTurn = game.currentTurn;
+        game.currentTurn = getPieceInMaze().owner;
     } else {
-        isLeadPlayerExtraTurn = false;
+        targetPlayer = [game.previousTurn, game.currentTurn];
+
+        if (getPieceInMaze() !== null && getPieceInMaze().owner === game.currentTurn) {
+            game.currentTurn = game.previousTurn;
+        }
+
+        game.previousTurn = game.currentTurn;
         game.currentTurn++;
         if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
+
+        if (getCurrentPlayer() !== null && !getCurrentPlayer().playing) {
+            if (getPieceInMaze() !== null && targetSquare[1] === getPieceInMaze().owner) game.currentTurn = getPieceInMaze().owner;
+            nextTurn();
+            return;
+        }
+
+        if (targetPlayer[0] === game.previousTurn && targetPlayer[1] === game.currentTurn) {
+            if (!hasLooped) hasLooped = true;
+            else {
+                hasLooped = false;
+                game.previousTurn = game.currentTurn;
+                game.currentTurn++;
+                if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
+            }
+        }
     }
 
     if (game.started) {
