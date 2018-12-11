@@ -5,8 +5,19 @@
   transform: translate(-50%, -50%);
 }
 
+body {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 3fr 3fr;
+}
+
 svg path {
     fill: black;
+}
+
+#rules {
+    overflow-y: scroll;
+    max-height: 97vh;
 }
 
 #board {
@@ -14,6 +25,7 @@ svg path {
     padding: 0;
     border: 1px solid black;
     background-color: lightgray;
+    max-height: 97vh;
 
     /* Grid Properties */
     display: grid;
