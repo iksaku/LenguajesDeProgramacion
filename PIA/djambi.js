@@ -28,7 +28,7 @@ let x = 0, xStart = 0, xStep = 0;
 let y = 0, yStart = 0, yStep = 0;
 let row = 0, col = 0;
 let isInValidDirection = false;
-let hasLooped = true;
+let hasLooped = false;
 let targetPlayer, alivePlayers;
 var alertMessage;
 var square, selectedSquare, targetSquare, centerSquare = [4, 4];
@@ -400,6 +400,7 @@ function start() {
     game.started = false;
     setTimeout(() => {
         generateBoard();
+        hasLooped = false;
         game.previousTurn = -1;
         game.currentTurn = -1;
         game.started = true;
@@ -423,36 +424,24 @@ function nextTurn() {
 
     if (game.previousTurn < 0 || game.previousTurn > 3) game.previousTurn = game.currentTurn;
 
-    if (getPieceInMaze() !== null && getPieceInMaze().owner !== game.currentTurn) {
-        game.previousTurn = game.currentTurn;
-        game.currentTurn = getPieceInMaze().owner;
-    } else {
-        targetPlayer = [game.previousTurn, game.currentTurn];
+    if (hasLooped) {
+        game.currentTurn = game.previousTurn;
+    }
 
-        if (getPieceInMaze() !== null && getPieceInMaze().owner === game.currentTurn) {
-            game.currentTurn = game.previousTurn;
-        }
+    game.previousTurn = game.currentTurn;
+    game.currentTurn++;
+    if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
 
-        game.previousTurn = game.currentTurn;
-        game.currentTurn++;
-        if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
-
-        if (getCurrentPlayer() !== null && !getCurrentPlayer().playing) {
-            if (getPieceInMaze() !== null && targetSquare[1] === getPieceInMaze().owner) game.currentTurn = getPieceInMaze().owner;
-            nextTurn();
-            return;
-        }
-
-        if (targetPlayer[0] === game.previousTurn && targetPlayer[1] === game.currentTurn) {
-            if (!hasLooped) hasLooped = true;
-            else {
-                hasLooped = false;
-                game.previousTurn = game.currentTurn;
-                game.currentTurn++;
-                if (game.currentTurn < 0 || game.currentTurn > 3) game.currentTurn = 0;
-            }
+    if (game.started && game.previousTurn === 3 && game.currentTurn === 0 && getPieceInMaze() !== null) {
+        if (!hasLooped) {
+            game.currentTurn = getPieceInMaze().owner;
+            hasLooped = true;
+        } else {
+            hasLooped = false;
         }
     }
+
+    if (getPieceInMaze() === null) hasLooped = false;
 
     if (game.started) {
         alivePlayers = 0;
