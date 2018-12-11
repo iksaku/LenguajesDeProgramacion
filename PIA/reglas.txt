@@ -1,0 +1,29 @@
+Objetivo:
+Matar a los demás líderes enemigos con el uso de las diferentes piezas o estrategias entre jugadores como alianzas de manera informal.
+
+Movimientos del djambi:
+Cada jugador mueve en su turno una de sus fichas con la posibilidad de matar con este movimiento a una ficha contraria. 
+El líder es la única ficha que puede permanecer en la casilla central o presidencia al final de un turno. 
+Cuando un jugador tiene a su líder ocupando la casilla central vuelve a hacer un movimiento tras el turno de cada uno de sus adversarios.
+Las fichas pueden mover en cualquiera de las ocho direcciones posibles (en línea recta en cualquier dirección ortogonal o diagonal), tantas casillas como quieran, de igual forma que la reina del ajedrez, salvo los militantes que sólo pueden desplazarse una o dos casillas como máximo.
+Ninguna ficha puede saltar sobre otra (viva o muerta).
+
+Capturas:
+Las fichas de un jugador puede matar a fichas de otros jugadores. A la ficha muerta se le da la vuelta y se deja en el tablero (pasando a ser un obstáculo).
+Líder: mata desplazándose a la casilla ocupada por una ficha contraria, a la que matan, y la mueven a cualquier casilla vacía del tablero excepto la central.
+
+Militantes: matan de igual forma que el líder. Un militante no puede matar a un líder situado en la casilla central. Los militantes mueven menos que el resto de piezas, pero son muy efectivos, y constituyen la base de todo partido.
+
+Asesino: mata de la misma forma que el líder, pero debe situar la ficha muerta en la casilla que ocupaba antes de mover. 
+
+Reportero: mata ocupando una casilla adyacente vertical u horizontalmente (no en diagonal) a la casilla ocupada por la ficha contraria. La ficha muerta no se mueve, y permanece en el sitio donde fue sorprendida. 
+
+Diplomático: puede mover fichas vivas contrarias desplazándose hasta la casilla que ocupan. Las sitúa en cualquier casilla vacía excepto la central si esa ficha no es un líder. 
+
+Necromóvil: mueve fichas contrarias de la misma forma que el diplomático, pero sólo si están muertas y nunca a la casilla central. 
+
+Muerte de un líder:
+Directamente: Cuando un jugador mata al líder de otro jugador, toma control de sus fichas (absorbe el control de su partido político) de forma que en su turno podrá mover una de sus propias fichas o una de las que ha controlado.
+
+Bloqueo: Cuando el líder de un jugador sin necromóvil es rodeado por fichas muertas muere. Si alguien ocupa la presidencia ese jugador tomara el control de las fichas del líder bloqueado o si nadie la ocupa el próximo en ocuparla tomara el control de las fichas.
+
