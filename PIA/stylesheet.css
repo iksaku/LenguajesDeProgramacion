@@ -137,6 +137,6 @@ svg path {
 .blue-turn .blue:not(.corpse),
 .yellow-turn .yellow:not(.corpse),
 .green-turn .green:not(.corpse) {
-    border-color: orange !important;
-    background-color: whitesmoke !important;
+    border-color: purple !important;
+    background-color: violet !important;
 }

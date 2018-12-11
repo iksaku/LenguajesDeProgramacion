@@ -12,6 +12,7 @@ const necromobile = {name: "Necromobile", id: 5};
 const pieces = [chief, assassin, reporter, militant, diplomat, necromobile];
 const columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
 const colors = ["Red", "Blue", "Yellow", "Green", "Gray"];
+const translatedColors = ["Rojo", "Azul", "Amarillo", "Verde"];
 const game = {
     started: false,
     board: {
@@ -28,7 +29,7 @@ let y = 0, yStart = 0, yStep = 0;
 let row = 0, col = 0;
 let isInValidDirection = false;
 let hasLooped = true;
-let targetPlayer;
+let targetPlayer, alivePlayers;
 var alertMessage;
 var square, selectedSquare, targetSquare, centerSquare = [4, 4];
 var piece, movingPiece, targetPiece;
@@ -57,7 +58,6 @@ function killInPlace(x, y) {
 }
 
 function isMovementValid() {
-    alertMessage = "Movimiento no válido.\n\n";
     if (selectedSquare === targetSquare) {
         alertMessage += "No puedes moverte a la misma casilla.";
         return false;
@@ -109,8 +109,10 @@ function isMovementValid() {
     targetPiece = getPiece(...targetSquare);
 
     if (movingPiece.beingMovedByDiplomat && isCenterSquare(...targetSquare)) {
-        if (isOccupied(...targetSquare) && movingPiece.type === chief) {
-            alertMessage += "No se puede mover piezas al centro del tablero con el diplomata ya que este porque se encuentra ocupado por otra pieza.";
+        if (isOccupied(...targetSquare) || !movingPiece.alive || movingPiece.type !== chief) {
+            if (!movingPiece.alive) alertMessage += "No se puede mover un cadáver al centro del tablero.";
+            else if (movingPiece.type !== chief) alertMessage += "No se puede colocar una pieza que no sea 'Jefe' al centro del tablero con un diplomata.";
+            else alertMessage += "No se puede colocar la pieza al centro del tablero con el diplomata porque dicha casilla ya se encuentra ocupado.";
             return false;
         }
         return true;
@@ -140,7 +142,7 @@ function isMovementValid() {
         alertMessage += "No se puede matar la pieza Jefe de otro jugador con un militante cuando esta se encuentra al centro del tablero.";
         return false;
     }
-    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== getCurrentPlayer().id) {
+    else if (getPiece(...targetSquare).alive && getPiece(...targetSquare).owner !== movingPiece.owner) {
         if (!canKillDirectly(movingPiece) && !canMovePiece(movingPiece)) {
             alertMessage += "Esta pieza no puede interactuar con otras piezas vivas (matar o mover)";
             if (movingPiece.type !== necromobile) alertMessage += " de manera directa";
@@ -149,20 +151,35 @@ function isMovementValid() {
         }
         return canKillDirectly(movingPiece) || canMovePiece(movingPiece);
     }
-    else if (targetPiece === null || movingPiece.owner !== targetPiece.owner){
-        if (!canMoveCorpse(movingPiece) || getPiece(...targetSquare).alive) {
+    else if (!getPiece(...targetSquare).alive) {
+        if (!canMoveCorpse(movingPiece)) {
             alertMessage += "Esta pieza no puede interactuar con cadáveres.";
             return false;
         }
         return true;
     }
     else {
-        alertMessage += "No se puede interactuar entre piezas del mismo jugador.";
-        return false;
+        if (getPiece(...targetSquare).owner === movingPiece.owner) {
+            alertMessage += "No se puede interactuar entre piezas del mismo jugador.";
+            return false;
+        }
+        return true;
     }
+
+    /*else if (movingPiece.type === necromobile){
+        if (!canMoveCorpse(movingPiece) || getPiece(...targetSquare).alive) {
+
+            return false;
+        }
+        return true;
+    }
+    else {
+
+    }*/
 }
 
 function tryMovePiece() {
+    alertMessage = "Movimiento no válido.\n\n";
     if (!isMovementValid()) {
         alertMessage += "\n\nPor favor realize otra acción, seleccione una casilla donde no haya piezas o cambie de pieza a mover.";
         alertMessage += "\n(Para cambiar de pieza seleccione nuevamente la pieza que se encuentra resaltada, posteriormente, seleccione otra pieza disponible, es decir, que se encuentre resaltada.)";
@@ -202,7 +219,15 @@ function tryMovePiece() {
                     setPiece(selectedSquare[0], selectedSquare[1], targetPiece);
                     movingPiece = null;
                 } else {
-                    if (movingPiece.type === diplomat) targetPiece.beingMovedByDiplomat = true;
+                    if (movingPiece.type === diplomat) {
+                        targetPiece.beingMovedByDiplomat = true;
+                        alertMessage = "Por favor seleccione una casilla vacía donde desee colocar la pieza.";
+                        if (targetPiece.type !== chief) alertMessage += "\n(Esta pieza no puede ser colocada al centro del tablero.)";
+                    } else {
+                        alertMessage = "Por favor seleccione una casilla vacía donde desee colocar el cádaver de la pieza.";
+                        alertMessage += "\n(Los cádaveres no pueden ser colocados al centro del tablero.)"
+                    }
+                    alert(alertMessage);
                     movingPiece = targetPiece;
                 }
             }
@@ -226,6 +251,7 @@ function tryMovePiece() {
 }
 
 function onClick(element) {
+    if (!game.started) return;
     piece = getPieceByName(element.id);
     if (movingPiece == null) {
         if (piece=== null) return;
@@ -291,7 +317,7 @@ function generateBoard() {
     while (!(game.currentTurn in game.players)) {
         game.players[game.currentTurn] = {
             id: game.currentTurn,
-            name: 'Player ' + (game.currentTurn + 1),
+            name: 'Jugador ' + (game.currentTurn + 1),
             playing: true,
             chief: null
         };
@@ -429,14 +455,30 @@ function nextTurn() {
     }
 
     if (game.started) {
+        alivePlayers = 0;
+
         for (targetPlayer = 0; targetPlayer < 4; ++targetPlayer) {
+            if (!getPlayer(targetPlayer).playing) continue;
+
             if (!canPlayerContinue(targetPlayer)) {
                 game.players[targetPlayer].playing = false;
                 piece = game.players[targetPlayer].chief;
                 piece.alive = false;
                 setPiece(piece.x, piece.y, piece);
                 transferOwnership(targetPlayer, 4);
+            } else {
+                ++alivePlayers;
             }
+        }
+
+        if (alivePlayers === 1) {
+            for (targetPlayer = 0; targetPlayer < 4; ++targetPlayer) {
+                if (getPlayer(targetPlayer).playing) break;
+            }
+            alert("¡El Jugador " + translatedColors[getPlayer(targetPlayer).id] + " ha ganado la partida!");
+            game.started = false;
+            highlightPlayerPieces(false);
+            return;
         }
 
         checkChiefInMaze();
@@ -487,15 +529,6 @@ function playerHas(id, type) {
 function checkChiefInMaze() {
     if (getPieceInMaze() === null) return;
 
-    /*for (x = 0; x < 9; ++x) {
-        for (y = 0; y < 9; ++y) {
-            piece = getPiece(x, y);
-            if (piece === null || !piece.alive || getPlayer(piece.owner).playing) continue;
-
-            piece.owner = getPieceInMaze().owner;
-            setPiece(x, y, piece);
-        }
-    }*/
     transferOwnership(null, getPieceInMaze().owner);
 }
 
